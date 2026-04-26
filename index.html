@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -9,18 +9,46 @@
 <title>SOF Olympiad Prep – Grade 2</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@700;800;900&display=swap" rel="stylesheet">
 <style>
-/* ═══════════════════════════════════════════
-   RESET & BASE
-═══════════════════════════════════════════ */
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-html,body{width:100%;height:100%;overflow:hidden;background:#f0f5ff;}
-body{font-family:'Nunito',sans-serif;color:#1a2744;}
+/* ══════════════════════════════════════════
+   LIGHT THEME (default)
+══════════════════════════════════════════ */
+:root,[data-theme="light"]{
+  --bg:#f0f5ff; --bg2:#e8eeff; --card:#ffffff; --card2:#f4f7ff;
+  --border:#dde4f0; --border2:#c8d4ee;
+  --text:#1a2744; --text2:#3a4a6a; --text3:#5a6a8a;
+  --topbar:#1a2744; --topbar-text:#fff;
+  --shadow:0 4px 24px rgba(26,39,68,.10);
+  --shadow-lg:0 10px 40px rgba(26,39,68,.16);
+  --input-bg:#f0f5ff; --input-border:#c8d4ee;
+  --overlay:rgba(0,0,0,.45);
+}
 
-/* ═══════════════════════════════════════════
-CSS VARIABLES
-═══════════════════════════════════════════ */
+/* ══════════════════════════════════════════
+DARK THEME
+══════════════════════════════════════════ */
+[data-theme=“dark”]{
+–bg:#0f1623; –bg2:#161f32; –card:#1c2740; –card2:#222f4a;
+–border:#2a3a58; –border2:#354870;
+–text:#e8eeff; –text2:#b0c0e0; –text3:#7a90b8;
+–topbar:#0d1423; –topbar-text:#e8eeff;
+–shadow:0 4px 24px rgba(0,0,0,.35);
+–shadow-lg:0 10px 40px rgba(0,0,0,.50);
+–input-bg:#1a2640; –input-border:#2a3a58;
+–overlay:rgba(0,0,0,.65);
+}
+
+/* ══════════════════════════════════════════
+RESET & BASE
+══════════════════════════════════════════ */
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{width:100%;height:100%;overflow:hidden;background:var(–bg);}
+body{font-family:‘Nunito’,sans-serif;color:var(–text);transition:background .3s,color .3s;}
+
+/* ══════════════════════════════════════════
+COLOUR TOKENS (theme-independent)
+══════════════════════════════════════════ */
 :root{
-–navy:#1a2744; –navy2:#253563;
+–navy:#1a2744;
 –gold:#f5a623; –gold-l:#ffe59e;
 –blue:#2563eb; –blue-l:#dbeafe;
 –purple:#7c3aed; –purple-l:#ede9fe;
@@ -28,138 +56,137 @@ CSS VARIABLES
 –orange:#ea580c; –orange-l:#ffedd5;
 –green:#16a34a; –green-l:#dcfce7;
 –red:#dc2626; –red-l:#fee2e2;
-–pink:#db2777; –pink-l:#fce7f3;
-–bg:#f0f5ff; –card:#fff;
-–border:#dde4f0; –text2:#4a5578;
-–shadow:0 4px 24px rgba(26,39,68,.10);
-–shadow-lg:0 10px 40px rgba(26,39,68,.16);
 –radius:20px;
 –fs-xl:2rem; –fs-lg:1.5rem; –fs-md:1.15rem; –fs-sm:0.95rem; –fs-xs:0.8rem;
 }
 
-/* ═══════════════════════════════════════════
+/* ══════════════════════════════════════════
 SCREEN SYSTEM
-═══════════════════════════════════════════ */
+══════════════════════════════════════════ */
 .screen{
 position:fixed;inset:0;overflow-y:auto;overflow-x:hidden;
 display:none;flex-direction:column;
 background:var(–bg);
 -webkit-overflow-scrolling:touch;
+transition:background .3s;
 }
 .screen.active{display:flex;}
 
-/* ═══════════════════════════════════════════
-① ONBOARDING SCREEN
-═══════════════════════════════════════════ */
+/* ══════════════════════════════════════════
+DARK MODE TOGGLE BUTTON
+══════════════════════════════════════════ */
+.theme-toggle{
+background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.25);
+color:#fff;width:42px;height:42px;border-radius:50%;
+font-size:1.2rem;cursor:pointer;display:flex;align-items:center;
+justify-content:center;flex-shrink:0;transition:all .2s;
+}
+.theme-toggle:hover{background:rgba(255,255,255,.28);}
+[data-theme=“dark”] .theme-toggle{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.2);}
+
+/* ══════════════════════════════════════════
+① ONBOARDING
+══════════════════════════════════════════ */
 #screen-onboard{
 background:linear-gradient(160deg,#1a2744 0%,#2d4a9e 60%,#3b82f6 100%);
 align-items:center;justify-content:center;padding:40px 24px;
 }
 .ob-card{
-background:#fff;border-radius:32px;
+background:var(–card);border-radius:32px;
 width:100%;max-width:560px;
 padding:40px 36px;
-box-shadow:0 20px 60px rgba(0,0,0,.25);
+box-shadow:0 20px 60px rgba(0,0,0,.28);
 display:flex;flex-direction:column;align-items:center;gap:8px;
 }
 .ob-logo{
-width:72px;height:72px;border-radius:18px;
-background:var(–navy);
+width:72px;height:72px;border-radius:18px;background:#1a2744;
 display:flex;align-items:center;justify-content:center;
 font-family:‘Baloo 2’,cursive;font-size:1rem;font-weight:900;
-color:var(–gold);line-height:1.15;text-align:center;
-margin-bottom:4px;
+color:var(–gold);line-height:1.15;text-align:center;margin-bottom:4px;
 }
-.ob-title{font-family:‘Baloo 2’,cursive;font-size:var(–fs-xl);font-weight:900;color:var(–navy);text-align:center;line-height:1.15;}
-.ob-sub{font-size:var(–fs-sm);color:var(–text2);font-weight:600;text-align:center;margin-bottom:12px;}
-
-.ob-name-label{font-size:var(–fs-sm);font-weight:800;color:var(–navy);align-self:flex-start;margin-bottom:4px;}
-.ob-name-input{
+.ob-title{font-family:‘Baloo 2’,cursive;font-size:var(–fs-xl);font-weight:900;color:#1a2744;text-align:center;line-height:1.15;}
+.ob-sub{font-size:var(–fs-sm);color:#4a5578;font-weight:600;text-align:center;margin-bottom:12px;}
+.ob-label{font-size:var(–fs-sm);font-weight:800;color:#1a2744;align-self:flex-start;margin-bottom:4px;}
+.ob-label.mt{margin-top:10px;}
+.ob-input{
 width:100%;padding:16px 20px;border-radius:14px;
-border:2.5px solid var(–border);
+border:2.5px solid #dde4f0;
 font-family:‘Nunito’,sans-serif;font-size:var(–fs-md);font-weight:700;
-color:var(–navy);background:#f8faff;
-outline:none;transition:border-color .2s;
+color:#1a2744;background:#f0f5ff;outline:none;transition:border-color .2s;
 }
-.ob-name-input:focus{border-color:var(–blue);}
-
-.ob-avatar-label{font-size:var(–fs-sm);font-weight:800;color:var(–navy);align-self:flex-start;margin-top:10px;margin-bottom:8px;}
+.ob-input:focus{border-color:var(–blue);}
 .avatar-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;width:100%;}
 .av-btn{
-aspect-ratio:1;border-radius:16px;border:3px solid var(–border);
-background:#f8faff;font-size:2.2rem;cursor:pointer;
-display:flex;align-items:center;justify-content:center;
-transition:all .15s;
+aspect-ratio:1;border-radius:16px;border:3px solid #dde4f0;
+background:#f0f5ff;font-size:2.2rem;cursor:pointer;
+display:flex;align-items:center;justify-content:center;transition:all .15s;
 }
 .av-btn:hover{transform:scale(1.08);}
 .av-btn.selected{border-color:var(–blue);background:var(–blue-l);transform:scale(1.1);box-shadow:0 0 0 3px rgba(37,99,235,.3);}
-
-.ob-start-btn{
+.ob-btn{
 margin-top:20px;width:100%;padding:18px;border-radius:16px;border:none;
-background:var(–navy);color:var(–gold);
+background:#1a2744;color:var(–gold);
 font-family:‘Baloo 2’,cursive;font-size:var(–fs-lg);font-weight:900;
 cursor:pointer;transition:transform .15s,box-shadow .15s;
 box-shadow:0 6px 20px rgba(26,39,68,.25);
 }
-.ob-start-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(26,39,68,.32);}
-.ob-start-btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+.ob-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(26,39,68,.32);}
+.ob-btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
 
-/* ═══════════════════════════════════════════
-SHARED TOP BAR
-═══════════════════════════════════════════ */
+/* ══════════════════════════════════════════
+SHARED TOPBAR
+══════════════════════════════════════════ */
 .topbar{
-background:var(–navy);
-padding:14px 20px;
-display:flex;align-items:center;gap:14px;
-flex-shrink:0;
-box-shadow:0 3px 12px rgba(0,0,0,.2);
+background:var(–topbar);padding:12px 18px;
+display:flex;align-items:center;gap:12px;
+flex-shrink:0;box-shadow:0 3px 12px rgba(0,0,0,.2);
 position:sticky;top:0;z-index:100;
+transition:background .3s;
 }
-.topbar-logo{
-width:44px;height:44px;border-radius:12px;
-background:var(–gold);
+.tbar-logo{
+width:44px;height:44px;border-radius:12px;background:var(–gold);
 display:flex;align-items:center;justify-content:center;
 font-family:‘Baloo 2’,cursive;font-size:.82rem;font-weight:900;
-color:var(–navy);text-align:center;line-height:1.1;flex-shrink:0;
+color:#1a2744;text-align:center;line-height:1.1;flex-shrink:0;
 }
-.topbar-title{font-family:‘Baloo 2’,cursive;font-size:var(–fs-md);font-weight:900;color:var(–gold);line-height:1;}
-.topbar-sub{font-size:.68rem;color:#90aac8;font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
-.topbar-right{margin-left:auto;display:flex;align-items:center;gap:10px;}
+.tbar-h{font-family:‘Baloo 2’,cursive;font-size:var(–fs-md);font-weight:900;color:var(–gold);line-height:1;}
+.tbar-s{font-size:.66rem;color:#90aac8;font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
+.tbar-right{margin-left:auto;display:flex;align-items:center;gap:8px;}
 .player-chip{
-display:flex;align-items:center;gap:8px;
+display:flex;align-items:center;gap:7px;
 background:rgba(255,255,255,.1);border-radius:50px;
-padding:5px 14px 5px 8px;
+padding:5px 13px 5px 7px;
 }
-.player-chip .av{font-size:1.5rem;}
+.player-chip .av{font-size:1.4rem;}
 .player-chip .nm{font-size:.82rem;font-weight:800;color:#fff;}
 .pts-chip{
-background:var(–gold);border-radius:50px;
-padding:5px 14px;
-font-family:‘Baloo 2’,cursive;font-size:1.1rem;font-weight:900;color:var(–navy);
+background:var(–gold);border-radius:50px;padding:5px 14px;
+font-family:‘Baloo 2’,cursive;font-size:1.1rem;font-weight:900;color:#1a2744;
 }
+.icon-btn{
+background:rgba(255,255,255,.13);border:none;color:#fff;
+width:38px;height:38px;border-radius:50%;font-size:1rem;
+cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+transition:background .15s;
+}
+.icon-btn:hover{background:rgba(255,255,255,.25);}
 
-/* ═══════════════════════════════════════════
-② HOME SCREEN
-═══════════════════════════════════════════ */
+/* ══════════════════════════════════════════
+② HOME
+══════════════════════════════════════════ */
 #screen-home .content{padding:24px 20px 40px;flex:1;}
-.home-greeting{
-font-family:‘Baloo 2’,cursive;font-size:var(–fs-xl);font-weight:900;
-color:var(–navy);margin-bottom:4px;
-}
-.home-hint{font-size:var(–fs-sm);color:var(–text2);font-weight:600;margin-bottom:20px;}
+.home-h{font-family:‘Baloo 2’,cursive;font-size:var(–fs-xl);font-weight:900;color:var(–text);margin-bottom:4px;}
+.home-p{font-size:var(–fs-sm);color:var(–text2);font-weight:600;margin-bottom:20px;}
 
-/* weak panel */
 .weak-banner{
-background:#fff;border:2.5px solid #fca5a5;
-border-left:6px solid var(–red);
+background:var(–card);border:2.5px solid #fca5a5;border-left:6px solid var(–red);
 border-radius:16px;padding:16px 18px;margin-bottom:20px;display:none;
 }
 .weak-banner.show{display:block;}
-.weak-banner h3{font-family:‘Baloo 2’,cursive;font-size:var(–fs-sm);color:var(–red);margin-bottom:8px;}
+.weak-banner h3{font-family:‘Baloo 2’,cursive;font-size:var(–fs-sm);color:var(–red);font-weight:900;margin-bottom:8px;}
 .wchips{display:flex;flex-wrap:wrap;gap:7px;}
 .wchip{background:var(–red-l);border:1.5px solid #fca5a5;color:var(–red);font-size:var(–fs-xs);font-weight:800;padding:4px 12px;border-radius:20px;}
 
-/* subject grid */
 .sgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
 .scard{
 background:var(–card);border-radius:var(–radius);
@@ -172,7 +199,7 @@ min-height:200px;display:flex;flex-direction:column;
 .scard.has-weak{border-color:#fca5a5;}
 .scard-stripe{position:absolute;top:0;left:0;right:0;height:6px;border-radius:var(–radius) var(–radius) 0 0;}
 .scard-icon{font-size:3rem;margin-bottom:10px;}
-.scard-name{font-family:‘Baloo 2’,cursive;font-size:var(–fs-lg);font-weight:900;color:var(–navy);margin-bottom:3px;}
+.scard-name{font-family:‘Baloo 2’,cursive;font-size:var(–fs-lg);font-weight:900;color:var(–text);margin-bottom:3px;}
 .scard-full{font-size:.68rem;color:var(–text2);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;}
 .scard-pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;}
 .spill{font-size:.72rem;font-weight:800;padding:3px 11px;border-radius:18px;}
@@ -186,36 +213,29 @@ animation:pop .9s ease-in-out infinite alternate;
 }
 @keyframes pop{from{transform:scale(1)}to{transform:scale(1.08)}}
 
-/* admin btn */
 .admin-btn{
 margin-top:24px;width:100%;padding:16px;border-radius:14px;
-border:2.5px solid var(–border);background:#fff;
+border:2.5px solid var(–border);background:var(–card);
 font-family:‘Baloo 2’,cursive;font-size:var(–fs-sm);font-weight:900;
 color:var(–text2);cursor:pointer;transition:all .15s;
 display:flex;align-items:center;justify-content:center;gap:8px;
 }
-.admin-btn:hover{border-color:var(–navy);color:var(–navy);}
+.admin-btn:hover{border-color:var(–text);color:var(–text);}
 
-/* ═══════════════════════════════════════════
-③ QUIZ SCREEN
-═══════════════════════════════════════════ */
-#screen-quiz .quiz-topbar{
-background:var(–navy);padding:10px 18px;
-display:flex;align-items:center;gap:12px;
+/* ══════════════════════════════════════════
+③ QUIZ
+══════════════════════════════════════════ */
+.quiz-topbar{
+background:var(–topbar);padding:10px 16px;
+display:flex;align-items:center;gap:10px;
 flex-shrink:0;position:sticky;top:0;z-index:99;
 }
-.back-btn{
-background:rgba(255,255,255,.14);border:none;color:#fff;
-width:36px;height:36px;border-radius:50%;font-size:1.1rem;
-cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;
-}
-.quiz-sub-name{font-family:‘Baloo 2’,cursive;font-size:var(–fs-md);font-weight:900;color:#fff;white-space:nowrap;}
-.prog-wrap{flex:1;height:10px;background:rgba(255,255,255,.15);border-radius:8px;overflow:hidden;}
+.prog-wrap{flex:1;height:10px;background:rgba(255,255,255,.14);border-radius:8px;overflow:hidden;}
 .prog-bar{height:100%;border-radius:8px;transition:width .5s;background:linear-gradient(90deg,#06d6a0,var(–gold));}
 .qcounter{font-size:.78rem;font-weight:800;color:#90aac8;white-space:nowrap;}
+.quiz-sub-lbl{font-family:‘Baloo 2’,cursive;font-size:var(–fs-sm);font-weight:900;color:#fff;white-space:nowrap;}
 
-.qbody{padding:20px 20px 40px;flex:1;}
-
+.qbody{padding:18px 18px 40px;flex:1;}
 .mode-pill{display:inline-flex;align-items:center;gap:5px;font-size:.78rem;font-weight:800;padding:5px 14px;border-radius:20px;margin-bottom:10px;}
 .mode-pill.normal{background:var(–blue-l);color:var(–blue);}
 .mode-pill.review{background:var(–red-l);color:var(–red);}
@@ -226,32 +246,34 @@ border-radius:13px;padding:12px 16px;font-size:var(–fs-xs);font-weight:700;
 color:var(–orange);margin-bottom:14px;display:none;
 }
 .adapt-notice.show{display:block;}
+[data-theme=“dark”] .adapt-notice{background:#2a2010;border-color:#6b4f00;color:#fbbf24;}
 
 .qcard{
 background:var(–card);border-radius:var(–radius);
 box-shadow:var(–shadow);padding:26px 22px 20px;
 border-top:6px solid var(–qc,#2563eb);
-animation:slideUp .25s ease;
+animation:slideUp .25s ease;transition:background .3s;
 }
 @keyframes slideUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 .qmeta{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
 .qtag{font-size:.75rem;font-weight:900;padding:4px 13px;border-radius:18px;color:#fff;background:var(–qc,#2563eb);}
-.qdiff{font-size:1rem;color:#ccc;}
-.qtext{font-size:var(–fs-lg);font-weight:800;color:var(–navy);line-height:1.5;margin-bottom:20px;}
+.qdiff{font-size:1rem;color:#aaa;}
+.qtext{font-size:var(–fs-lg);font-weight:800;color:var(–text);line-height:1.5;margin-bottom:20px;}
 
 .opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 .opt{
 padding:16px 14px;border-radius:16px;
-border:2.5px solid var(–border);background:#f6f9ff;
-cursor:pointer;color:var(–navy);
+border:2.5px solid var(–border);background:var(–card2);
+cursor:pointer;color:var(–text);
 font-family:‘Nunito’,sans-serif;font-size:var(–fs-sm);font-weight:700;
 display:flex;align-items:center;gap:10px;text-align:left;
 transition:all .13s;line-height:1.35;
 }
 .opt:hover:not(:disabled){border-color:var(–qc,#2563eb);background:var(–blue-l);transform:scale(1.02);}
+[data-theme=“dark”] .opt:hover:not(:disabled){background:rgba(37,99,235,.2);}
 .opt .ltr{
 width:30px;height:30px;flex-shrink:0;border-radius:50%;
-background:var(–border);color:var(–navy);
+background:var(–border);color:var(–text);
 display:flex;align-items:center;justify-content:center;
 font-size:.75rem;font-weight:900;
 }
@@ -260,6 +282,8 @@ font-size:.75rem;font-weight:900;
 .opt.wrong{border-color:var(–red);background:var(–red-l);}
 .opt.wrong .ltr{background:var(–red);color:#fff;}
 .opt:disabled{cursor:default;}
+[data-theme=“dark”] .opt.correct{background:rgba(13,148,136,.2);}
+[data-theme=“dark”] .opt.wrong{background:rgba(220,38,38,.2);}
 
 .fb-box{
 margin-top:14px;padding:14px 17px;border-radius:14px;
@@ -268,136 +292,244 @@ font-size:var(–fs-sm);font-weight:700;line-height:1.5;display:none;
 .fb-box.show{display:block;animation:slideUp .2s ease;}
 .fb-box.ok{background:var(–teal-l);border:2px solid #99f6e4;color:#134e4a;}
 .fb-box.fail{background:var(–red-l);border:2px solid #fca5a5;color:#7f1d1d;}
+[data-theme=“dark”] .fb-box.ok{background:rgba(13,148,136,.18);border-color:#0d9488;color:#a7f3d0;}
+[data-theme=“dark”] .fb-box.fail{background:rgba(220,38,38,.18);border-color:#dc2626;color:#fca5a5;}
 
 .next-btn{
 display:none;width:100%;margin-top:14px;padding:18px;
 border-radius:16px;border:none;cursor:pointer;
-background:var(–navy);color:var(–gold);
+background:#1a2744;color:var(–gold);
 font-family:‘Baloo 2’,cursive;font-size:var(–fs-md);font-weight:900;
 box-shadow:0 4px 14px rgba(26,39,68,.18);
 transition:transform .14s,box-shadow .14s;
 }
+[data-theme=“dark”] .next-btn{background:var(–gold);color:#1a2744;}
 .next-btn:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(26,39,68,.26);}
 .next-btn.show{display:block;}
 
-/* ═══════════════════════════════════════════
-④ RESULT SCREEN
-═══════════════════════════════════════════ */
+/* ══════════════════════════════════════════
+PAUSE OVERLAY
+══════════════════════════════════════════ */
+.pause-overlay{
+position:fixed;inset:0;background:var(–overlay);
+z-index:500;display:none;
+align-items:center;justify-content:center;
+backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+}
+.pause-overlay.show{display:flex;}
+.pause-card{
+background:var(–card);border-radius:28px;
+padding:40px 36px;max-width:380px;width:90%;
+box-shadow:0 20px 60px rgba(0,0,0,.3);
+text-align:center;
+animation:slideUp .25s ease;
+}
+.pause-icon{font-size:4rem;margin-bottom:10px;}
+.pause-title{font-family:‘Baloo 2’,cursive;font-size:var(–fs-xl);font-weight:900;color:var(–text);margin-bottom:6px;}
+.pause-sub{font-size:var(–fs-sm);color:var(–text2);font-weight:600;margin-bottom:28px;}
+.pause-btns{display:flex;flex-direction:column;gap:12px;}
+.pause-btn{
+padding:16px;border-radius:14px;border:none;cursor:pointer;
+font-family:‘Baloo 2’,cursive;font-size:var(–fs-sm);font-weight:900;
+transition:transform .13s;
+}
+.pause-btn:hover{transform:scale(1.03);}
+.pause-btn.resume{background:#1a2744;color:var(–gold);}
+[data-theme=“dark”] .pause-btn.resume{background:var(–gold);color:#1a2744;}
+.pause-btn.home{background:var(–blue-l);color:var(–blue);}
+.pause-btn.quit{background:var(–red-l);color:var(–red);}
+.pause-progress{
+background:var(–card2);border-radius:12px;padding:14px;
+margin-bottom:24px;display:flex;gap:20px;justify-content:center;
+}
+.pp-item{text-align:center;}
+.pp-num{font-family:‘Baloo 2’,cursive;font-size:var(–fs-lg);font-weight:900;color:var(–text);}
+.pp-lbl{font-size:.65rem;font-weight:800;color:var(–text3);text-transform:uppercase;}
+
+/* BACK CONFIRM OVERLAY */
+.confirm-overlay{
+position:fixed;inset:0;background:var(–overlay);
+z-index:600;display:none;
+align-items:center;justify-content:center;
+backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+}
+.confirm-overlay.show{display:flex;}
+.confirm-card{
+background:var(–card);border-radius:24px;padding:32px 28px;
+max-width:340px;width:88%;
+box-shadow:0 20px 60px rgba(0,0,0,.3);text-align:center;
+animation:slideUp .22s ease;
+}
+.confirm-icon{font-size:3rem;margin-bottom:10px;}
+.confirm-title{font-family:‘Baloo 2’,cursive;font-size:var(–fs-lg);font-weight:900;color:var(–text);margin-bottom:6px;}
+.confirm-sub{font-size:var(–fs-xs);color:var(–text2);font-weight:600;margin-bottom:22px;line-height:1.5;}
+.confirm-btns{display:flex;gap:10px;}
+.confirm-btn{
+flex:1;padding:14px;border-radius:13px;border:none;cursor:pointer;
+font-family:‘Baloo 2’,cursive;font-size:var(–fs-sm);font-weight:900;
+transition:transform .13s;
+}
+.confirm-btn:hover{transform:scale(1.03);}
+.confirm-btn.stay{background:var(–card2);color:var(–text);}
+.confirm-btn.leave{background:var(–red);color:#fff;}
+
+/* ══════════════════════════════════════════
+④ RESULT
+══════════════════════════════════════════ */
 #screen-result .content{padding:24px 20px 40px;flex:1;}
 .rcard{background:var(–card);border-radius:var(–radius);box-shadow:var(–shadow-lg);padding:32px 24px 28px;text-align:center;}
 .rtrophy{font-size:4.5rem;margin-bottom:10px;}
-.rtitle{font-family:‘Baloo 2’,cursive;font-size:var(–fs-xl);font-weight:900;color:var(–navy);margin-bottom:6px;}
+.rtitle{font-family:‘Baloo 2’,cursive;font-size:var(–fs-xl);font-weight:900;color:var(–text);margin-bottom:6px;}
 .rfrac{font-family:‘Baloo 2’,cursive;font-size:3rem;font-weight:900;color:var(–blue);margin-bottom:4px;}
 .rpct{font-size:var(–fs-sm);font-weight:700;color:var(–text2);margin-bottom:16px;}
 .rnotice{font-size:var(–fs-sm);font-weight:700;padding:12px 16px;border-radius:13px;margin-bottom:18px;text-align:left;}
 .rnotice.ok{background:var(–teal-l);color:#134e4a;border:2px solid #99f6e4;}
 .rnotice.warn{background:#fffbeb;color:var(–orange);border:2px solid #fde68a;}
+[data-theme=“dark”] .rnotice.ok{background:rgba(13,148,136,.18);color:#a7f3d0;border-color:#0d9488;}
+[data-theme=“dark”] .rnotice.warn{background:#2a2010;color:#fbbf24;border-color:#6b4f00;}
 .breakdown{margin-bottom:22px;text-align:left;}
-.breakdown h3{font-family:‘Baloo 2’,cursify;font-size:var(–fs-sm);font-weight:900;color:var(–navy);margin-bottom:12px;text-align:center;}
+.breakdown h3{font-family:‘Baloo 2’,cursive;font-size:var(–fs-sm);font-weight:900;color:var(–text);margin-bottom:12px;text-align:center;}
 .trow{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
-.tlbl{font-size:var(–fs-xs);font-weight:800;color:var(–navy);width:140px;flex-shrink:0;line-height:1.25;}
+.tlbl{font-size:var(–fs-xs);font-weight:800;color:var(–text);width:140px;flex-shrink:0;line-height:1.25;}
 .wk-tag{display:inline-block;font-size:.55rem;font-weight:900;background:var(–red);color:#fff;padding:1px 5px;border-radius:6px;margin-left:3px;vertical-align:middle;}
-.bwrap{flex:1;height:12px;background:#e8eef8;border-radius:8px;overflow:hidden;}
+.bwrap{flex:1;height:12px;background:var(–border);border-radius:8px;overflow:hidden;}
 .bfill{height:100%;border-radius:8px;transition:width .8s;}
 .bpct{font-size:.72rem;font-weight:900;color:var(–text2);width:34px;text-align:right;}
 .rbtns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:8px;}
 .rbtn{padding:14px 26px;border-radius:50px;border:none;cursor:pointer;font-family:‘Baloo 2’,cursive;font-size:var(–fs-sm);font-weight:900;transition:transform .13s;}
 .rbtn:hover{transform:scale(1.04);}
-.rbtn.primary{background:var(–navy);color:var(–gold);}
+.rbtn.primary{background:#1a2744;color:var(–gold);}
+[data-theme=“dark”] .rbtn.primary{background:var(–gold);color:#1a2744;}
 .rbtn.secondary{background:var(–blue-l);color:var(–blue);}
 
-/* ═══════════════════════════════════════════
-⑤ ADMIN SCREEN
-═══════════════════════════════════════════ */
-#screen-admin{background:var(–bg);}
+/* ══════════════════════════════════════════
+⑤ ADMIN  — high contrast in both themes
+══════════════════════════════════════════ */
 #screen-admin .content{padding:24px 20px 40px;flex:1;}
+
+/* gate */
 .admin-gate{
 background:var(–card);border-radius:var(–radius);
 box-shadow:var(–shadow);padding:32px 24px;
 max-width:400px;margin:0 auto;text-align:center;
 }
-.admin-gate h2{font-family:‘Baloo 2’,cursive;font-size:var(–fs-lg);font-weight:900;color:var(–navy);margin-bottom:8px;}
-.admin-gate p{font-size:var(–fs-xs);color:var(–text2);margin-bottom:20px;}
+.admin-gate h2{font-family:‘Baloo 2’,cursive;font-size:var(–fs-lg);font-weight:900;color:var(–text);margin-bottom:8px;}
+.admin-gate p{font-size:var(–fs-xs);color:var(–text2);font-weight:700;margin-bottom:20px;}
 .pin-input{
-width:100%;padding:16px;border-radius:14px;border:2.5px solid var(–border);
-font-family:‘Nunito’,sans-serif;font-size:var(–fs-lg);font-weight:700;
-color:var(–navy);text-align:center;letter-spacing:8px;outline:none;
+width:100%;padding:16px;border-radius:14px;
+border:2.5px solid var(–input-border);background:var(–input-bg);
+font-family:‘Nunito’,sans-serif;font-size:var(–fs-lg);font-weight:900;
+color:var(–text);text-align:center;letter-spacing:8px;outline:none;
 transition:border-color .2s;
 }
 .pin-input:focus{border-color:var(–blue);}
 .pin-btn{
 margin-top:14px;width:100%;padding:16px;border-radius:14px;border:none;
-background:var(–navy);color:var(–gold);
+background:#1a2744;color:var(–gold);
 font-family:‘Baloo 2’,cursive;font-size:var(–fs-sm);font-weight:900;cursor:pointer;
 }
-.pin-err{font-size:var(–fs-xs);color:var(–red);font-weight:700;margin-top:8px;display:none;}
+[data-theme=“dark”] .pin-btn{background:var(–gold);color:#1a2744;}
+.pin-err{font-size:var(–fs-xs);color:var(–red);font-weight:800;margin-top:8px;display:none;}
 .pin-err.show{display:block;}
 
 .admin-dashboard{display:none;}
 .admin-dashboard.show{display:block;}
 
-.admin-section{margin-bottom:28px;}
-.admin-section h2{font-family:‘Baloo 2’,cursive;font-size:var(–fs-lg);font-weight:900;color:var(–navy);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.adm-section{margin-bottom:28px;}
+.adm-section-title{
+font-family:‘Baloo 2’,cursive;font-size:var(–fs-md);font-weight:900;
+color:var(–text);margin-bottom:14px;
+display:flex;align-items:center;gap:8px;
+}
 
 /* stat cards */
-.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:20px;}
-.stat-card{background:var(–card);border-radius:16px;padding:18px 16px;box-shadow:var(–shadow);text-align:center;}
-.stat-num{font-family:‘Baloo 2’,cursive;font-size:2rem;font-weight:900;color:var(–navy);}
-.stat-lbl{font-size:.7rem;font-weight:800;color:var(–text2);text-transform:uppercase;letter-spacing:.5px;}
-.stat-icon{font-size:1.5rem;margin-bottom:4px;}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:20px;}
+.stat-card{
+background:var(–card);border-radius:16px;padding:18px 16px;
+box-shadow:var(–shadow);text-align:center;border:2px solid var(–border);
+}
+.stat-icon{font-size:1.6rem;margin-bottom:4px;}
+.stat-num{font-family:‘Baloo 2’,cursive;font-size:2rem;font-weight:900;color:var(–text);}
+.stat-lbl{font-size:.7rem;font-weight:900;color:var(–text2);text-transform:uppercase;letter-spacing:.5px;}
+
+/* profile card */
+.profile-card{
+background:var(–card);border-radius:16px;padding:22px 20px;
+box-shadow:var(–shadow);display:flex;align-items:center;gap:16px;
+border:2px solid var(–border);
+}
+.profile-card .pav{font-size:3.5rem;}
+.profile-card .pname{font-family:‘Baloo 2’,cursive;font-size:var(–fs-lg);font-weight:900;color:var(–text);}
+.profile-card .pjoin{font-size:var(–fs-xs);color:var(–text2);font-weight:700;margin-top:2px;}
+.profile-pts-box{margin-left:auto;text-align:center;}
+.profile-pts-box .pp{font-family:‘Baloo 2’,cursive;font-size:2rem;font-weight:900;color:var(–gold);}
+.profile-pts-box .pl{font-size:.65rem;font-weight:900;color:var(–text2);text-transform:uppercase;}
 
 /* subject progress */
-.sub-progress-card{background:var(–card);border-radius:16px;padding:20px;box-shadow:var(–shadow);margin-bottom:12px;}
-.sp-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.sub-prog-card{
+background:var(–card);border-radius:16px;padding:20px;
+box-shadow:var(–shadow);margin-bottom:12px;border:2px solid var(–border);
+}
+.sp-hdr{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
 .sp-icon{font-size:1.8rem;}
-.sp-name{font-family:‘Baloo 2’,cursive;font-size:var(–fs-sm);font-weight:900;color:var(–navy);}
-.sp-overall{font-size:.72rem;font-weight:700;color:var(–text2);}
-.sp-topics{}
-.sp-topic-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
-.sp-topic-name{font-size:.75rem;font-weight:700;color:var(–navy);width:160px;flex-shrink:0;}
-.sp-bar-wrap{flex:1;height:10px;background:#e8eef8;border-radius:6px;overflow:hidden;}
-.sp-bar-fill{height:100%;border-radius:6px;transition:width .6s;}
-.sp-pct{font-size:.7rem;font-weight:800;color:var(–text2);width:32px;text-align:right;}
+.sp-name{font-family:‘Baloo 2’,cursive;font-size:var(–fs-sm);font-weight:900;color:var(–text);}
+.sp-acc{font-size:.72rem;font-weight:700;color:var(–text2);margin-top:2px;}
+.sp-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.sp-lbl{font-size:.75rem;font-weight:800;color:var(–text);width:160px;flex-shrink:0;}
+.sp-bwrap{flex:1;height:10px;background:var(–border);border-radius:6px;overflow:hidden;}
+.sp-bfill{height:100%;border-radius:6px;transition:width .6s;}
+.sp-pct{font-size:.7rem;font-weight:900;color:var(–text2);width:32px;text-align:right;}
+
+/* weak list */
+.weak-item{
+background:var(–card);border-radius:13px;padding:16px 18px;margin-bottom:10px;
+box-shadow:var(–shadow);display:flex;align-items:center;gap:12px;
+border:2px solid var(–border);
+}
+.weak-item-icon{font-size:1.8rem;}
+.weak-item-title{font-size:var(–fs-sm);font-weight:900;color:var(–text);}
+.weak-item-sub{font-size:var(–fs-xs);color:var(–text2);font-weight:700;margin-top:2px;}
+.weak-mini-bar{width:60px;height:8px;background:var(–border);border-radius:6px;overflow:hidden;flex-shrink:0;}
+.weak-mini-fill{height:100%;background:var(–red);border-radius:6px;}
 
 /* activity log */
-.activity-log{background:var(–card);border-radius:16px;padding:20px;box-shadow:var(–shadow);}
-.log-entry{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #eef2f8;}
-.log-entry:last-child{border-bottom:none;}
-.log-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
-.log-text{flex:1;}
-.log-title{font-size:var(–fs-xs);font-weight:800;color:var(–navy);}
-.log-time{font-size:.65rem;font-weight:600;color:var(–text2);}
-.log-score{font-family:‘Baloo 2’,cursive;font-size:var(–fs-sm);font-weight:900;}
-.no-data{text-align:center;padding:32px;font-size:var(–fs-sm);color:var(–text2);font-weight:600;}
-
-/* clear btn */
-.clear-btn{background:#fff;border:2px solid #fca5a5;color:var(–red);font-family:‘Baloo 2’,cursive;font-size:.8rem;font-weight:900;padding:8px 18px;border-radius:20px;cursor:pointer;}
-
-/* ═══════════════════════════════════════════
-RESPONSIVE — IPAD
-═══════════════════════════════════════════ */
-@media(min-width:768px){
-:root{
-–fs-xl:2.4rem; –fs-lg:1.75rem; –fs-md:1.3rem; –fs-sm:1.05rem; –fs-xs:0.88rem;
+.activity-log{
+background:var(–card);border-radius:16px;padding:20px;
+box-shadow:var(–shadow);border:2px solid var(–border);
 }
+.log-entry{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(–border);}
+.log-entry:last-child{border-bottom:none;}
+.log-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
+.log-title{font-size:var(–fs-xs);font-weight:900;color:var(–text);}
+.log-time{font-size:.65rem;font-weight:700;color:var(–text3);margin-top:2px;}
+.log-score{font-family:‘Baloo 2’,cursive;font-size:var(–fs-sm);font-weight:900;flex-shrink:0;}
+.no-data{text-align:center;padding:32px;font-size:var(–fs-sm);color:var(–text2);font-weight:700;}
+.clear-btn{background:var(–red-l);border:2px solid #fca5a5;color:var(–red);font-family:‘Baloo 2’,cursive;font-size:.78rem;font-weight:900;padding:6px 16px;border-radius:20px;cursor:pointer;margin-left:auto;}
+
+/* ══════════════════════════════════════════
+RESPONSIVE
+══════════════════════════════════════════ */
+@media(min-width:768px){
+:root{–fs-xl:2.4rem;–fs-lg:1.75rem;–fs-md:1.3rem;–fs-sm:1.05rem;–fs-xs:0.88rem;}
 .scard-icon{font-size:3.5rem;}
 .av-btn{font-size:2.6rem;}
 .opts{gap:16px;}
 .opt{padding:20px 18px;font-size:1rem;}
 .opt .ltr{width:36px;height:36px;font-size:.82rem;}
-.qtext{font-size:1.5rem;}
-.admin-gate{max-width:480px;}
-.sp-topic-name{width:200px;}
+.qtext{font-size:1.55rem;}
 }
 @media(min-width:1024px){
 .scard{min-height:240px;}
-.qbody{max-width:800px;margin:0 auto;}
-#screen-result .content, #screen-admin .content{max-width:800px;margin:0 auto;}
+.qbody,.result-content-inner,#screen-admin .content{max-width:820px;margin-left:auto;margin-right:auto;}
+}
+@media(max-width:480px){
+.opts{grid-template-columns:1fr;}
+.sgrid{grid-template-columns:1fr;}
 }
 
-/* ═══════════════════════════════════════════
-CONFETTI CANVAS
-═══════════════════════════════════════════ */
+/* ══════════════════════════════════════════
+CONFETTI
+══════════════════════════════════════════ */
 #confetti-canvas{position:fixed;inset:0;pointer-events:none;z-index:999;display:none;}
 </style>
 
@@ -406,80 +538,98 @@ CONFETTI CANVAS
 
 <canvas id="confetti-canvas"></canvas>
 
-<!-- ═══════════════════════════════════
-  ① ONBOARDING
-════════════════════════════════════ -->
+<!-- PAUSE OVERLAY -->
+
+<div class="pause-overlay" id="pause-overlay">
+  <div class="pause-card">
+    <div class="pause-icon">⏸️</div>
+    <div class="pause-title">Quiz Paused</div>
+    <div class="pause-sub">Take a break! Your progress is saved.</div>
+    <div class="pause-progress">
+      <div class="pp-item">
+        <div class="pp-num" id="pause-done">0</div>
+        <div class="pp-lbl">Done</div>
+      </div>
+      <div class="pp-item">
+        <div class="pp-num" id="pause-correct">0</div>
+        <div class="pp-lbl">Correct</div>
+      </div>
+      <div class="pp-item">
+        <div class="pp-num" id="pause-left">0</div>
+        <div class="pp-lbl">Left</div>
+      </div>
+    </div>
+    <div class="pause-btns">
+      <button class="pause-btn resume" onclick="resumeQuiz()">▶️ Resume Quiz</button>
+      <button class="pause-btn home" onclick="pauseGoHome()">🏠 Save &amp; Go Home</button>
+      <button class="pause-btn quit" onclick="pauseQuit()">✖️ Quit &amp; Discard</button>
+    </div>
+  </div>
+</div>
+
+<!-- BACK CONFIRM OVERLAY -->
+
+<div class="confirm-overlay" id="confirm-overlay">
+  <div class="confirm-card">
+    <div class="confirm-icon">⚠️</div>
+    <div class="confirm-title">Leave Quiz?</div>
+    <div class="confirm-sub">Your current quiz progress will be lost if you go back now.</div>
+    <div class="confirm-btns">
+      <button class="confirm-btn stay" onclick="hideConfirm()">Stay</button>
+      <button class="confirm-btn leave" onclick="confirmLeave()">Leave</button>
+    </div>
+  </div>
+</div>
+
+<!-- ① ONBOARDING -->
 
 <div class="screen active" id="screen-onboard">
   <div class="ob-card">
     <div class="ob-logo">SOF<br>G2</div>
     <div class="ob-title">SOF Olympiad Prep</div>
     <div class="ob-sub">Grade 2 · Adaptive Smart Practice</div>
-
-```
-<div class="ob-name-label">What's your name? 😊</div>
-<input class="ob-name-input" id="nameInput" type="text" placeholder="Type your name here..." maxlength="20" autocomplete="off">
-
-<div class="ob-avatar-label">Pick your avatar! 🎨</div>
-<div class="avatar-grid" id="avatarGrid"></div>
-
-<button class="ob-start-btn" id="startBtn" disabled onclick="finishOnboarding()">
-  Let's Start! 🚀
-</button>
-```
-
+    <div class="ob-label">What's your name? 😊</div>
+    <input class="ob-input" id="nameInput" type="text" placeholder="Type your name here..." maxlength="20" autocomplete="off">
+    <div class="ob-label mt">Pick your avatar! 🎨</div>
+    <div class="avatar-grid" id="avatarGrid"></div>
+    <button class="ob-btn" id="startBtn" disabled onclick="finishOnboarding()">Let's Start! 🚀</button>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════
-  ② HOME
-════════════════════════════════════ -->
+<!-- ② HOME -->
 
 <div class="screen" id="screen-home">
   <div class="topbar">
-    <div class="topbar-logo">SOF<br>G2</div>
-    <div>
-      <div class="topbar-title">SOF Olympiad Prep</div>
-      <div class="topbar-sub">Grade 2 · Adaptive</div>
-    </div>
-    <div class="topbar-right">
-      <div class="player-chip">
-        <span class="av" id="hdr-avatar"></span>
-        <span class="nm" id="hdr-name"></span>
-      </div>
+    <div class="tbar-logo">SOF<br>G2</div>
+    <div><div class="tbar-h">SOF Olympiad Prep</div><div class="tbar-s">Grade 2 · Adaptive</div></div>
+    <div class="tbar-right">
+      <button class="icon-btn theme-toggle" id="home-theme-btn" onclick="toggleTheme()" title="Toggle Dark/Light Mode">🌙</button>
+      <div class="player-chip"><span class="av" id="hdr-av"></span><span class="nm" id="hdr-nm"></span></div>
       <div class="pts-chip" id="hdr-pts">0 pts</div>
     </div>
   </div>
   <div class="content">
-    <div class="home-greeting" id="home-greeting">Hello!</div>
-    <div class="home-hint">The app learns where you struggle and gives you extra practice there 🎯</div>
-
-```
-<div class="weak-banner" id="weak-banner">
-  <h3>⚠️ Topics needing more practice</h3>
-  <div class="wchips" id="weak-chips"></div>
-</div>
-
-<div class="sgrid" id="subject-grid"></div>
-
-<button class="admin-btn" onclick="showAdmin()">
-  🔐 Parent / Admin Console
-</button>
-```
-
+    <div class="home-h" id="home-greeting">Hello!</div>
+    <div class="home-p">The app learns where you struggle and gives you extra practice there 🎯</div>
+    <div class="weak-banner" id="weak-banner">
+      <h3>⚠️ Topics needing more practice</h3>
+      <div class="wchips" id="weak-chips"></div>
+    </div>
+    <div class="sgrid" id="subject-grid"></div>
+    <button class="admin-btn" onclick="showAdmin()">🔐 Parent / Admin Console</button>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════
-  ③ QUIZ
-════════════════════════════════════ -->
+<!-- ③ QUIZ -->
 
 <div class="screen" id="screen-quiz">
   <div class="quiz-topbar">
-    <button class="back-btn" onclick="goHome()">←</button>
-    <span class="quiz-sub-name" id="quiz-sub-name">IMO</span>
+    <button class="icon-btn" onclick="requestBack()" title="Back">←</button>
+    <span class="quiz-sub-lbl" id="quiz-sub-name">IMO</span>
     <div class="prog-wrap"><div class="prog-bar" id="prog-bar" style="width:0%"></div></div>
     <span class="qcounter" id="q-counter">1/20</span>
+    <button class="icon-btn theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light">🌙</button>
+    <button class="icon-btn" onclick="showPause()" title="Pause" style="font-size:1.1rem;">⏸</button>
   </div>
   <div class="qbody">
     <div class="mode-pill normal" id="mode-pill">📚 Practice Mode</div>
@@ -488,94 +638,69 @@ CONFETTI CANVAS
   </div>
 </div>
 
-<!-- ═══════════════════════════════════
-  ④ RESULT
-════════════════════════════════════ -->
+<!-- ④ RESULT -->
 
 <div class="screen" id="screen-result">
   <div class="topbar">
-    <div class="topbar-logo">SOF<br>G2</div>
-    <div>
-      <div class="topbar-title">Quiz Result</div>
-      <div class="topbar-sub">Session Summary</div>
-    </div>
-    <div class="topbar-right">
-      <div class="player-chip">
-        <span class="av" id="res-avatar"></span>
-        <span class="nm" id="res-name"></span>
-      </div>
+    <div class="tbar-logo">SOF<br>G2</div>
+    <div><div class="tbar-h">Quiz Result</div><div class="tbar-s">Session Summary</div></div>
+    <div class="tbar-right">
+      <button class="icon-btn theme-toggle" onclick="toggleTheme()">🌙</button>
+      <div class="player-chip"><span class="av" id="res-av"></span><span class="nm" id="res-nm"></span></div>
     </div>
   </div>
-  <div class="content" id="result-content"></div>
+  <div class="content result-content-inner" id="result-content"></div>
 </div>
 
-<!-- ═══════════════════════════════════
-  ⑤ ADMIN
-════════════════════════════════════ -->
+<!-- ⑤ ADMIN -->
 
 <div class="screen" id="screen-admin">
   <div class="topbar">
-    <div class="topbar-logo">SOF<br>G2</div>
-    <div>
-      <div class="topbar-title">Admin Console</div>
-      <div class="topbar-sub">Parent Dashboard</div>
-    </div>
-    <div class="topbar-right">
-      <button style="background:rgba(255,255,255,.12);border:none;color:#fff;padding:8px 16px;border-radius:20px;font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;" onclick="showScreen('screen-home')">← Back</button>
+    <div class="tbar-logo">SOF<br>G2</div>
+    <div><div class="tbar-h">Admin Console</div><div class="tbar-s">Parent Dashboard</div></div>
+    <div class="tbar-right">
+      <button class="icon-btn theme-toggle" onclick="toggleTheme()">🌙</button>
+      <button class="icon-btn" onclick="showScreen('screen-home')" title="Back" style="font-size:.9rem;width:auto;padding:0 14px;border-radius:20px;">← Back</button>
     </div>
   </div>
   <div class="content">
-    <!-- PIN gate -->
     <div class="admin-gate" id="admin-gate">
       <div style="font-size:3rem;margin-bottom:8px;">🔐</div>
       <h2>Parent Console</h2>
-      <p>Enter the 4-digit PIN to access the admin dashboard.<br><strong>Default PIN: 1234</strong></p>
+      <p>Enter your 4-digit PIN to access the dashboard.<br><strong>Default PIN: 1234</strong></p>
       <input class="pin-input" id="pin-input" type="password" maxlength="4" placeholder="••••" inputmode="numeric">
       <div class="pin-err" id="pin-err">❌ Wrong PIN. Try again.</div>
-      <button class="pin-btn" onclick="checkPin()">Unlock Dashboard</button>
+      <button class="pin-btn" onclick="checkPin()">Unlock Dashboard 🔓</button>
     </div>
+    <div class="admin-dashboard" id="admin-dashboard">
 
 ```
-<!-- Dashboard -->
-<div class="admin-dashboard" id="admin-dashboard">
-
-  <!-- Player Info -->
-  <div class="admin-section">
-    <h2>👤 Student Profile</h2>
-    <div id="admin-profile" style="background:#fff;border-radius:16px;padding:20px;box-shadow:var(--shadow);display:flex;align-items:center;gap:16px;">
-      <span style="font-size:3.5rem;" id="adm-av"></span>
-      <div>
-        <div style="font-family:'Baloo 2',cursive;font-size:var(--fs-lg);font-weight:900;color:var(--navy);" id="adm-name"></div>
-        <div style="font-size:var(--fs-xs);color:var(--text2);font-weight:700;" id="adm-joined"></div>
-      </div>
-      <div style="margin-left:auto;text-align:center;">
-        <div style="font-family:'Baloo 2',cursive;font-size:2rem;font-weight:900;color:var(--gold);" id="adm-pts"></div>
-        <div style="font-size:.65rem;font-weight:800;color:var(--text2);text-transform:uppercase;">Total Points</div>
-      </div>
+  <div class="adm-section">
+    <div class="adm-section-title">👤 Student Profile</div>
+    <div class="profile-card">
+      <span class="pav" id="adm-av"></span>
+      <div><div class="pname" id="adm-name"></div><div class="pjoin" id="adm-join"></div></div>
+      <div class="profile-pts-box"><div class="pp" id="adm-pts"></div><div class="pl">Points</div></div>
     </div>
   </div>
 
-  <!-- Stats -->
-  <div class="admin-section">
-    <h2>📊 Overall Statistics</h2>
+  <div class="adm-section">
+    <div class="adm-section-title">📊 Overall Statistics</div>
     <div class="stat-grid" id="stat-grid"></div>
   </div>
 
-  <!-- Subject Progress -->
-  <div class="admin-section">
-    <h2>📚 Subject-wise Progress</h2>
+  <div class="adm-section">
+    <div class="adm-section-title">📚 Subject-wise Progress</div>
     <div id="sub-progress-list"></div>
   </div>
 
-  <!-- Weak Topics -->
-  <div class="admin-section" id="adm-weak-section">
-    <h2>⚠️ Weak Topics (needs attention)</h2>
+  <div class="adm-section">
+    <div class="adm-section-title">⚠️ Weak Topics</div>
     <div id="adm-weak-list"></div>
   </div>
 
-  <!-- Activity Log -->
-  <div class="admin-section">
-    <h2>🕐 Recent Activity <button class="clear-btn" onclick="clearLog()">Clear Log</button></h2>
+  <div class="adm-section">
+    <div class="adm-section-title">🕐 Recent Activity <button class="clear-btn" onclick="clearLog()">Clear Log</button></div>
     <div class="activity-log" id="activity-log"></div>
   </div>
 
@@ -585,36 +710,34 @@ CONFETTI CANVAS
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════
-     JAVASCRIPT
-════════════════════════════════════════════════ -->
-
 <script>
-/* ─────────── QUESTION BANK ─────────── */
+/* ══════════════════════════════════════
+   QUESTION BANK
+══════════════════════════════════════ */
 const SUBJECTS={
   imo:{label:"IMO",full:"Int'l Mathematics Olympiad",icon:"📐",color:"#2563eb",
     topics:["Numbers & Place Value","Addition & Subtraction","Multiplication & Division","Fractions","Geometry","Measurement","Time & Money","Patterns"],
     q:[
       {q:"What is the place value of 7 in 572?",o:["Tens","Hundreds","Ones","Thousands"],a:0,t:"Numbers & Place Value",e:"In 572: 5=hundreds, 7=tens, 2=ones. So 7 is in the TENS place.",d:1},
-      {q:"Which number is 100 more than 436?",o:["536","446","426","336"],a:0,t:"Numbers & Place Value",e:"Add 100 to the hundreds digit: 436 + 100 = 536.",d:1},
-      {q:"What is 68 + 47?",o:["115","105","125","110"],a:0,t:"Addition & Subtraction",e:"Ones: 8+7=15 (carry 1). Tens: 6+4+1=11. Answer = 115.",d:1},
-      {q:"What is 132 − 78?",o:["54","64","44","56"],a:0,t:"Addition & Subtraction",e:"Borrow: 12−8=4, then 12−7=5 (after borrowing). Answer = 54.",d:2},
-      {q:"5 × 8 = ?",o:["40","45","35","48"],a:0,t:"Multiplication & Division",e:"5×8=40. Count by 5s eight times: 5,10,15,20,25,30,35,40.",d:1},
+      {q:"Which number is 100 more than 436?",o:["536","446","426","336"],a:0,t:"Numbers & Place Value",e:"Add 100 to hundreds digit: 436+100=536.",d:1},
+      {q:"What is 68 + 47?",o:["115","105","125","110"],a:0,t:"Addition & Subtraction",e:"Ones: 8+7=15 (carry 1). Tens: 6+4+1=11. Answer=115.",d:1},
+      {q:"What is 132 − 78?",o:["54","64","44","56"],a:0,t:"Addition & Subtraction",e:"Borrow: 12−8=4, then 12−7=5. Answer=54.",d:2},
+      {q:"5 × 8 = ?",o:["40","45","35","48"],a:0,t:"Multiplication & Division",e:"5×8=40. Count by 5s eight times.",d:1},
       {q:"56 ÷ 7 = ?",o:["8","7","9","6"],a:0,t:"Multiplication & Division",e:"56÷7=8. Check: 7×8=56 ✓",d:1},
       {q:"What is 1/2 of 36?",o:["18","12","9","24"],a:0,t:"Fractions",e:"1/2 of 36 = 36÷2 = 18.",d:1},
-      {q:"Which fraction is LARGEST? 1/2, 1/4, 1/3",o:["1/2","1/4","1/3","All equal"],a:0,t:"Fractions",e:"Same numerator (1): bigger denominator = smaller piece. So 1/2 > 1/3 > 1/4.",d:2},
-      {q:"Rectangle: length 8 cm, width 3 cm. Area = ?",o:["24 cm²","22 cm²","11 cm²","24 cm"],a:0,t:"Geometry",e:"Area = length × width = 8 × 3 = 24 cm².",d:2},
-      {q:"How many sides does a hexagon have?",o:["6","5","7","8"],a:0,t:"Geometry",e:"Hex = 6 in Greek. A hexagon has 6 sides — like a honeycomb!",d:1},
-      {q:"A rope is 3 m 45 cm long. How many cm is that?",o:["345 cm","304 cm","435 cm","3045 cm"],a:0,t:"Measurement",e:"1 m = 100 cm. So 3 m = 300 cm. 300 + 45 = 345 cm.",d:2},
-      {q:"Clock shows 7:45. What time in 30 minutes?",o:["8:15","8:30","7:75","8:45"],a:0,t:"Time & Money",e:"7:45 + 30 min = 8:15. (45+30=75 min = 1 hr 15 min past 7)",d:2},
-      {q:"What pattern comes next? 3, 6, 12, 24, ___",o:["48","36","30","42"],a:0,t:"Patterns",e:"Each number doubles: 3→6→12→24→48.",d:2},
-      {q:"Round 284 to the nearest hundred.",o:["300","200","280","290"],a:0,t:"Numbers & Place Value",e:"Tens digit is 8 (≥5), so round UP to 300.",d:2},
-      {q:"4 pencils cost ₹12. Cost of 1 pencil?",o:["₹3","₹4","₹8","₹2"],a:0,t:"Time & Money",e:"₹12 ÷ 4 = ₹3 per pencil.",d:2},
-      {q:"Perimeter of a square with side 9 cm?",o:["36 cm","27 cm","18 cm","45 cm"],a:0,t:"Geometry",e:"Perimeter = 4 × side = 4 × 9 = 36 cm.",d:1},
-      {q:"Which is greater: 3/4 or 2/4?",o:["3/4","2/4","Both equal","Cannot say"],a:0,t:"Fractions",e:"Same denominator, compare numerators: 3 > 2. So 3/4 > 2/4.",d:1},
-      {q:"9 × 9 = ?",o:["81","72","90","79"],a:0,t:"Multiplication & Division",e:"9×9=81. Trick: 10×9−9 = 90−9 = 81.",d:2},
-      {q:"How many minutes in 2 hours?",o:["120","60","100","200"],a:0,t:"Time & Money",e:"1 hour = 60 min. 2 hours = 2×60 = 120 minutes.",d:1},
-      {q:"Next: 100, 90, 80, 70, ___",o:["60","65","50","55"],a:0,t:"Patterns",e:"Decreases by 10 each time. 70 − 10 = 60.",d:1},
+      {q:"Which fraction is LARGEST? 1/2, 1/4, 1/3",o:["1/2","1/4","1/3","All equal"],a:0,t:"Fractions",e:"Same numerator: bigger denominator = smaller piece. 1/2 > 1/3 > 1/4.",d:2},
+      {q:"Rectangle: length 8 cm, width 3 cm. Area = ?",o:["24 cm²","22 cm²","11 cm²","24 cm"],a:0,t:"Geometry",e:"Area = length × width = 8×3 = 24 cm².",d:2},
+      {q:"How many sides does a hexagon have?",o:["6","5","7","8"],a:0,t:"Geometry",e:"Hex=6. A hexagon has 6 sides.",d:1},
+      {q:"A rope is 3 m 45 cm. How many cm is that?",o:["345 cm","304 cm","435 cm","3045 cm"],a:0,t:"Measurement",e:"3m=300cm. 300+45=345 cm.",d:2},
+      {q:"Clock shows 7:45. Time in 30 minutes?",o:["8:15","8:30","7:75","8:45"],a:0,t:"Time & Money",e:"7:45+30min=8:15.",d:2},
+      {q:"Next in pattern: 3, 6, 12, 24, ___",o:["48","36","30","42"],a:0,t:"Patterns",e:"Each number doubles. 24×2=48.",d:2},
+      {q:"Round 284 to the nearest hundred.",o:["300","200","280","290"],a:0,t:"Numbers & Place Value",e:"Tens digit is 8 (≥5), round UP to 300.",d:2},
+      {q:"4 pencils cost ₹12. Cost of 1 pencil?",o:["₹3","₹4","₹8","₹2"],a:0,t:"Time & Money",e:"₹12÷4=₹3 per pencil.",d:2},
+      {q:"Perimeter of square with side 9 cm?",o:["36 cm","27 cm","18 cm","45 cm"],a:0,t:"Geometry",e:"Perimeter=4×side=4×9=36 cm.",d:1},
+      {q:"Which is greater: 3/4 or 2/4?",o:["3/4","2/4","Both equal","Cannot say"],a:0,t:"Fractions",e:"Same denominator, compare numerators: 3>2. So 3/4>2/4.",d:1},
+      {q:"9 × 9 = ?",o:["81","72","90","79"],a:0,t:"Multiplication & Division",e:"9×9=81. Trick: 10×9−9=90−9=81.",d:2},
+      {q:"How many minutes in 2 hours?",o:["120","60","100","200"],a:0,t:"Time & Money",e:"1hr=60min. 2hrs=2×60=120 minutes.",d:1},
+      {q:"Next: 100, 90, 80, 70, ___",o:["60","65","50","55"],a:0,t:"Patterns",e:"Decreases by 10. 70−10=60.",d:1},
     ]},
   ieo:{label:"IEO",full:"Int'l English Olympiad",icon:"📖",color:"#7c3aed",
     topics:["Vocabulary","Grammar","Spelling","Punctuation","Parts of Speech","Sentence Structure"],
@@ -623,21 +746,21 @@ const SUBJECTS={
       {q:"Which word is an ADJECTIVE? 'The tiny kitten slept quietly.'",o:["Tiny","Slept","Kitten","Quietly"],a:0,t:"Parts of Speech",e:"Adjectives describe nouns. 'Tiny' describes the kitten.",d:1},
       {q:"Correctly spelled word:",o:["Necessary","Necesary","Neccessary","Necessery"],a:0,t:"Spelling",e:"N-E-C-E-S-S-A-R-Y. One C, two S's!",d:2},
       {q:"'She ___ homework before dinner.' Correct word:",o:["Completed","Complete","Completing","Has complete"],a:0,t:"Grammar",e:"Past tense: 'She completed her homework.'",d:1},
-      {q:"Antonym (opposite) of 'brave':",o:["Cowardly","Bold","Fearless","Daring"],a:0,t:"Vocabulary",e:"Brave = fearless. Cowardly = easily frightened. They are opposites.",d:1},
+      {q:"Antonym (opposite) of 'brave':",o:["Cowardly","Bold","Fearless","Daring"],a:0,t:"Vocabulary",e:"Brave = fearless. Cowardly = easily frightened.",d:1},
       {q:"Which sentence has correct punctuation?",o:["Where are you going?","Where are you going.","where are you going?","Where are you going!"],a:0,t:"Punctuation",e:"Questions end with '?' and start with a capital letter.",d:1},
       {q:"'A ___ of fish.' Correct collective noun:",o:["School","Pack","Flock","Pride"],a:0,t:"Vocabulary",e:"A 'school' of fish. Pack=wolves, Flock=birds, Pride=lions.",d:2},
-      {q:"Which word is a VERB? 'The happy children played in the park.'",o:["Played","Happy","Children","Park"],a:0,t:"Parts of Speech",e:"Verbs are action/doing words. 'Played' is the action.",d:1},
-      {q:"Correct sentence:",o:["I have two brothers.","I has two brothers.","I is having two brothers.","I are two brothers."],a:0,t:"Sentence Structure",e:"Use 'have' with I/you/we/they. 'I have' is correct.",d:1},
-      {q:"The prefix 're-' in 'rewrite' means:",o:["Again","Not","Before","After"],a:0,t:"Vocabulary",e:"'re-' = again. Rewrite = write again.",d:1},
-      {q:"'The baby cried ___ it was hungry.' Best conjunction:",o:["because","but","although","unless"],a:0,t:"Sentence Structure",e:"'Because' gives a reason for the action.",d:1},
-      {q:"Type of noun: 'London'",o:["Proper noun","Common noun","Abstract noun","Collective noun"],a:0,t:"Parts of Speech",e:"Proper nouns name specific places/people. London is a specific city.",d:1},
+      {q:"Which word is a VERB? 'The happy children played in the park.'",o:["Played","Happy","Children","Park"],a:0,t:"Parts of Speech",e:"Verbs are action words. 'Played' is the action.",d:1},
+      {q:"Correct sentence:",o:["I have two brothers.","I has two brothers.","I is having two brothers.","I are two brothers."],a:0,t:"Sentence Structure",e:"Use 'have' with I/you/we/they.",d:1},
+      {q:"Prefix 're-' in 'rewrite' means:",o:["Again","Not","Before","After"],a:0,t:"Vocabulary",e:"'re-'=again. Rewrite=write again.",d:1},
+      {q:"'The baby cried ___ it was hungry.' Best conjunction:",o:["because","but","although","unless"],a:0,t:"Sentence Structure",e:"'Because' gives a reason.",d:1},
+      {q:"Type of noun: 'London'",o:["Proper noun","Common noun","Abstract noun","Collective noun"],a:0,t:"Parts of Speech",e:"Proper nouns name specific places/people.",d:1},
       {q:"Question tag: 'She is your sister, ___ ?'",o:["isn't she","is she","wasn't she","doesn't she"],a:0,t:"Grammar",e:"Positive sentence → negative tag. 'She is' → 'isn't she?'",d:2},
-      {q:"Synonym (similar meaning) of 'enormous':",o:["Huge","Tiny","Pretty","Quiet"],a:0,t:"Vocabulary",e:"Enormous = very large = Huge. They are synonyms.",d:1},
-      {q:"How many syllables in 'BUTTERFLY'?",o:["3","2","4","1"],a:0,t:"Spelling",e:"But-ter-fly = 3 syllables. Clap once per syllable.",d:2},
-      {q:"Correct use: their/there/they're:",o:["They're going to the park.","Their going to the park.","There going to the park.","Theyre going."],a:0,t:"Spelling",e:"They're = they are. Their = belonging. There = a place.",d:2},
+      {q:"Synonym of 'enormous':",o:["Huge","Tiny","Pretty","Quiet"],a:0,t:"Vocabulary",e:"Enormous = very large = Huge.",d:1},
+      {q:"How many syllables in 'BUTTERFLY'?",o:["3","2","4","1"],a:0,t:"Spelling",e:"But-ter-fly = 3 syllables.",d:2},
+      {q:"Correct use: their/there/they're:",o:["They're going to the park.","Their going.","There going.","Theyre going."],a:0,t:"Spelling",e:"They're=they are. Their=belonging. There=a place.",d:2},
       {q:"'Nocturnal' means:",o:["Active at night","Active in day","Very fast","Lives in water"],a:0,t:"Vocabulary",e:"Nocturnal animals are active at night — like owls and bats.",d:2},
-      {q:"Adverb in: 'The rabbit ran quickly across the field.'",o:["Quickly","Rabbit","Ran","Field"],a:0,t:"Parts of Speech",e:"Adverbs describe HOW an action is done. 'Quickly' = how the rabbit ran.",d:2},
-      {q:"Which sentence is in FUTURE tense?",o:["I will eat my lunch later.","I ate my lunch.","I am eating my lunch.","I eat my lunch."],a:0,t:"Grammar",e:"Future tense uses 'will'. 'I will eat' = future.",d:1},
+      {q:"Adverb in: 'The rabbit ran quickly across the field.'",o:["Quickly","Rabbit","Ran","Field"],a:0,t:"Parts of Speech",e:"Adverbs describe HOW. 'Quickly'=how the rabbit ran.",d:2},
+      {q:"Which sentence is in FUTURE tense?",o:["I will eat my lunch later.","I ate my lunch.","I am eating my lunch.","I eat my lunch."],a:0,t:"Grammar",e:"Future tense uses 'will'. 'I will eat'=future.",d:1},
       {q:"Correct plural of 'mouse':",o:["Mice","Mouses","Mices","Mouse"],a:0,t:"Grammar",e:"Mouse→Mice is an irregular plural (like tooth→teeth).",d:2},
     ]},
   nso:{label:"NSO",full:"National Science Olympiad",icon:"🔬",color:"#0d9488",
@@ -648,17 +771,17 @@ const SUBJECTS={
       {q:"Which organ filters blood and makes urine?",o:["Kidney","Heart","Liver","Lungs"],a:0,t:"Human Body",e:"Kidneys filter waste from blood to create urine.",d:2},
       {q:"Which teeth are used to TEAR food?",o:["Canines","Incisors","Molars","Premolars"],a:0,t:"Human Body",e:"Canines (pointed teeth) tear food. Incisors cut, molars grind.",d:2},
       {q:"Which animal is an amphibian?",o:["Frog","Shark","Eagle","Snake"],a:0,t:"Animals",e:"Amphibians live in water AND on land. Frogs start as tadpoles.",d:1},
-      {q:"The hard outer covering of insects is called:",o:["Exoskeleton","Endoskeleton","Shell","Scale"],a:0,t:"Animals",e:"Insects have an exoskeleton — a hard outer cover instead of internal bones.",d:2},
+      {q:"Hard outer covering of insects is called:",o:["Exoskeleton","Endoskeleton","Shell","Scale"],a:0,t:"Animals",e:"Insects have an exoskeleton — hard outer cover instead of bones.",d:2},
       {q:"Which state of matter takes shape of container but has fixed volume?",o:["Liquid","Solid","Gas","Plasma"],a:0,t:"Matter",e:"Liquids have fixed volume but take any container's shape.",d:1},
-      {q:"Water heated to 100°C:",o:["Boils and becomes steam","Freezes","Becomes ice","Nothing happens"],a:0,t:"Matter",e:"Water boils at 100°C and turns into water vapour (steam).",d:1},
+      {q:"Water heated to 100°C:",o:["Boils and becomes steam","Freezes","Becomes ice","Nothing happens"],a:0,t:"Matter",e:"Water boils at 100°C and turns into steam.",d:1},
       {q:"Which force pulls objects towards Earth?",o:["Gravity","Magnetism","Friction","Buoyancy"],a:0,t:"Force & Energy",e:"Gravity pulls everything towards Earth's centre.",d:1},
-      {q:"A stretched rubber band has what type of energy?",o:["Potential energy","Kinetic energy","Sound energy","Heat energy"],a:0,t:"Force & Energy",e:"Stretched objects store potential energy. Released = kinetic.",d:2},
-      {q:"The Sun is mainly made of:",o:["Hot gases (Hydrogen & Helium)","Rock and metal","Water and ice","Fire"],a:0,t:"Earth & Space",e:"The Sun is a star made of hydrogen and helium undergoing nuclear fusion.",d:2},
+      {q:"A stretched rubber band has what type of energy?",o:["Potential energy","Kinetic energy","Sound energy","Heat energy"],a:0,t:"Force & Energy",e:"Stretched objects store potential energy. Released=kinetic.",d:2},
+      {q:"The Sun is mainly made of:",o:["Hot gases (Hydrogen & Helium)","Rock and metal","Water and ice","Fire"],a:0,t:"Earth & Space",e:"The Sun is a star made of hydrogen and helium.",d:2},
       {q:"Earth takes how long for one ROTATION?",o:["24 hours","365 days","12 hours","1 month"],a:0,t:"Earth & Space",e:"Earth rotates once every 24 hours, giving us day and night.",d:1},
       {q:"Which is a PRODUCER in a food chain?",o:["Grass","Rabbit","Fox","Eagle"],a:0,t:"Ecology",e:"Producers make their own food via photosynthesis. Grass is a producer.",d:1},
-      {q:"What do DECOMPOSERS do in an ecosystem?",o:["Break down dead organisms","Hunt animals","Make food from sunlight","Eat plants"],a:0,t:"Ecology",e:"Decomposers break down dead matter, recycling nutrients back into the soil.",d:2},
-      {q:"Which vitamin do we get from sunlight?",o:["Vitamin D","Vitamin C","Vitamin A","Vitamin B"],a:0,t:"Human Body",e:"Skin makes Vitamin D in sunlight — it keeps bones strong.",d:1},
-      {q:"Function of roots in a plant:",o:["Absorb water & anchor plant","Make food","Attract insects","Only carry water"],a:0,t:"Plants",e:"Roots absorb water and minerals AND anchor the plant in the soil.",d:1},
+      {q:"What do DECOMPOSERS do in an ecosystem?",o:["Break down dead organisms","Hunt animals","Make food from sunlight","Eat plants"],a:0,t:"Ecology",e:"Decomposers break down dead matter, recycling nutrients.",d:2},
+      {q:"Which vitamin do we get from sunlight?",o:["Vitamin D","Vitamin C","Vitamin A","Vitamin B"],a:0,t:"Human Body",e:"Skin makes Vitamin D in sunlight — keeps bones strong.",d:1},
+      {q:"Function of roots in a plant:",o:["Absorb water & anchor plant","Make food","Attract insects","Only carry water"],a:0,t:"Plants",e:"Roots absorb water and minerals AND anchor the plant.",d:1},
       {q:"Which planet has the most visible rings?",o:["Saturn","Jupiter","Mars","Earth"],a:0,t:"Earth & Space",e:"Saturn has beautiful rings made of ice and rock.",d:1},
       {q:"Friction is a force that:",o:["Opposes motion","Pulls objects down","Works between magnets","Stores energy"],a:0,t:"Force & Energy",e:"Friction resists the motion of objects sliding against each other.",d:2},
       {q:"Which organ controls all body functions?",o:["Brain","Heart","Stomach","Liver"],a:0,t:"Human Body",e:"The brain controls all body functions, thoughts, and movements.",d:1},
@@ -667,17 +790,17 @@ const SUBJECTS={
   igko:{label:"IGKO",full:"Int'l General Knowledge Olympiad",icon:"🌍",color:"#ea580c",
     topics:["India","World Geography","Science & Tech","Sports","History","Famous Personalities"],
     q:[
-      {q:"'Father of the Nation' in India:",o:["Mahatma Gandhi","Jawaharlal Nehru","Subhash Chandra Bose","Sardar Patel"],a:0,t:"Famous Personalities",e:"Mahatma Gandhi led India's independence movement through non-violence.",d:1},
-      {q:"Capital city of India:",o:["New Delhi","Mumbai","Kolkata","Chennai"],a:0,t:"India",e:"New Delhi is India's capital. Mumbai is the financial capital.",d:1},
-      {q:"Longest river in India:",o:["Ganga","Yamuna","Brahmaputra","Indus"],a:0,t:"India",e:"The Ganga is the longest river entirely within India (~2,525 km).",d:1},
+      {q:"'Father of the Nation' in India:",o:["Mahatma Gandhi","Jawaharlal Nehru","Subhash Chandra Bose","Sardar Patel"],a:0,t:"Famous Personalities",e:"Mahatma Gandhi led India's independence through non-violence.",d:1},
+      {q:"Capital city of India:",o:["New Delhi","Mumbai","Kolkata","Chennai"],a:0,t:"India",e:"New Delhi is India's capital.",d:1},
+      {q:"Longest river in India:",o:["Ganga","Yamuna","Brahmaputra","Indus"],a:0,t:"India",e:"The Ganga is the longest river entirely within India.",d:1},
       {q:"Largest continent in the world:",o:["Asia","Africa","Europe","North America"],a:0,t:"World Geography",e:"Asia covers about 30% of Earth's land area.",d:1},
       {q:"Who invented the light bulb?",o:["Thomas Edison","Alexander Bell","Nikola Tesla","Albert Einstein"],a:0,t:"Science & Tech",e:"Thomas Edison invented the practical light bulb in 1879.",d:1},
       {q:"Sport played at Wimbledon:",o:["Tennis","Cricket","Football","Golf"],a:0,t:"Sports",e:"Wimbledon is the world's oldest tennis tournament, held in London.",d:1},
-      {q:"India became a Republic in:",o:["1950","1947","1952","1965"],a:0,t:"History",e:"India became a Republic on 26 January 1950 when the Constitution took effect.",d:1},
+      {q:"India became a Republic in:",o:["1950","1947","1952","1965"],a:0,t:"History",e:"India became a Republic on 26 January 1950.",d:1},
       {q:"National flower of India:",o:["Lotus","Rose","Marigold","Jasmine"],a:0,t:"India",e:"The Lotus is India's national flower.",d:1},
       {q:"Which country gifted the Statue of Liberty to the USA?",o:["France","England","Germany","Italy"],a:0,t:"World Geography",e:"France gifted the Statue of Liberty in 1886.",d:2},
-      {q:"'www' stands for:",o:["World Wide Web","World Wide Wire","Wide World Web","World Web Wire"],a:0,t:"Science & Tech",e:"WWW = World Wide Web, invented by Tim Berners-Lee in 1989.",d:1},
-      {q:"Indian cricketer known as 'The Wall':",o:["Rahul Dravid","Sachin Tendulkar","MS Dhoni","Virat Kohli"],a:0,t:"Sports",e:"Rahul Dravid earned 'The Wall' for his rock-solid batting.",d:2},
+      {q:"'www' stands for:",o:["World Wide Web","World Wide Wire","Wide World Web","World Web Wire"],a:0,t:"Science & Tech",e:"WWW=World Wide Web, invented by Tim Berners-Lee in 1989.",d:1},
+      {q:"Indian cricketer known as 'The Wall':",o:["Rahul Dravid","Sachin Tendulkar","MS Dhoni","Virat Kohli"],a:0,t:"Sports",e:"Rahul Dravid earned 'The Wall' for his solid batting.",d:2},
       {q:"World's tallest building:",o:["Burj Khalifa","Eiffel Tower","Empire State Building","CN Tower"],a:0,t:"World Geography",e:"Burj Khalifa in Dubai (828 m) is the world's tallest building.",d:1},
       {q:"Author of 'The Jungle Book':",o:["Rudyard Kipling","Roald Dahl","J.K. Rowling","Lewis Carroll"],a:0,t:"Famous Personalities",e:"Rudyard Kipling wrote The Jungle Book in 1894. Born in Mumbai!",d:2},
       {q:"Colour of MIDDLE stripe of Indian flag:",o:["White","Green","Saffron","Blue"],a:0,t:"India",e:"Indian flag: Saffron (top) + White with Ashoka Chakra (middle) + Green (bottom).",d:1},
@@ -685,7 +808,7 @@ const SUBJECTS={
       {q:"Olympic Games are held every:",o:["4 years","2 years","5 years","10 years"],a:0,t:"Sports",e:"Olympic Games rotate between host cities every 4 years.",d:1},
       {q:"Smallest state in India by area:",o:["Goa","Sikkim","Tripura","Manipur"],a:0,t:"India",e:"Goa is the smallest state in India by area.",d:2},
       {q:"Who painted the Mona Lisa?",o:["Leonardo da Vinci","Michelangelo","Pablo Picasso","Van Gogh"],a:0,t:"Famous Personalities",e:"Leonardo da Vinci painted the Mona Lisa (~1503–1519).",d:1},
-      {q:"India's space agency:",o:["ISRO","NASA","ESA","JAXA"],a:0,t:"Science & Tech",e:"ISRO = Indian Space Research Organisation. Launched Chandrayaan & Mangalyaan.",d:1},
+      {q:"India's space agency:",o:["ISRO","NASA","ESA","JAXA"],a:0,t:"Science & Tech",e:"ISRO=Indian Space Research Organisation.",d:1},
       {q:"Players in a cricket team:",o:["11","10","12","9"],a:0,t:"Sports",e:"A cricket team has 11 players on each side.",d:1},
     ]},
   isso:{label:"ISSO",full:"Int'l Social Studies Olympiad",icon:"🌱",color:"#16a34a",
@@ -693,65 +816,89 @@ const SUBJECTS={
     q:[
       {q:"Three types of natural resources:",o:["Renewable, non-renewable, inexhaustible","Water, air, soil only","Minerals, plants, animals","Sun, wind, coal only"],a:0,t:"Natural Resources",e:"Renewable (forests), Non-renewable (coal), Inexhaustible (sunlight).",d:2},
       {q:"Sun RISES from which direction?",o:["East","West","North","South"],a:0,t:"Maps & Directions",e:"Sun always rises in the East and sets in the West.",d:1},
-      {q:"Community helpers are people who:",o:["Do jobs that help society","Only doctors and teachers","Only policemen","Animals that help humans"],a:0,t:"Community Helpers",e:"Community helpers — doctors, police, firefighters, teachers — serve the community.",d:1},
-      {q:"PIN code stands for:",o:["Postal Index Number","Personal Index Number","Postal Information Number","Post Index Note"],a:0,t:"India – Our Country",e:"PIN = Postal Index Number. The 6-digit code helps deliver mail correctly.",d:2},
-      {q:"LPG used for cooking stands for:",o:["Liquefied Petroleum Gas","Liquid Petrol Gas","Light Petroleum Gas","Liquid Petrol Grade"],a:0,t:"Natural Resources",e:"LPG = Liquefied Petroleum Gas — a clean cooking fuel.",d:1},
+      {q:"Community helpers are people who:",o:["Do jobs that help society","Only doctors and teachers","Only policemen","Animals that help humans"],a:0,t:"Community Helpers",e:"Community helpers — doctors, police, firefighters, teachers.",d:1},
+      {q:"PIN code stands for:",o:["Postal Index Number","Personal Index Number","Postal Information Number","Post Index Note"],a:0,t:"India – Our Country",e:"PIN=Postal Index Number. 6-digit code for mail delivery.",d:2},
+      {q:"LPG used for cooking stands for:",o:["Liquefied Petroleum Gas","Liquid Petrol Gas","Light Petroleum Gas","Liquid Petrol Grade"],a:0,t:"Natural Resources",e:"LPG=Liquefied Petroleum Gas — a clean cooking fuel.",d:1},
       {q:"Outermost layer of the Earth:",o:["Crust","Mantle","Core","Magma"],a:0,t:"Our Environment",e:"Earth: Crust (outer), Mantle (middle), Core (inner).",d:1},
-      {q:"Highest civilian award in India:",o:["Bharat Ratna","Padma Vibhushan","Arjuna Award","Param Vir Chakra"],a:0,t:"India – Our Country",e:"Bharat Ratna is India's highest civilian award for exceptional service.",d:2},
-      {q:"A person who makes maps is called:",o:["Cartographer","Astronomer","Archaeologist","Geologist"],a:0,t:"Maps & Directions",e:"A cartographer makes maps. From Latin 'carta' + Greek 'graphein'.",d:2},
-      {q:"Which is a means of COMMUNICATION?",o:["Telephone","Bicycle","Boat","Train"],a:0,t:"Transport & Communication",e:"Communication = sharing information. Telephone communicates; others transport.",d:1},
-      {q:"Deforestation means:",o:["Cutting down forests","Planting more trees","Natural forest fires","Protecting forests"],a:0,t:"Our Environment",e:"Deforestation = clearing forests for land, timber, or farming.",d:1},
+      {q:"Highest civilian award in India:",o:["Bharat Ratna","Padma Vibhushan","Arjuna Award","Param Vir Chakra"],a:0,t:"India – Our Country",e:"Bharat Ratna is India's highest civilian award.",d:2},
+      {q:"A person who makes maps is called:",o:["Cartographer","Astronomer","Archaeologist","Geologist"],a:0,t:"Maps & Directions",e:"A cartographer makes maps.",d:2},
+      {q:"Which is a means of COMMUNICATION?",o:["Telephone","Bicycle","Boat","Train"],a:0,t:"Transport & Communication",e:"Communication=sharing information. Telephone communicates.",d:1},
+      {q:"Deforestation means:",o:["Cutting down forests","Planting more trees","Natural forest fires","Protecting forests"],a:0,t:"Our Environment",e:"Deforestation=clearing forests for land, timber, or farming.",d:1},
       {q:"Which sea is to the WEST of India?",o:["Arabian Sea","Bay of Bengal","Pacific Ocean","Red Sea"],a:0,t:"India – Our Country",e:"Arabian Sea (west), Bay of Bengal (east), Indian Ocean (south).",d:1},
       {q:"A person who grows crops is called:",o:["Farmer / Agriculturist","Carpenter","Blacksmith","Potter"],a:0,t:"Community Helpers",e:"A farmer or agriculturist grows crops for food.",d:1},
       {q:"India has how many Union Territories?",o:["8","7","6","9"],a:0,t:"India – Our Country",e:"India has 28 States and 8 Union Territories (2024).",d:2},
-      {q:"FASTEST transport for long distances:",o:["Air transport","Road transport","Water transport","Rail transport"],a:0,t:"Transport & Communication",e:"Aeroplanes are the fastest mode of transport for long distances.",d:1},
-      {q:"Main cause of water pollution:",o:["Dumping waste & chemicals into water","Drinking water","Fishing","Evaporation"],a:0,t:"Our Environment",e:"Industrial waste and chemicals dumped in rivers cause water pollution.",d:1},
-      {q:"True shape of Earth:",o:["Geoid (flattened sphere)","Perfectly round sphere","Flat disk","Oval"],a:0,t:"Our Environment",e:"Earth is a 'geoid' — slightly flattened at poles and bulging at the equator.",d:2},
+      {q:"FASTEST transport for long distances:",o:["Air transport","Road transport","Water transport","Rail transport"],a:0,t:"Transport & Communication",e:"Aeroplanes are the fastest mode for long distances.",d:1},
+      {q:"Main cause of water pollution:",o:["Dumping waste & chemicals into water","Drinking water","Fishing","Evaporation"],a:0,t:"Our Environment",e:"Industrial waste and chemicals in rivers cause water pollution.",d:1},
+      {q:"True shape of Earth:",o:["Geoid (flattened sphere)","Perfectly round sphere","Flat disk","Oval"],a:0,t:"Our Environment",e:"Earth is a 'geoid' — slightly flattened at poles.",d:2},
       {q:"On a compass, W stands for:",o:["West","Warm","Wide","White"],a:0,t:"Maps & Directions",e:"Compass: N=North, S=South, E=East, W=West.",d:1},
       {q:"Most spoken language in India:",o:["Hindi","Bengali","Telugu","Tamil"],a:0,t:"India – Our Country",e:"Hindi is spoken by about 44% of India's population.",d:1},
-      {q:"'Sustainable development' means:",o:["Using resources without harming future generations","Using all resources fast","Developing only cities","Protecting only animals"],a:0,t:"Natural Resources",e:"Sustainable = meeting today's needs without destroying resources for future generations.",d:2},
+      {q:"'Sustainable development' means:",o:["Using resources without harming future generations","Using all resources fast","Developing only cities","Protecting only animals"],a:0,t:"Natural Resources",e:"Sustainable=meeting today's needs without destroying resources for the future.",d:2},
       {q:"Symbol for a hospital on maps:",o:["Red cross (+)","Star (★)","Circle (○)","Triangle (△)"],a:0,t:"Maps & Directions",e:"A red cross (+) is the universal hospital symbol on maps.",d:1},
     ]}
 };
 
-/* ─────────── AVATARS ─────────── */
+/* ══════════════════════════════════════
+   GLOBALS
+══════════════════════════════════════ */
 const AVATARS=['🦁','🐯','🐼','🦊','🐨','🦋','🌸','⭐','🚀','🦄','🐸','🐙','🦅','🐬','🌈'];
 const ADMIN_PIN='1234';
-
-/* ─────────── STATE ─────────── */
 let player={name:'',avatar:'',joinedAt:'',points:0};
-let topicStats={};    // key:"sub|topic" → {c,n}
-let activityLog=[];   // array of session objects
+let topicStats={};
+let activityLog=[];
 let curSub=null,queue=[],qi=0,sesCorrect=0,sesTotal=0,sesTopics={},isAnswered=false;
+let isDark=false;
 
-/* ─────────── PERSISTENCE ─────────── */
+/* ══════════════════════════════════════
+   PERSISTENCE
+══════════════════════════════════════ */
 function save(){
-  localStorage.setItem('sof_player',JSON.stringify(player));
-  localStorage.setItem('sof_topicStats',JSON.stringify(topicStats));
-  localStorage.setItem('sof_activityLog',JSON.stringify(activityLog));
+  try{
+    localStorage.setItem('sof_player',JSON.stringify(player));
+    localStorage.setItem('sof_ts',JSON.stringify(topicStats));
+    localStorage.setItem('sof_log',JSON.stringify(activityLog));
+    localStorage.setItem('sof_dark',isDark?'1':'0');
+  }catch(e){}
 }
 function load(){
   try{
     const p=localStorage.getItem('sof_player');
-    const t=localStorage.getItem('sof_topicStats');
-    const a=localStorage.getItem('sof_activityLog');
+    const t=localStorage.getItem('sof_ts');
+    const a=localStorage.getItem('sof_log');
+    const d=localStorage.getItem('sof_dark');
     if(p)player=JSON.parse(p);
     if(t)topicStats=JSON.parse(t);
     if(a)activityLog=JSON.parse(a);
+    if(d==='1'){isDark=true;applyTheme();}
   }catch(e){}
 }
 
-/* ─────────── SCREEN ROUTING ─────────── */
+/* ══════════════════════════════════════
+   THEME
+══════════════════════════════════════ */
+function applyTheme(){
+  document.documentElement.setAttribute('data-theme',isDark?'dark':'light');
+  document.querySelectorAll('.theme-toggle').forEach(b=>b.textContent=isDark?'☀️':'🌙');
+}
+function toggleTheme(){
+  isDark=!isDark;
+  applyTheme();
+  save();
+}
+
+/* ══════════════════════════════════════
+   SCREEN
+══════════════════════════════════════ */
 function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   document.getElementById(id).scrollTop=0;
 }
 
-/* ─────────── ONBOARDING ─────────── */
+/* ══════════════════════════════════════
+   ONBOARDING
+══════════════════════════════════════ */
 function buildAvatarGrid(){
   const grid=document.getElementById('avatarGrid');
-  let sel=AVATARS[0];
   AVATARS.forEach((av,i)=>{
     const btn=document.createElement('button');
     btn.className='av-btn'+(i===0?' selected':'');
@@ -759,7 +906,6 @@ function buildAvatarGrid(){
     btn.onclick=()=>{
       document.querySelectorAll('.av-btn').forEach(b=>b.classList.remove('selected'));
       btn.classList.add('selected');
-      sel=av;
       checkObReady();
     };
     grid.appendChild(btn);
@@ -767,8 +913,7 @@ function buildAvatarGrid(){
   document.getElementById('nameInput').addEventListener('input',checkObReady);
 }
 function checkObReady(){
-  const name=document.getElementById('nameInput').value.trim();
-  document.getElementById('startBtn').disabled=name.length<2;
+  document.getElementById('startBtn').disabled=document.getElementById('nameInput').value.trim().length<2;
 }
 function finishOnboarding(){
   const name=document.getElementById('nameInput').value.trim();
@@ -779,14 +924,15 @@ function finishOnboarding(){
   showScreen('screen-home');
 }
 
-/* ─────────── ADAPTIVE ENGINE ─────────── */
-const WEAK_THR=0.50,MIN_ATT=2,REV_EVERY=3;
+/* ══════════════════════════════════════
+   ADAPTIVE ENGINE
+══════════════════════════════════════ */
+const WEAK_THR=0.5,MIN_ATT=2,REV_EVERY=3;
 const tk=(s,t)=>s+'|'+t;
-function recAttempt(s,t,ok){const k=tk(s,t);if(!topicStats[k])topicStats[k]={c:0,n:0};topicStats[k].n++;if(ok)topicStats[k].c++;}
-function topicAcc(s,t){const k=tk(s,t),x=topicStats[k];if(!x||x.n<MIN_ATT)return 1;return x.c/x.n;}
-function weakOf(s){return SUBJECTS[s].topics.filter(t=>topicAcc(s,t)<WEAK_THR);}
-function allWeak(){const r=[];Object.keys(SUBJECTS).forEach(s=>weakOf(s).forEach(t=>r.push({s,lb:SUBJECTS[s].label,t,a:topicAcc(s,t)})));return r.sort((a,b)=>a.a-b.a);}
-
+function recAtt(s,t,ok){const k=tk(s,t);if(!topicStats[k])topicStats[k]={c:0,n:0};topicStats[k].n++;if(ok)topicStats[k].c++;}
+function tAcc(s,t){const k=tk(s,t),x=topicStats[k];if(!x||x.n<MIN_ATT)return 1;return x.c/x.n;}
+function weakOf(s){return SUBJECTS[s].topics.filter(t=>tAcc(s,t)<WEAK_THR);}
+function allWeak(){const r=[];Object.keys(SUBJECTS).forEach(s=>weakOf(s).forEach(t=>r.push({s,lb:SUBJECTS[s].label,t,a:tAcc(s,t)})));return r.sort((a,b)=>a.a-b.a);}
 function buildQueue(s){
   const qs=SUBJECTS[s].q,w=weakOf(s);
   let pool=shuf([...qs]).map(q=>({...q,_m:'normal'}));
@@ -799,35 +945,29 @@ function buildQueue(s){
   return pool;
 }
 
-/* ─────────── HOME ─────────── */
+/* ══════════════════════════════════════
+   HOME
+══════════════════════════════════════ */
 function renderHome(){
-  document.getElementById('hdr-avatar').textContent=player.avatar;
-  document.getElementById('hdr-name').textContent=player.name;
+  document.getElementById('hdr-av').textContent=player.avatar;
+  document.getElementById('hdr-nm').textContent=player.name;
   document.getElementById('hdr-pts').textContent=player.points+' pts';
   document.getElementById('home-greeting').textContent='Hello, '+player.name+'! 👋';
-
   const aw=allWeak();
   const wb=document.getElementById('weak-banner'),wc=document.getElementById('weak-chips');
-  if(aw.length>0){
-    wb.classList.add('show');
-    wc.innerHTML=aw.map(w=>`<span class="wchip">⚠️ ${w.lb}: ${w.t} (${Math.round(w.a*100)}%)</span>`).join('');
-  } else wb.classList.remove('show');
-
+  if(aw.length>0){wb.classList.add('show');wc.innerHTML=aw.map(w=>`<span class="wchip">⚠️ ${w.lb}: ${w.t} (${Math.round(w.a*100)}%)</span>`).join('');}
+  else wb.classList.remove('show');
   const grid=document.getElementById('subject-grid');grid.innerHTML='';
   Object.entries(SUBJECTS).forEach(([k,sub])=>{
     const w=weakOf(k);
-    let ta=0,tc=0;
-    sub.topics.forEach(t=>{const x=topicStats[tk(k,t)];if(x){ta+=x.n;tc+=x.c;}});
+    let ta=0,tc=0;sub.topics.forEach(t=>{const x=topicStats[tk(k,t)];if(x){ta+=x.n;tc+=x.c;}});
     const card=document.createElement('div');
     card.className='scard'+(w.length>0?' has-weak':'');
     card.onclick=()=>startQuiz(k);
-    let pills='';
-    if(ta>0)pills+=`<span class="spill spill-info">✅ ${Math.round(tc/ta*100)}%</span>`;
-    else pills+=`<span class="spill spill-info">Not started</span>`;
+    let pills=ta>0?`<span class="spill spill-info">✅ ${Math.round(tc/ta*100)}%</span>`:`<span class="spill spill-info">Not started</span>`;
     if(w.length>0)pills+=`<span class="spill spill-warn">⚠️ ${w.length} weak</span>`;
     if(w.length>0)card.innerHTML+=`<div class="weak-badge">NEEDS REVIEW</div>`;
-    card.innerHTML+=`
-      <div class="scard-stripe" style="background:${sub.color}"></div>
+    card.innerHTML+=`<div class="scard-stripe" style="background:${sub.color}"></div>
       <div class="scard-icon">${sub.icon}</div>
       <div class="scard-name">${sub.label}</div>
       <div class="scard-full">${sub.full}</div>
@@ -836,7 +976,9 @@ function renderHome(){
   });
 }
 
-/* ─────────── QUIZ ─────────── */
+/* ══════════════════════════════════════
+   QUIZ
+══════════════════════════════════════ */
 function startQuiz(s){
   curSub=s;queue=buildQueue(s);qi=0;sesCorrect=0;sesTotal=0;sesTopics={};isAnswered=false;
   document.getElementById('quiz-sub-name').textContent=SUBJECTS[s].icon+' '+SUBJECTS[s].label;
@@ -851,14 +993,11 @@ function renderQ(){
   document.getElementById('prog-bar').style.width=Math.round(qi/total*100)+'%';
   document.getElementById('q-counter').textContent=(qi+1)+'/'+total;
   isAnswered=false;
-
   const mp=document.getElementById('mode-pill'),an=document.getElementById('adapt-notice');
   if(q._m==='review'){
     mp.className='mode-pill review';mp.textContent='🔁 Review Mode — Weak Topic';
-    an.className='adapt-notice show';
-    an.innerHTML=`⚠️ You've been getting <b>${q.t}</b> questions wrong. Extra practice time!`;
+    an.className='adapt-notice show';an.innerHTML=`⚠️ You've been getting <b>${q.t}</b> questions wrong. Extra practice!`;
   }else{mp.className='mode-pill normal';mp.textContent='📚 Practice Mode';an.className='adapt-notice';}
-
   const L=['A','B','C','D'],stars='⭐'.repeat(q.d);
   const con=document.getElementById('q-container');
   const card=document.createElement('div');
@@ -881,9 +1020,8 @@ function renderQ(){
 function checkAns(chosen){
   if(isAnswered)return;isAnswered=true;
   const q=queue[qi],ok=chosen===q.a;
-  recAttempt(curSub,q.t,ok);
-  sesTotal++;
-  if(ok){sesCorrect++;player.points+=(q.d*4);}else{player.points=Math.max(0,player.points-1);}
+  recAtt(curSub,q.t,ok);sesTotal++;
+  if(ok){sesCorrect++;player.points+=(q.d*4);}else player.points=Math.max(0,player.points-1);
   document.getElementById('hdr-pts').textContent=player.points+' pts';
   if(!sesTopics[q.t])sesTopics[q.t]={c:0,n:0};
   sesTopics[q.t].n++;if(ok)sesTopics[q.t].c++;
@@ -898,55 +1036,96 @@ function checkAns(chosen){
 }
 
 function nextQ(){qi++;renderQ();}
-function goHome(){curSub=null;renderHome();showScreen('screen-home');}
 
+/* ══════════════════════════════════════
+   PAUSE
+══════════════════════════════════════ */
+function showPause(){
+  const total=queue.length;
+  document.getElementById('pause-done').textContent=qi;
+  document.getElementById('pause-correct').textContent=sesCorrect;
+  document.getElementById('pause-left').textContent=total-qi;
+  document.getElementById('pause-overlay').classList.add('show');
+}
+function resumeQuiz(){
+  document.getElementById('pause-overlay').classList.remove('show');
+}
+function pauseGoHome(){
+  document.getElementById('pause-overlay').classList.remove('show');
+  // Save partial session to log
+  if(sesTotal>0){
+    activityLog.unshift({
+      sub:curSub,subLabel:SUBJECTS[curSub].label,icon:SUBJECTS[curSub].icon,
+      correct:sesCorrect,total:sesTotal,pct:Math.round(sesCorrect/sesTotal*100),
+      weakTopics:weakOf(curSub),
+      time:new Date().toLocaleString('en-IN',{dateStyle:'medium',timeStyle:'short'}),
+      partial:true
+    });
+    save();
+  }
+  curSub=null;renderHome();showScreen('screen-home');
+}
+function pauseQuit(){
+  document.getElementById('pause-overlay').classList.remove('show');
+  curSub=null;renderHome();showScreen('screen-home');
+}
+
+/* ══════════════════════════════════════
+   BACK BUTTON CONFIRM
+══════════════════════════════════════ */
+function requestBack(){
+  // Only show confirm if quiz has started and at least 1 question answered
+  if(sesTotal>0){
+    document.getElementById('confirm-overlay').classList.add('show');
+  } else {
+    confirmLeave();
+  }
+}
+function hideConfirm(){
+  document.getElementById('confirm-overlay').classList.remove('show');
+}
+function confirmLeave(){
+  document.getElementById('confirm-overlay').classList.remove('show');
+  document.getElementById('pause-overlay').classList.remove('show');
+  curSub=null;renderHome();showScreen('screen-home');
+}
+
+/* ══════════════════════════════════════
+   RESULT
+══════════════════════════════════════ */
 function finishQuiz(){
   const pct=sesTotal>0?Math.round(sesCorrect/sesTotal*100):0;
   let trophy='📚',title='Keep Going!',msg='Every attempt makes you smarter!';
-  if(pct>=90){trophy='🥇';title='Champion!';msg='Incredible! You are Olympiad ready! 🌟';}
+  if(pct>=90){trophy='🥇';title='Champion!';msg='Incredible! You\'re Olympiad ready! 🌟';}
   else if(pct>=70){trophy='🥈';title='Great Job!';msg='Really strong! A little more practice and you\'ll ace it!';}
   else if(pct>=50){trophy='🥉';title='Good Try!';msg='Keep going! Review the explanations and try again.';}
-
   const wt=weakOf(curSub);
   const nhtml=wt.length>0
     ?`<div class="rnotice warn">🎯 Next session will give extra practice on: <b>${wt.join(', ')}</b></div>`
     :`<div class="rnotice ok">✅ No weak topics detected. Excellent work!</div>`;
-
   const bhtml=Object.entries(sesTopics).map(([t,s])=>{
-    const tp=Math.round(s.c/s.n*100);
-    const bc=tp>=70?'#0d9488':tp>=50?'#f59e0b':'#dc2626';
-    return `<div class="trow">
-      <span class="tlbl">${t}${tp<50?'<span class="wk-tag">WEAK</span>':''}</span>
-      <div class="bwrap"><div class="bfill" style="width:${tp}%;background:${bc}"></div></div>
-      <span class="bpct">${tp}%</span>
-    </div>`;
+    const tp=Math.round(s.c/s.n*100),bc=tp>=70?'#0d9488':tp>=50?'#f59e0b':'#dc2626';
+    return `<div class="trow"><span class="tlbl">${t}${tp<50?'<span class="wk-tag">WEAK</span>':''}</span><div class="bwrap"><div class="bfill" style="width:${tp}%;background:${bc}"></div></div><span class="bpct">${tp}%</span></div>`;
   }).join('');
-
-  // Log the session
   activityLog.unshift({
-    sub:curSub, subLabel:SUBJECTS[curSub].label, icon:SUBJECTS[curSub].icon,
-    correct:sesCorrect, total:sesTotal, pct,
-    pts:sesCorrect*4, weakTopics:wt,
+    sub:curSub,subLabel:SUBJECTS[curSub].label,icon:SUBJECTS[curSub].icon,
+    correct:sesCorrect,total:sesTotal,pct,
+    weakTopics:wt,
     time:new Date().toLocaleString('en-IN',{dateStyle:'medium',timeStyle:'short'})
   });
   if(activityLog.length>50)activityLog=activityLog.slice(0,50);
   save();
-
   if(pct>=90)launchConfetti();
-
-  document.getElementById('res-avatar').textContent=player.avatar;
-  document.getElementById('res-name').textContent=player.name;
+  document.getElementById('res-av').textContent=player.avatar;
+  document.getElementById('res-nm').textContent=player.name;
   document.getElementById('result-content').innerHTML=`
     <div class="rcard">
       <div class="rtrophy">${trophy}</div>
       <div class="rtitle">${title}</div>
       <div class="rfrac">${sesCorrect} / ${sesTotal}</div>
-      <div class="rpct">${pct}% Accuracy · +${sesCorrect*4} points earned</div>
+      <div class="rpct">${pct}% Accuracy · +${sesCorrect*4} pts earned</div>
       ${nhtml}
-      <div class="breakdown">
-        <h3>📊 Topic-wise Performance</h3>
-        ${bhtml}
-      </div>
+      <div class="breakdown"><h3>📊 Topic-wise Performance</h3>${bhtml}</div>
       <p style="font-size:var(--fs-xs);color:var(--text2);font-weight:600;margin-bottom:16px;">${msg}</p>
       <div class="rbtns">
         <button class="rbtn primary" onclick="startQuiz('${curSub}')">🔁 Retry (Adaptive)</button>
@@ -955,8 +1134,11 @@ function finishQuiz(){
     </div>`;
   showScreen('screen-result');
 }
+function goHome(){curSub=null;renderHome();showScreen('screen-home');}
 
-/* ─────────── ADMIN ─────────── */
+/* ══════════════════════════════════════
+   ADMIN
+══════════════════════════════════════ */
 function showAdmin(){
   document.getElementById('admin-gate').style.display='block';
   document.getElementById('admin-dashboard').classList.remove('show');
@@ -964,159 +1146,120 @@ function showAdmin(){
   document.getElementById('pin-err').classList.remove('show');
   showScreen('screen-admin');
 }
-
 function checkPin(){
-  const val=document.getElementById('pin-input').value.trim();
-  if(val===ADMIN_PIN){
+  const v=document.getElementById('pin-input').value.trim();
+  if(v===ADMIN_PIN){
     document.getElementById('admin-gate').style.display='none';
-    renderAdminDashboard();
+    renderAdmin();
     document.getElementById('admin-dashboard').classList.add('show');
-  } else {
+  }else{
     document.getElementById('pin-err').classList.add('show');
     document.getElementById('pin-input').value='';
   }
 }
 document.getElementById('pin-input').addEventListener('keydown',e=>{if(e.key==='Enter')checkPin();});
 
-function renderAdminDashboard(){
-  // Profile
+function renderAdmin(){
   document.getElementById('adm-av').textContent=player.avatar||'👤';
   document.getElementById('adm-name').textContent=player.name||'No student yet';
-  document.getElementById('adm-joined').textContent='Joined: '+(player.joinedAt||'—');
+  document.getElementById('adm-join').textContent='Joined: '+(player.joinedAt||'—');
   document.getElementById('adm-pts').textContent=player.points||0;
 
-  // Overall stats
-  let totalQ=0,totalC=0,totalSessions=activityLog.length;
+  let totalQ=0,totalC=0;
   activityLog.forEach(l=>{totalQ+=l.total;totalC+=l.correct;});
-  const overallPct=totalQ>0?Math.round(totalC/totalQ*100):0;
-  const bestSub=getBestSubject();
+  const overPct=totalQ>0?Math.round(totalC/totalQ*100):0;
+  const bestSub=getBestSub();
   document.getElementById('stat-grid').innerHTML=`
-    <div class="stat-card"><div class="stat-icon">📝</div><div class="stat-num">${totalSessions}</div><div class="stat-lbl">Sessions</div></div>
-    <div class="stat-card"><div class="stat-icon">✅</div><div class="stat-num">${totalC}</div><div class="stat-lbl">Correct</div></div>
-    <div class="stat-card"><div class="stat-icon">🎯</div><div class="stat-num">${overallPct}%</div><div class="stat-lbl">Overall Accuracy</div></div>
-    <div class="stat-card"><div class="stat-icon">⭐</div><div class="stat-num">${player.points||0}</div><div class="stat-lbl">Points</div></div>
+    <div class="stat-card"><div class="stat-icon">📝</div><div class="stat-num">${activityLog.length}</div><div class="stat-lbl">Sessions</div></div>
+    <div class="stat-card"><div class="stat-icon">✅</div><div class="stat-num">${totalC}</div><div class="stat-lbl">Correct Answers</div></div>
+    <div class="stat-card"><div class="stat-icon">🎯</div><div class="stat-num">${overPct}%</div><div class="stat-lbl">Overall Accuracy</div></div>
+    <div class="stat-card"><div class="stat-icon">⭐</div><div class="stat-num">${player.points||0}</div><div class="stat-lbl">Total Points</div></div>
     <div class="stat-card"><div class="stat-icon">🏆</div><div class="stat-num">${bestSub}</div><div class="stat-lbl">Best Subject</div></div>
-    <div class="stat-card"><div class="stat-icon">⚠️</div><div class="stat-num">${allWeak().length}</div><div class="stat-lbl">Weak Topics</div></div>
-  `;
+    <div class="stat-card"><div class="stat-icon">⚠️</div><div class="stat-num">${allWeak().length}</div><div class="stat-lbl">Weak Topics</div></div>`;
 
-  // Subject progress
-  const spList=document.getElementById('sub-progress-list');
-  spList.innerHTML='';
+  const spList=document.getElementById('sub-progress-list');spList.innerHTML='';
   Object.entries(SUBJECTS).forEach(([k,sub])=>{
-    let ta=0,tc=0;
-    sub.topics.forEach(t=>{const x=topicStats[tk(k,t)];if(x){ta+=x.n;tc+=x.c;}});
-    const overPct=ta>0?Math.round(tc/ta*100):null;
-    const card=document.createElement('div');
-    card.className='sub-progress-card';
-    let topicRows=sub.topics.map(t=>{
+    let ta=0,tc=0;sub.topics.forEach(t=>{const x=topicStats[tk(k,t)];if(x){ta+=x.n;tc+=x.c;}});
+    const oP=ta>0?Math.round(tc/ta*100):null;
+    const card=document.createElement('div');card.className='sub-prog-card';
+    const rows=sub.topics.map(t=>{
       const x=topicStats[tk(k,t)];
-      if(!x||x.n===0)return `<div class="sp-topic-row"><span class="sp-topic-name">${t}</span><div class="sp-bar-wrap"><div class="sp-bar-fill" style="width:0%;background:#e8eef8"></div></div><span class="sp-pct" style="color:#ccc">—</span></div>`;
-      const p=Math.round(x.c/x.n*100);
-      const bc=p>=70?'#0d9488':p>=50?'#f59e0b':'#dc2626';
-      return `<div class="sp-topic-row"><span class="sp-topic-name">${t}</span><div class="sp-bar-wrap"><div class="sp-bar-fill" style="width:${p}%;background:${bc}"></div></div><span class="sp-pct">${p}%</span></div>`;
+      if(!x||x.n===0)return `<div class="sp-row"><span class="sp-lbl">${t}</span><div class="sp-bwrap"><div class="sp-bfill" style="width:0%"></div></div><span class="sp-pct" style="color:var(--text3)">—</span></div>`;
+      const p=Math.round(x.c/x.n*100),bc=p>=70?'#0d9488':p>=50?'#f59e0b':'#dc2626';
+      return `<div class="sp-row"><span class="sp-lbl">${t}</span><div class="sp-bwrap"><div class="sp-bfill" style="width:${p}%;background:${bc}"></div></div><span class="sp-pct">${p}%</span></div>`;
     }).join('');
-    card.innerHTML=`
-      <div class="sp-header">
-        <span class="sp-icon">${sub.icon}</span>
-        <div>
-          <div class="sp-name">${sub.label} — ${sub.full}</div>
-          <div class="sp-overall">${overallPct!==null?`Overall: ${overallPct}% accuracy`:'Not attempted yet'}</div>
-        </div>
-      </div>
-      <div class="sp-topics">${topicRows}</div>`;
+    card.innerHTML=`<div class="sp-hdr"><span class="sp-icon">${sub.icon}</span><div><div class="sp-name">${sub.label} — ${sub.full}</div><div class="sp-acc">${oP!==null?`Overall: ${oP}% accuracy`:'Not attempted yet'}</div></div></div>${rows}`;
     spList.appendChild(card);
   });
 
-  // Weak topics
-  const wList=document.getElementById('adm-weak-list');
-  const aw=allWeak();
-  if(aw.length===0){
-    wList.innerHTML='<div style="background:#fff;border-radius:14px;padding:20px;text-align:center;box-shadow:var(--shadow);color:var(--teal);font-weight:700;font-size:var(--fs-sm);">✅ No weak topics! She\'s doing great!</div>';
-  } else {
-    wList.innerHTML=aw.map(w=>`
-      <div style="background:#fff;border-radius:13px;padding:16px 18px;margin-bottom:10px;box-shadow:var(--shadow);display:flex;align-items:center;gap:12px;">
-        <span style="font-size:1.8rem;">${SUBJECTS[w.s].icon}</span>
-        <div style="flex:1;">
-          <div style="font-size:var(--fs-sm);font-weight:800;color:var(--navy);">${w.lb}: ${w.t}</div>
-          <div style="font-size:var(--fs-xs);color:var(--text2);font-weight:600;">Accuracy: ${Math.round(w.a*100)}% — needs improvement</div>
-        </div>
-        <div style="width:60px;height:8px;background:#e8eef8;border-radius:6px;overflow:hidden;">
-          <div style="width:${Math.round(w.a*100)}%;height:100%;background:var(--red);border-radius:6px;"></div>
-        </div>
-      </div>`).join('');
-  }
+  const wl=document.getElementById('adm-weak-list'),aw=allWeak();
+  wl.innerHTML=aw.length===0
+    ?`<div class="stat-card" style="text-align:center;padding:24px;"><span style="font-size:2rem;">✅</span><div style="font-family:'Baloo 2',cursive;font-size:var(--fs-sm);font-weight:900;color:var(--teal);margin-top:8px;">No weak topics! She's doing great!</div></div>`
+    :aw.map(w=>`<div class="weak-item"><span class="weak-item-icon">${SUBJECTS[w.s].icon}</span><div style="flex:1"><div class="weak-item-title">${w.lb}: ${w.t}</div><div class="weak-item-sub">Accuracy: ${Math.round(w.a*100)}% — needs more practice</div></div><div class="weak-mini-bar"><div class="weak-mini-fill" style="width:${Math.round(w.a*100)}%"></div></div></div>`).join('');
 
-  // Activity log
   const logEl=document.getElementById('activity-log');
-  if(activityLog.length===0){
-    logEl.innerHTML='<div class="no-data">No activity yet. Start practising! 📚</div>';
-  } else {
-    logEl.innerHTML=activityLog.slice(0,20).map(l=>{
+  logEl.innerHTML=activityLog.length===0
+    ?`<div class="no-data">No activity yet. Start practising! 📚</div>`
+    :activityLog.slice(0,20).map(l=>{
       const col=l.pct>=70?'#0d9488':l.pct>=50?'#f59e0b':'#dc2626';
+      const subColor=SUBJECTS[l.sub]?.color||'#ccc';
       return `<div class="log-entry">
-        <div class="log-icon" style="background:${SUBJECTS[l.sub]?.color+'22'||'#eee'}">${l.icon}</div>
-        <div class="log-text">
-          <div class="log-title">${l.subLabel} — ${l.correct}/${l.total} correct</div>
-          <div class="log-time">${l.time}${l.weakTopics?.length>0?' · Weak: '+l.weakTopics.join(', '):''}</div>
+        <div class="log-icon" style="background:${subColor}22">${l.icon}</div>
+        <div style="flex:1">
+          <div class="log-title">${l.subLabel}${l.partial?' (partial)':''} — ${l.correct}/${l.total} correct</div>
+          <div class="log-time">${l.time}${l.weakTopics?.length>0?' · Weak: '+l.weakTopics.slice(0,2).join(', '):''}</div>
         </div>
         <div class="log-score" style="color:${col}">${l.pct}%</div>
       </div>`;
     }).join('');
-  }
 }
 
-function getBestSubject(){
-  let best='—',bestPct=0;
+function getBestSub(){
+  let best='—',bP=0;
   Object.entries(SUBJECTS).forEach(([k,sub])=>{
-    let ta=0,tc=0;
-    sub.topics.forEach(t=>{const x=topicStats[tk(k,t)];if(x){ta+=x.n;tc+=x.c;}});
-    if(ta>=5){const p=tc/ta*100;if(p>bestPct){bestPct=p;best=sub.label;}}
+    let ta=0,tc=0;sub.topics.forEach(t=>{const x=topicStats[tk(k,t)];if(x){ta+=x.n;tc+=x.c;}});
+    if(ta>=5&&tc/ta*100>bP){bP=tc/ta*100;best=sub.label;}
   });
   return best;
 }
-
 function clearLog(){
-  if(confirm('Clear all activity log? This cannot be undone.')){activityLog=[];save();renderAdminDashboard();}
+  if(confirm('Clear all activity log? This cannot be undone.')){activityLog=[];save();renderAdmin();}
 }
 
-/* ─────────── CONFETTI ─────────── */
+/* ══════════════════════════════════════
+   CONFETTI
+══════════════════════════════════════ */
 function launchConfetti(){
-  const canvas=document.getElementById('confetti-canvas');
-  canvas.style.display='block';
-  const ctx=canvas.getContext('2d');
-  canvas.width=window.innerWidth;canvas.height=window.innerHeight;
-  const pieces=Array.from({length:120},()=>({
-    x:Math.random()*canvas.width,y:Math.random()*canvas.height-canvas.height,
-    r:Math.random()*8+4,c:['#f5a623','#2563eb','#0d9488','#7c3aed','#dc2626','#16a34a'][Math.floor(Math.random()*6)],
+  const cv=document.getElementById('confetti-canvas');
+  cv.style.display='block';cv.width=window.innerWidth;cv.height=window.innerHeight;
+  const ctx=cv.getContext('2d');
+  const pieces=Array.from({length:130},()=>({
+    x:Math.random()*cv.width,y:Math.random()*cv.height-cv.height,
+    r:Math.random()*8+4,
+    c:['#f5a623','#2563eb','#0d9488','#7c3aed','#dc2626','#16a34a'][Math.floor(Math.random()*6)],
     sp:Math.random()*3+2,sw:Math.random()*3-1.5
   }));
-  let frame=0;
-  function draw(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    pieces.forEach(p=>{
-      ctx.fillStyle=p.c;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();
-      p.y+=p.sp;p.x+=p.sw;
-      if(p.y>canvas.height){p.y=-10;p.x=Math.random()*canvas.width;}
-    });
-    frame++;
-    if(frame<180)requestAnimationFrame(draw);
-    else{ctx.clearRect(0,0,canvas.width,canvas.height);canvas.style.display='none';}
-  }
-  draw();
+  let fr=0;
+  (function draw(){
+    ctx.clearRect(0,0,cv.width,cv.height);
+    pieces.forEach(p=>{ctx.fillStyle=p.c;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();p.y+=p.sp;p.x+=p.sw;if(p.y>cv.height){p.y=-10;p.x=Math.random()*cv.width;}});
+    fr++;if(fr<200)requestAnimationFrame(draw);else{ctx.clearRect(0,0,cv.width,cv.height);cv.style.display='none';}
+  })();
 }
 
-/* ─────────── UTILS ─────────── */
+/* ══════════════════════════════════════
+   UTILS
+══════════════════════════════════════ */
 function shuf(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 
-/* ─────────── INIT ─────────── */
+/* ══════════════════════════════════════
+   INIT
+══════════════════════════════════════ */
 load();
+applyTheme();
 buildAvatarGrid();
-if(player.name){
-  renderHome();
-  showScreen('screen-home');
-} else {
-  showScreen('screen-onboard');
-}
+if(player.name){renderHome();showScreen('screen-home');}
+else showScreen('screen-onboard');
 </script>
 
 </body>
