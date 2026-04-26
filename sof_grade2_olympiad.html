@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOF Grade 2 Olympiad – Smart Practice</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#0d1b3e;
+  --gold:#e8a000;
+  --gold-light:#ffd166;
+  --coral:#e53935;
+  --mint:#00897b;
+  --mint-light:#e0f2f1;
+  --blue:#1565c0;
+  --blue-light:#e3f0ff;
+  --purple:#6a1b9a;
+  --purple-light:#f3e5f5;
+  --orange:#e65100;
+  --orange-light:#fff3e0;
+  --green:#2e7d32;
+  --green-light:#e8f5e9;
+  --bg:#f0f4fc;
+  --card:#ffffff;
+  --text:#0d1b3e;
+  --text2:#455a7a;
+  --border:#cdd8ee;
+  --shadow:0 4px 18px rgba(13,27,62,0.10);
+  --shadow-lg:0 8px 32px rgba(13,27,62,0.16);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Nunito',sans-serif;background:var(--bg);min-height:100vh;color:var(--text);}
+
+/* HEADER */
+.hdr{background:var(–navy);padding:11px 15px;display:flex;align-items:center;gap:11px;position:sticky;top:0;z-index:200;box-shadow:0 3px 14px rgba(0,0,0,0.28);}
+.hdr-logo{width:44px;height:44px;border-radius:11px;background:var(–gold-light);display:flex;align-items:center;justify-content:center;font-family:‘Fredoka One’,cursive;font-size:.88rem;color:var(–navy);text-align:center;line-height:1.15;flex-shrink:0;}
+.hdr-txt h1{font-family:‘Fredoka One’,cursive;font-size:1.15rem;color:var(–gold-light);line-height:1;}
+.hdr-txt p{font-size:.62rem;color:#8aaac8;font-weight:700;text-transform:uppercase;letter-spacing:.4px;}
+.hdr-pts{margin-left:auto;background:var(–gold-light);border-radius:18px;padding:3px 13px;text-align:center;}
+.hdr-pts .pn{font-family:‘Fredoka One’,cursive;font-size:1.25rem;color:var(–navy);line-height:1;}
+.hdr-pts .pl{font-size:.56rem;font-weight:900;color:var(–navy);text-transform:uppercase;}
+
+/* WRAPPER */
+.app{max-width:660px;margin:0 auto;}
+
+/* ── HOME ── */
+.home{padding:16px 14px 36px;}
+.home-h{font-family:‘Fredoka One’,cursive;font-size:1.4rem;color:var(–navy);margin-bottom:3px;}
+.home-p{font-size:.8rem;color:var(–text2);font-weight:600;margin-bottom:16px;line-height:1.45;}
+
+.weak-panel{background:#fff5f5;border:2px solid #ffcdd2;border-radius:14px;padding:13px 15px;margin-bottom:16px;display:none;}
+.weak-panel.show{display:block;}
+.weak-panel h3{font-family:‘Fredoka One’,cursive;font-size:.9rem;color:var(–coral);margin-bottom:9px;}
+.weak-chips{display:flex;flex-wrap:wrap;gap:5px;}
+.wchip{background:#ffebee;border:1.5px solid #ef9a9a;color:#b71c1c;font-size:.68rem;font-weight:800;padding:3px 10px;border-radius:20px;}
+
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:11px;}
+.scard{background:var(–card);border-radius:16px;border:2.5px solid var(–border);padding:16px 13px 13px;cursor:pointer;position:relative;overflow:hidden;transition:transform .17s,box-shadow .17s,border-color .17s;}
+.scard:hover{transform:translateY(-3px);box-shadow:var(–shadow-lg);}
+.scard.has-weak{border-color:#ef9a9a;}
+.scard .stripe{position:absolute;top:0;left:0;right:0;height:5px;border-radius:16px 16px 0 0;}
+.scard .si{font-size:2rem;margin-bottom:5px;display:block;}
+.scard .sn{font-family:‘Fredoka One’,cursive;font-size:1rem;color:var(–navy);margin-bottom:2px;}
+.scard .sf{font-size:.6rem;color:var(–text2);font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:9px;}
+.scard .sp{display:flex;flex-wrap:wrap;gap:5px;}
+.pill{font-size:.63rem;font-weight:800;padding:2px 9px;border-radius:18px;}
+.pill.info{background:var(–blue-light);color:var(–blue);}
+.pill.warn{background:#ffebee;color:var(–coral);}
+.wbadge{position:absolute;top:9px;right:9px;background:var(–coral);color:#fff;font-size:.56rem;font-weight:900;padding:2px 7px;border-radius:10px;animation:blink .9s ease-in-out infinite alternate;}
+@keyframes blink{from{opacity:.8}to{opacity:1;transform:scale(1.05)}}
+
+/* ── QUIZ SCREEN ── */
+.qscr{display:none;}
+.qtopbar{background:var(–navy);padding:9px 13px;display:flex;align-items:center;gap:9px;position:sticky;top:57px;z-index:100;}
+.bbtn{background:rgba(255,255,255,.14);border:none;color:#fff;width:30px;height:30px;border-radius:50%;font-size:.95rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .14s;}
+.bbtn:hover{background:rgba(255,255,255,.26);}
+.qlbl{font-family:‘Fredoka One’,cursive;font-size:.95rem;color:#fff;white-space:nowrap;}
+.pwrap{flex:1;height:7px;background:rgba(255,255,255,.14);border-radius:8px;overflow:hidden;}
+.pbar{height:100%;border-radius:8px;transition:width .5s;background:linear-gradient(90deg,#06d6a0,#ffd166);}
+.qctr{font-size:.7rem;font-weight:800;color:#8aaac8;white-space:nowrap;}
+
+.qbody{padding:13px 14px 36px;}
+
+.mpill{display:inline-flex;align-items:center;gap:4px;font-size:.68rem;font-weight:800;padding:3px 11px;border-radius:18px;margin-bottom:9px;}
+.mpill.normal{background:var(–blue-light);color:var(–blue);}
+.mpill.review{background:#ffebee;color:var(–coral);}
+
+.anotice{background:#fff8e1;border:1.5px solid #ffe082;border-radius:11px;padding:9px 13px;font-size:.76rem;font-weight:700;color:#e65100;margin-bottom:11px;display:none;}
+.anotice.show{display:block;}
+
+/* question card */
+.qcard{background:var(–card);border-radius:16px;box-shadow:var(–shadow);padding:18px 16px 15px;border-top:5px solid var(–qc,#1565c0);animation:fup .26s ease;}
+@keyframes fup{from{opacity:0;transform:translateY(11px)}to{opacity:1;transform:translateY(0)}}
+.qmeta{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;}
+.qtag{font-size:.65rem;font-weight:900;padding:3px 10px;border-radius:18px;color:#fff;background:var(–qc,#1565c0);}
+.qdiff{font-size:.75rem;color:#bbb;}
+.qtext{font-size:1rem;font-weight:800;color:var(–navy);line-height:1.55;margin-bottom:15px;}
+
+/* options */
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.opt{padding:11px 11px;border-radius:12px;border:2.5px solid var(–border);background:#f6f9ff;cursor:pointer;color:var(–navy);font-family:‘Nunito’,sans-serif;font-size:.86rem;font-weight:700;display:flex;align-items:center;gap:8px;text-align:left;transition:all .13s;line-height:1.3;}
+.opt:hover:not(:disabled){border-color:var(–qc,#1565c0);background:var(–blue-light);transform:scale(1.02);}
+.opt .ltr{width:24px;height:24px;flex-shrink:0;border-radius:50%;background:var(–border);color:var(–navy);display:flex;align-items:center;justify-content:center;font-size:.67rem;font-weight:900;}
+.opt.correct{border-color:#00897b;background:var(–mint-light);}
+.opt.correct .ltr{background:#00897b;color:#fff;}
+.opt.wrong{border-color:var(–coral);background:#ffebee;}
+.opt.wrong .ltr{background:var(–coral);color:#fff;}
+.opt:disabled{cursor:default;}
+
+/* feedback */
+.fb{margin-top:11px;padding:11px 13px;border-radius:11px;font-size:.8rem;font-weight:700;line-height:1.5;display:none;}
+.fb.show{display:block;animation:fup .2s ease;}
+.fb.ok{background:var(–mint-light);border:1.5px solid #80cbc4;color:#004d40;}
+.fb.fail{background:#ffebee;border:1.5px solid #ef9a9a;color:#b71c1c;}
+
+/* next btn */
+.nbtn{display:none;width:100%;margin-top:11px;padding:14px;border-radius:13px;border:none;cursor:pointer;background:var(–navy);color:var(–gold-light);font-family:‘Fredoka One’,cursive;font-size:1rem;box-shadow:0 4px 12px rgba(13,27,62,.18);transition:transform .14s,box-shadow .14s;}
+.nbtn:hover{transform:translateY(-2px);box-shadow:0 7px 18px rgba(13,27,62,.26);}
+.nbtn.show{display:block;}
+
+/* result */
+.rcard{background:var(–card);border-radius:18px;box-shadow:var(–shadow-lg);padding:26px 18px 22px;text-align:center;display:none;animation:fup .3s ease;}
+.rcard.show{display:block;}
+.rtrophy{font-size:3.2rem;margin-bottom:5px;}
+.rtitle{font-family:‘Fredoka One’,cursive;font-size:1.5rem;color:var(–navy);margin-bottom:3px;}
+.rfrac{font-family:‘Fredoka One’,cursive;font-size:2.4rem;color:var(–blue);margin-bottom:2px;}
+.rpct{font-size:.82rem;font-weight:700;color:var(–text2);margin-bottom:13px;}
+.rnotice{font-size:.78rem;font-weight:700;padding:9px 13px;border-radius:11px;margin-bottom:16px;text-align:left;}
+.rnotice.ok{background:var(–mint-light);color:#004d40;border:1.5px solid #80cbc4;}
+.rnotice.warn{background:#fff8e1;color:#e65100;border:1.5px solid #ffe082;}
+.breakdown{margin-bottom:18px;text-align:left;}
+.breakdown h3{font-family:‘Fredoka One’,cursive;font-size:.9rem;color:var(–navy);margin-bottom:10px;text-align:center;}
+.trow{display:flex;align-items:center;gap:7px;margin-bottom:8px;}
+.tlbl{font-size:.72rem;font-weight:800;color:var(–navy);width:126px;flex-shrink:0;line-height:1.2;}
+.tlbl .wk{display:inline-block;font-size:.55rem;font-weight:900;background:var(–coral);color:#fff;padding:1px 5px;border-radius:7px;margin-left:3px;vertical-align:middle;}
+.bwrap{flex:1;height:10px;background:#e8eef8;border-radius:7px;overflow:hidden;}
+.bfill{height:100%;border-radius:7px;transition:width .7s;}
+.bpct{font-size:.68rem;font-weight:800;color:var(–text2);width:30px;text-align:right;}
+.rbtns{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;}
+.rbtn{padding:11px 20px;border-radius:50px;border:none;cursor:pointer;font-family:‘Fredoka One’,cursive;font-size:.9rem;transition:transform .13s;}
+.rbtn:hover{transform:scale(1.04);}
+.rbtn.primary{background:var(–navy);color:var(–gold-light);}
+.rbtn.secondary{background:var(–blue-light);color:var(–blue);}
+
+@media(max-width:430px){
+.opts{grid-template-columns:1fr;}
+.sgrid{grid-template-columns:1fr;}
+}
+</style>
+
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-logo">SOF<br>G2</div>
+  <div class="hdr-txt">
+    <h1>SOF Olympiad Prep</h1>
+    <p>Grade 2 · Adaptive Smart Practice</p>
+  </div>
+  <div class="hdr-pts">
+    <div class="pn" id="totalPts">0</div>
+    <div class="pl">Points</div>
+  </div>
+</div>
+
+<div class="app">
+
+  <!-- HOME -->
+
+  <div class="home" id="homeScreen">
+    <div class="home-h">Choose Your Olympiad ⭐</div>
+    <div class="home-p">The app tracks your weak topics and automatically gives extra practice on them!</div>
+
+```
+<div class="weak-panel" id="gwp">
+  <h3>⚠️ Topics Needing More Practice</h3>
+  <div class="weak-chips" id="gwc"></div>
+</div>
+
+<div class="sgrid" id="sgrid"></div>
+```
+
+  </div>
+
+  <!-- QUIZ -->
+
+  <div class="qscr" id="qscr">
+    <div class="qtopbar">
+      <button class="bbtn" onclick="goHome()">←</button>
+      <span class="qlbl" id="qlbl">IMO</span>
+      <div class="pwrap"><div class="pbar" id="pbar" style="width:0%"></div></div>
+      <span class="qctr" id="qctr">1/20</span>
+    </div>
+    <div class="qbody">
+      <div class="mpill normal" id="mpill">📚 Practice Mode</div>
+      <div class="anotice" id="anotice"></div>
+      <div id="qcon"></div>
+      <div class="rcard" id="rcard"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const S={
+  imo:{label:"IMO",full:"Int'l Mathematics Olympiad",icon:"📐",color:"#1565c0",
+    topics:["Numbers & Place Value","Addition & Subtraction","Multiplication & Division","Fractions","Geometry","Measurement","Time & Money","Patterns"],
+    q:[
+      {q:"What is the place value of 7 in 572?",o:["Tens","Hundreds","Ones","Thousands"],a:0,t:"Numbers & Place Value",e:"In 572: 5=hundreds, 7=tens, 2=ones. So 7 is in the TENS place.",d:1},
+      {q:"Which number is 100 more than 436?",o:["536","446","426","336"],a:0,t:"Numbers & Place Value",e:"Add 100 to hundreds digit: 436+100=536.",d:1},
+      {q:"What is 68 + 47?",o:["115","105","125","110"],a:0,t:"Addition & Subtraction",e:"Ones: 8+7=15 (carry 1). Tens: 6+4+1=11. Answer=115.",d:1},
+      {q:"What is 132 − 78?",o:["54","64","44","56"],a:0,t:"Addition & Subtraction",e:"Borrow: 12−8=4, 12−7=5. Answer=54.",d:2},
+      {q:"5 × 8 = ?",o:["40","45","35","48"],a:0,t:"Multiplication & Division",e:"5×8=40. Count by 5s eight times.",d:1},
+      {q:"56 ÷ 7 = ?",o:["8","7","9","6"],a:0,t:"Multiplication & Division",e:"56÷7=8. Check: 7×8=56 ✓",d:1},
+      {q:"What is 1/2 of 36?",o:["18","12","9","24"],a:0,t:"Fractions",e:"1/2 of 36 = 36÷2 = 18.",d:1},
+      {q:"Which fraction is LARGEST? 1/2, 1/4, 1/3",o:["1/2","1/4","1/3","All equal"],a:0,t:"Fractions",e:"Same numerator: bigger denominator = smaller piece. 1/2 > 1/3 > 1/4.",d:2},
+      {q:"Rectangle: length 8 cm, width 3 cm. Area = ?",o:["24 cm²","22 cm²","11 cm²","24 cm"],a:0,t:"Geometry",e:"Area = length × width = 8×3 = 24 cm².",d:2},
+      {q:"How many sides does a hexagon have?",o:["6","5","7","8"],a:0,t:"Geometry",e:"Hex=6. A hexagon has 6 sides (like a honeycomb).",d:1},
+      {q:"A rope is 3 m 45 cm. How many cm is that?",o:["345 cm","304 cm","435 cm","3045 cm"],a:0,t:"Measurement",e:"3m=300cm. 300+45=345 cm.",d:2},
+      {q:"Clock shows 7:45. Time in 30 minutes?",o:["8:15","8:30","7:75","8:45"],a:0,t:"Time & Money",e:"7:45+30min=8:15. (45+30=75min = 1hr 15min past 7)",d:2},
+      {q:"Next in pattern: 3, 6, 12, 24, ___",o:["48","36","30","42"],a:0,t:"Patterns",e:"Each number doubles. 24×2=48.",d:2},
+      {q:"Round 284 to the nearest hundred.",o:["300","200","280","290"],a:0,t:"Numbers & Place Value",e:"Tens digit is 8 (≥5), round UP to 300.",d:2},
+      {q:"4 pencils cost ₹12. Cost of 1 pencil?",o:["₹3","₹4","₹8","₹2"],a:0,t:"Time & Money",e:"₹12÷4=₹3 per pencil.",d:2},
+      {q:"Perimeter of square with side 9 cm?",o:["36 cm","27 cm","18 cm","45 cm"],a:0,t:"Geometry",e:"Perimeter=4×side=4×9=36 cm.",d:1},
+      {q:"Which is greater: 3/4 or 2/4?",o:["3/4","2/4","Both equal","Cannot say"],a:0,t:"Fractions",e:"Same denominator, compare numerators: 3>2. So 3/4>2/4.",d:1},
+      {q:"9 × 9 = ?",o:["81","72","90","79"],a:0,t:"Multiplication & Division",e:"9×9=81. Trick: 10×9−9=90−9=81.",d:2},
+      {q:"How many minutes in 2 hours?",o:["120","60","100","200"],a:0,t:"Time & Money",e:"1hr=60min. 2hrs=2×60=120 minutes.",d:1},
+      {q:"Next: 100, 90, 80, 70, ___",o:["60","65","50","55"],a:0,t:"Patterns",e:"Decreases by 10. 70−10=60.",d:1},
+    ]},
+  ieo:{label:"IEO",full:"Int'l English Olympiad",icon:"📖",color:"#6a1b9a",
+    topics:["Vocabulary","Grammar","Spelling","Punctuation","Parts of Speech","Sentence Structure"],
+    q:[
+      {q:"Correct plural of 'child':",o:["Children","Childs","Childes","Child"],a:0,t:"Grammar",e:"'Child' has an irregular plural — 'children'.",d:1},
+      {q:"Which word is an ADJECTIVE? 'The tiny kitten slept quietly.'",o:["Tiny","Slept","Kitten","Quietly"],a:0,t:"Parts of Speech",e:"Adjectives describe nouns. 'Tiny' describes the kitten.",d:1},
+      {q:"Correctly spelled word:",o:["Necessary","Necesary","Neccessary","Necessery"],a:0,t:"Spelling",e:"N-E-C-E-S-S-A-R-Y. One C, two S's!",d:2},
+      {q:"'She ___ homework before dinner.' Correct word:",o:["Completed","Complete","Completing","Has complete"],a:0,t:"Grammar",e:"Past tense: 'She completed her homework.'",d:1},
+      {q:"Antonym (opposite) of 'brave':",o:["Cowardly","Bold","Fearless","Daring"],a:0,t:"Vocabulary",e:"Brave = fearless. Cowardly = easily frightened. They are opposites.",d:1},
+      {q:"Which sentence has correct punctuation?",o:["Where are you going?","Where are you going.","where are you going?","Where are you going!"],a:0,t:"Punctuation",e:"Questions end with '?' and start with a capital letter.",d:1},
+      {q:"'A ___ of fish.' Correct collective noun:",o:["School","Pack","Flock","Pride"],a:0,t:"Vocabulary",e:"A 'school' of fish. Pack=wolves, Flock=birds, Pride=lions.",d:2},
+      {q:"Which word is a VERB? 'The happy children played in the park.'",o:["Played","Happy","Children","Park"],a:0,t:"Parts of Speech",e:"Verbs are action words. 'Played' is the action.",d:1},
+      {q:"Correct sentence:",o:["I have two brothers.","I has two brothers.","I is having two brothers.","I are two brothers."],a:0,t:"Sentence Structure",e:"Use 'have' with I/you/we/they. 'I have' is correct.",d:1},
+      {q:"Prefix 're-' in 'rewrite' means:",o:["Again","Not","Before","After"],a:0,t:"Vocabulary",e:"'re-'=again. Rewrite=write again.",d:1},
+      {q:"'The baby cried ___ it was hungry.' Best conjunction:",o:["because","but","although","unless"],a:0,t:"Sentence Structure",e:"'Because' gives a reason.",d:1},
+      {q:"Type of noun: 'London'",o:["Proper noun","Common noun","Abstract noun","Collective noun"],a:0,t:"Parts of Speech",e:"Proper nouns name specific places/people. London is a specific city.",d:1},
+      {q:"Question tag: 'She is your sister, ___ ?'",o:["isn't she","is she","wasn't she","doesn't she"],a:0,t:"Grammar",e:"Positive sentence → negative tag. 'She is' → 'isn't she?'",d:2},
+      {q:"Synonym of 'enormous':",o:["Huge","Tiny","Pretty","Quiet"],a:0,t:"Vocabulary",e:"Enormous = very large = Huge.",d:1},
+      {q:"How many syllables in 'BUTTERFLY'?",o:["3","2","4","1"],a:0,t:"Spelling",e:"But-ter-fly = 3 syllables.",d:2},
+      {q:"Correct use of their/there/they're:",o:["They're going to the park.","Their going to the park.","There going to the park.","Theyre going."],a:0,t:"Spelling",e:"They're=they are. Their=belonging. There=a place.",d:2},
+      {q:"'Nocturnal' means:",o:["Active at night","Active in day","Very fast","Lives in water"],a:0,t:"Vocabulary",e:"Nocturnal animals are active at night — like owls and bats.",d:2},
+      {q:"Adverb in: 'The rabbit ran quickly across the field.'",o:["Quickly","Rabbit","Ran","Field"],a:0,t:"Parts of Speech",e:"Adverbs describe HOW an action is done. 'Quickly' tells us how.",d:2},
+      {q:"Which sentence is in FUTURE tense?",o:["I will eat my lunch later.","I ate my lunch.","I am eating my lunch.","I eat my lunch."],a:0,t:"Grammar",e:"Future tense uses 'will'. 'I will eat' = future.",d:1},
+      {q:"Correct plural of 'mouse':",o:["Mice","Mouses","Mices","Mouse"],a:0,t:"Grammar",e:"Mouse→Mice is an irregular plural (like tooth→teeth).",d:2},
+    ]},
+  nso:{label:"NSO",full:"National Science Olympiad",icon:"🔬",color:"#00695c",
+    topics:["Plants","Animals","Human Body","Matter","Force & Energy","Earth & Space","Ecology"],
+    q:[
+      {q:"Which part of the plant makes food using sunlight?",o:["Leaves","Roots","Stem","Flower"],a:0,t:"Plants",e:"Leaves have chlorophyll and perform photosynthesis.",d:1},
+      {q:"The process by which plants make food is called:",o:["Photosynthesis","Respiration","Germination","Pollination"],a:0,t:"Plants",e:"Photo=light, synthesis=making. Plants make food using light.",d:1},
+      {q:"Which organ filters blood and makes urine?",o:["Kidney","Heart","Liver","Lungs"],a:0,t:"Human Body",e:"Kidneys filter waste from blood to create urine.",d:2},
+      {q:"Which teeth are used to TEAR food?",o:["Canines","Incisors","Molars","Premolars"],a:0,t:"Human Body",e:"Canines (pointed teeth) tear food. Incisors cut, molars grind.",d:2},
+      {q:"Which animal is an amphibian?",o:["Frog","Shark","Eagle","Snake"],a:0,t:"Animals",e:"Amphibians live in water AND on land. Frogs start as tadpoles.",d:1},
+      {q:"Hard outer covering of insects is called:",o:["Exoskeleton","Endoskeleton","Shell","Scale"],a:0,t:"Animals",e:"Insects have an exoskeleton — hard outer cover instead of bones.",d:2},
+      {q:"Which state of matter takes shape of container but has fixed volume?",o:["Liquid","Solid","Gas","Plasma"],a:0,t:"Matter",e:"Liquids have fixed volume but take any container's shape.",d:1},
+      {q:"Water heated to 100°C:",o:["Boils and becomes steam","Freezes","Becomes ice","Nothing happens"],a:0,t:"Matter",e:"Water boils at 100°C and turns into water vapour (steam).",d:1},
+      {q:"Which force pulls objects towards Earth?",o:["Gravity","Magnetism","Friction","Buoyancy"],a:0,t:"Force & Energy",e:"Gravity pulls everything towards Earth's centre.",d:1},
+      {q:"A stretched rubber band has what type of energy?",o:["Potential energy","Kinetic energy","Sound energy","Heat energy"],a:0,t:"Force & Energy",e:"Stretched objects store potential energy. Released = kinetic.",d:2},
+      {q:"The Sun is mainly made of:",o:["Hot gases (Hydrogen & Helium)","Rock and metal","Water and ice","Fire"],a:0,t:"Earth & Space",e:"The Sun is a star made mostly of hydrogen and helium.",d:2},
+      {q:"Earth takes how long to complete one ROTATION?",o:["24 hours","365 days","12 hours","1 month"],a:0,t:"Earth & Space",e:"Earth rotates once every 24 hours, giving us day and night.",d:1},
+      {q:"Which is a PRODUCER in a food chain?",o:["Grass","Rabbit","Fox","Eagle"],a:0,t:"Ecology",e:"Producers make their own food via photosynthesis. Grass is a producer.",d:1},
+      {q:"What do DECOMPOSERS do in an ecosystem?",o:["Break down dead organisms","Hunt animals","Make food from sunlight","Eat plants"],a:0,t:"Ecology",e:"Decomposers break down dead matter, recycling nutrients.",d:2},
+      {q:"Which vitamin do we get from sunlight?",o:["Vitamin D","Vitamin C","Vitamin A","Vitamin B"],a:0,t:"Human Body",e:"Skin makes Vitamin D in sunlight — it keeps bones strong.",d:1},
+      {q:"Function of roots in a plant:",o:["Absorb water & anchor plant","Make food","Attract insects","Only carry water"],a:0,t:"Plants",e:"Roots absorb water and minerals AND anchor the plant.",d:1},
+      {q:"Which planet has the most visible rings?",o:["Saturn","Jupiter","Mars","Earth"],a:0,t:"Earth & Space",e:"Saturn has beautiful rings made of ice and rock.",d:1},
+      {q:"Friction is a force that:",o:["Opposes motion","Pulls objects down","Works between magnets","Stores energy"],a:0,t:"Force & Energy",e:"Friction resists the motion of objects sliding against each other.",d:2},
+      {q:"Which organ controls all body functions?",o:["Brain","Heart","Stomach","Liver"],a:0,t:"Human Body",e:"The brain controls all body functions, thoughts and movements.",d:1},
+      {q:"A habitat is:",o:["Natural home of an organism","Food animals eat","How animals move","Animal's colour"],a:0,t:"Ecology",e:"A habitat is where an organism lives and meets all its needs.",d:1},
+    ]},
+  igko:{label:"IGKO",full:"Int'l General Knowledge Olympiad",icon:"🌍",color:"#bf360c",
+    topics:["India","World Geography","Science & Tech","Sports","History","Famous Personalities"],
+    q:[
+      {q:"'Father of the Nation' in India:",o:["Mahatma Gandhi","Jawaharlal Nehru","Subhash Chandra Bose","Sardar Patel"],a:0,t:"Famous Personalities",e:"Mahatma Gandhi led India's independence movement through non-violence.",d:1},
+      {q:"Capital city of India:",o:["New Delhi","Mumbai","Kolkata","Chennai"],a:0,t:"India",e:"New Delhi is India's capital. Mumbai is the financial capital.",d:1},
+      {q:"Longest river in India:",o:["Ganga","Yamuna","Brahmaputra","Indus"],a:0,t:"India",e:"The Ganga is the longest river entirely within India (~2,525 km).",d:1},
+      {q:"Largest continent in the world:",o:["Asia","Africa","Europe","North America"],a:0,t:"World Geography",e:"Asia covers ~30% of Earth's land area.",d:1},
+      {q:"Who invented the light bulb?",o:["Thomas Edison","Alexander Bell","Nikola Tesla","Albert Einstein"],a:0,t:"Science & Tech",e:"Thomas Edison invented the practical light bulb in 1879.",d:1},
+      {q:"Which sport is played at Wimbledon?",o:["Tennis","Cricket","Football","Golf"],a:0,t:"Sports",e:"Wimbledon is the world's oldest tennis tournament, held in London.",d:1},
+      {q:"India became a Republic in:",o:["1950","1947","1952","1965"],a:0,t:"History",e:"India became a Republic on 26 January 1950 when the Constitution took effect.",d:1},
+      {q:"National flower of India:",o:["Lotus","Rose","Marigold","Jasmine"],a:0,t:"India",e:"The Lotus is India's national flower.",d:1},
+      {q:"Which country gifted the Statue of Liberty to the USA?",o:["France","England","Germany","Italy"],a:0,t:"World Geography",e:"France gifted the Statue of Liberty in 1886.",d:2},
+      {q:"'www' stands for:",o:["World Wide Web","World Wide Wire","Wide World Web","World Web Wire"],a:0,t:"Science & Tech",e:"WWW=World Wide Web, invented by Tim Berners-Lee in 1989.",d:1},
+      {q:"Indian cricketer known as 'The Wall':",o:["Rahul Dravid","Sachin Tendulkar","MS Dhoni","Virat Kohli"],a:0,t:"Sports",e:"Rahul Dravid earned 'The Wall' for his solid batting technique.",d:2},
+      {q:"World's tallest building:",o:["Burj Khalifa","Eiffel Tower","Empire State Building","CN Tower"],a:0,t:"World Geography",e:"Burj Khalifa in Dubai (828 m) is the tallest building.",d:1},
+      {q:"Author of 'The Jungle Book':",o:["Rudyard Kipling","Roald Dahl","J.K. Rowling","Lewis Carroll"],a:0,t:"Famous Personalities",e:"Rudyard Kipling wrote The Jungle Book in 1894. Born in Mumbai!",d:2},
+      {q:"Colour of MIDDLE stripe of Indian flag:",o:["White","Green","Saffron","Blue"],a:0,t:"India",e:"Indian flag: Saffron (top) + White with Ashoka Chakra (middle) + Green (bottom).",d:1},
+      {q:"Earth is called 'Blue Planet' because:",o:["71% covered in water","It has a blue sky","Blue light from Sun","Its core is blue"],a:0,t:"Science & Tech",e:"~71% of Earth is water, making it look blue from space.",d:1},
+      {q:"Olympic Games are held every:",o:["4 years","2 years","5 years","10 years"],a:0,t:"Sports",e:"Olympic Games rotate between host cities every 4 years.",d:1},
+      {q:"Smallest state in India:",o:["Goa","Sikkim","Tripura","Manipur"],a:0,t:"India",e:"Goa is the smallest state in India by area.",d:2},
+      {q:"Who painted the Mona Lisa?",o:["Leonardo da Vinci","Michelangelo","Pablo Picasso","Van Gogh"],a:0,t:"Famous Personalities",e:"Leonardo da Vinci painted the Mona Lisa (~1503–1519).",d:1},
+      {q:"India's space agency:",o:["ISRO","NASA","ESA","JAXA"],a:0,t:"Science & Tech",e:"ISRO=Indian Space Research Organisation. Launched Chandrayaan, Mangalyaan.",d:1},
+      {q:"Players in a cricket team:",o:["11","10","12","9"],a:0,t:"Sports",e:"A cricket team has 11 players on each side.",d:1},
+    ]},
+  isso:{label:"ISSO",full:"Int'l Social Studies Olympiad",icon:"🌱",color:"#1b5e20",
+    topics:["Our Environment","Natural Resources","India – Our Country","Maps & Directions","Community Helpers","Transport & Communication"],
+    q:[
+      {q:"Three types of natural resources:",o:["Renewable, non-renewable, inexhaustible","Water, air, soil only","Minerals, plants, animals","Sun, wind, coal only"],a:0,t:"Natural Resources",e:"Renewable (forests), Non-renewable (coal), Inexhaustible (sunlight).",d:2},
+      {q:"Sun RISES from which direction?",o:["East","West","North","South"],a:0,t:"Maps & Directions",e:"Sun always rises in the East and sets in the West.",d:1},
+      {q:"Community helpers are people who:",o:["Do jobs that help society","Only doctors and teachers","Only policemen","Animals that help humans"],a:0,t:"Community Helpers",e:"Community helpers — doctors, police, firefighters, teachers.",d:1},
+      {q:"PIN code stands for:",o:["Postal Index Number","Personal Index Number","Postal Information Number","Post Index Note"],a:0,t:"India – Our Country",e:"PIN=Postal Index Number. 6-digit code for mail delivery.",d:2},
+      {q:"LPG used for cooking stands for:",o:["Liquefied Petroleum Gas","Liquid Petrol Gas","Light Petroleum Gas","Liquid Petrol Grade"],a:0,t:"Natural Resources",e:"LPG=Liquefied Petroleum Gas — a clean cooking fuel.",d:1},
+      {q:"Outermost layer of the Earth:",o:["Crust","Mantle","Core","Magma"],a:0,t:"Our Environment",e:"Earth: Crust (outer), Mantle (middle), Core (inner).",d:1},
+      {q:"Highest civilian award in India:",o:["Bharat Ratna","Padma Vibhushan","Arjuna Award","Param Vir Chakra"],a:0,t:"India – Our Country",e:"Bharat Ratna is India's highest civilian award.",d:2},
+      {q:"A person who makes maps is called a:",o:["Cartographer","Astronomer","Archaeologist","Geologist"],a:0,t:"Maps & Directions",e:"Cartographer makes maps. From Latin 'carta' + Greek 'graphein'.",d:2},
+      {q:"Which is a means of COMMUNICATION?",o:["Telephone","Bicycle","Boat","Train"],a:0,t:"Transport & Communication",e:"Communication=sharing information. Telephone communicates; others transport.",d:1},
+      {q:"Deforestation means:",o:["Cutting down forests","Planting more trees","Natural forest fires","Protecting forests"],a:0,t:"Our Environment",e:"Deforestation=clearing forests for land, timber, or farming.",d:1},
+      {q:"Which sea is to the WEST of India?",o:["Arabian Sea","Bay of Bengal","Pacific Ocean","Red Sea"],a:0,t:"India – Our Country",e:"Arabian Sea (west), Bay of Bengal (east), Indian Ocean (south).",d:1},
+      {q:"A person who grows crops is called:",o:["Farmer / Agriculturist","Carpenter","Blacksmith","Potter"],a:0,t:"Community Helpers",e:"A farmer or agriculturist grows crops for food.",d:1},
+      {q:"India has how many Union Territories?",o:["8","7","6","9"],a:0,t:"India – Our Country",e:"India has 28 States and 8 Union Territories (2024).",d:2},
+      {q:"FASTEST transport for long distances:",o:["Air transport","Road transport","Water transport","Rail transport"],a:0,t:"Transport & Communication",e:"Aeroplanes are the fastest mode of transport for long distances.",d:1},
+      {q:"Main cause of water pollution:",o:["Dumping waste & chemicals into water","Drinking water","Fishing","Evaporation"],a:0,t:"Our Environment",e:"Industrial waste and chemicals dumped in rivers cause water pollution.",d:1},
+      {q:"True shape of Earth:",o:["Geoid (flattened sphere)","Perfectly round sphere","Flat disk","Oval"],a:0,t:"Our Environment",e:"Earth is a 'geoid' — slightly flattened at poles, bulging at equator.",d:2},
+      {q:"On a compass, W stands for:",o:["West","Warm","Wide","White"],a:0,t:"Maps & Directions",e:"Compass: N=North, S=South, E=East, W=West.",d:1},
+      {q:"Most spoken language in India:",o:["Hindi","Bengali","Telugu","Tamil"],a:0,t:"India – Our Country",e:"Hindi is spoken by ~44% of India's population.",d:1},
+      {q:"'Sustainable development' means:",o:["Using resources without harming future generations","Using all resources fast","Developing only cities","Protecting only animals"],a:0,t:"Natural Resources",e:"Sustainable=meeting today's needs without destroying resources for future.",d:2},
+      {q:"Symbol on maps for a hospital:",o:["Red cross (+)","Star (★)","Circle (○)","Triangle (△)"],a:0,t:"Maps & Directions",e:"A red cross (+) is the universal hospital symbol on maps.",d:1},
+    ]}
+};
+
+// ── ADAPTIVE ENGINE ──
+const WEAK_THR=0.50, MIN_ATT=2, REV_EVERY=3;
+let gs={pts:0,ts:{}};
+
+const tk=(s,t)=>s+'|'+t;
+function rec(s,t,ok){const k=tk(s,t);if(!gs.ts[k])gs.ts[k]={c:0,n:0};gs.ts[k].n++;if(ok)gs.ts[k].c++;}
+function acc(s,t){const k=tk(s,t),x=gs.ts[k];if(!x||x.n<MIN_ATT)return 1;return x.c/x.n;}
+function weakOf(s){return S[s].topics.filter(t=>acc(s,t)<WEAK_THR);}
+function allWeak(){const r=[];Object.keys(S).forEach(s=>weakOf(s).forEach(t=>r.push({s,lb:S[s].label,t,a:acc(s,t)})));return r.sort((a,b)=>a.a-b.a);}
+
+// ── QUEUE BUILD ──
+function buildQ(s){
+  const qs=S[s].q, w=weakOf(s);
+  let pool=shuf([...qs]).map(q=>({...q,_m:'normal'}));
+  if(w.length>0){
+    const rp=shuf(qs.filter(q=>w.includes(q.t))).slice(0,8).map(q=>({...q,_m:'review'}));
+    const out=[];let ri=0;
+    pool.forEach((q,i)=>{out.push(q);if((i+1)%REV_EVERY===0&&ri<rp.length)out.push(rp[ri++]);});
+    return out;
+  }
+  return pool;
+}
+
+// ── STATE ──
+let csub=null,queue=[],qi=0,sc=0,st=0,stopics={},answered=false;
+
+// ── HOME ──
+function renderHome(){
+  document.getElementById('homeScreen').style.display='block';
+  document.getElementById('qscr').style.display='none';
+  document.getElementById('totalPts').textContent=gs.pts;
+
+  const aw=allWeak();
+  const gp=document.getElementById('gwp'),gc=document.getElementById('gwc');
+  if(aw.length>0){gp.classList.add('show');gc.innerHTML=aw.map(w=>`<span class="wchip">⚠️ ${w.lb}: ${w.t} (${Math.round(w.a*100)}%)</span>`).join('');}
+  else gp.classList.remove('show');
+
+  const grid=document.getElementById('sgrid');grid.innerHTML='';
+  Object.entries(S).forEach(([k,sub])=>{
+    const w=weakOf(k);
+    let ta=0,tc=0;
+    sub.topics.forEach(t=>{const x=gs.ts[tk(k,t)];if(x){ta+=x.n;tc+=x.c;}});
+
+    const card=document.createElement('div');
+    card.className='scard'+(w.length>0?' has-weak':'');
+    card.onclick=()=>startQuiz(k);
+
+    let pills='';
+    if(ta>0)pills+=`<span class="pill info">✅ ${Math.round(tc/ta*100)}% accuracy</span>`;
+    else pills+=`<span class="pill info">Not started yet</span>`;
+    if(w.length>0)pills+=`<span class="pill warn">⚠️ ${w.length} weak topic${w.length>1?'s':''}</span>`;
+    if(w.length>0)card.innerHTML+=`<div class="wbadge">NEEDS REVIEW</div>`;
+
+    card.innerHTML+=`
+      <div class="stripe" style="background:${sub.color}"></div>
+      <span class="si">${sub.icon}</span>
+      <div class="sn">${sub.label}</div>
+      <div class="sf">${sub.full}</div>
+      <div class="sp">${pills}</div>`;
+    grid.appendChild(card);
+  });
+}
+
+// ── QUIZ ──
+function startQuiz(s){
+  csub=s;queue=buildQ(s);qi=0;sc=0;st=0;stopics={};answered=false;
+  document.getElementById('homeScreen').style.display='none';
+  document.getElementById('qscr').style.display='block';
+  document.getElementById('qlbl').textContent=S[s].icon+' '+S[s].label;
+  document.getElementById('rcard').classList.remove('show');
+  document.getElementById('rcard').style.display='none';
+  renderQ();
+}
+
+function renderQ(){
+  if(qi>=queue.length){showResult();return;}
+  const q=queue[qi],total=queue.length,col=S[csub].color;
+  document.getElementById('pbar').style.width=Math.round(qi/total*100)+'%';
+  document.getElementById('qctr').textContent=(qi+1)+'/'+total;
+  document.getElementById('rcard').classList.remove('show');
+  document.getElementById('rcard').style.display='none';
+  answered=false;
+
+  const mp=document.getElementById('mpill'),an=document.getElementById('anotice');
+  if(q._m==='review'){
+    mp.className='mpill review';mp.textContent='🔁 Review Mode — Weak Topic';
+    an.className='anotice show';an.innerHTML=`⚠️ You've been getting <b>${q.t}</b> questions wrong. Extra practice time!`;
+  }else{mp.className='mpill normal';mp.textContent='📚 Practice Mode';an.className='anotice';}
+
+  const L=['A','B','C','D'],stars='⭐'.repeat(q.d);
+  const con=document.getElementById('qcon');
+  const card=document.createElement('div');
+  card.className='qcard';
+  card.style.cssText=`--qc:${col};border-top-color:${col}`;
+  card.innerHTML=`
+    <div class="qmeta">
+      <span class="qtag" style="background:${col}">${q.t}</span>
+      <span class="qdiff">${stars}</span>
+    </div>
+    <div class="qtext">${q.q}</div>
+    <div class="opts" id="og">
+      ${q.o.map((o,i)=>`<button class="opt" id="o${i}" onclick="checkAns(${i})"><span class="ltr">${L[i]}</span>${o}</button>`).join('')}
+    </div>
+    <div class="fb" id="fb"></div>
+    <button class="nbtn" id="nb" onclick="nextQ()">${qi<queue.length-1?'Next Question →':'See My Results 🏆'}</button>
+  `;
+  con.innerHTML='';con.appendChild(card);
+}
+
+function checkAns(chosen){
+  if(answered)return;answered=true;
+  const q=queue[qi],ok=chosen===q.a;
+  rec(csub,q.t,ok);st++;
+  if(ok){sc++;gs.pts+=(q.d*4);}else{gs.pts=Math.max(0,gs.pts-1);}
+  document.getElementById('totalPts').textContent=gs.pts;
+  if(!stopics[q.t])stopics[q.t]={c:0,n:0};
+  stopics[q.t].n++;if(ok)stopics[q.t].c++;
+  document.querySelectorAll('.opt').forEach(b=>b.disabled=true);
+  document.getElementById('o'+q.a).classList.add('correct');
+  if(!ok)document.getElementById('o'+chosen).classList.add('wrong');
+  const fb=document.getElementById('fb');
+  fb.className='fb show '+(ok?'ok':'fail');
+  fb.innerHTML=(ok?'🎉 Correct! ':'❌ Not quite! ')+q.e;
+  document.getElementById('nb').classList.add('show');
+}
+
+function nextQ(){qi++;renderQ();}
+function goHome(){csub=null;renderHome();}
+
+function showResult(){
+  document.getElementById('qcon').innerHTML='';
+  document.getElementById('anotice').className='anotice';
+  const pct=st>0?Math.round(sc/st*100):0;
+  let trophy='📚',title='Keep Going!';
+  if(pct>=90){trophy='🥇';title='Champion!';}else if(pct>=70){trophy='🥈';title='Great Job!';}else if(pct>=50){trophy='🥉';title='Good Try!';}
+  const wt=weakOf(csub);
+  const nhtml=wt.length>0
+    ?`<div class="rnotice warn">🎯 Extra practice next time on: <b>${wt.join(', ')}</b></div>`
+    :`<div class="rnotice ok">✅ No weak topics detected. Excellent!</div>`;
+  const bhtml=Object.entries(stopics).map(([t,s])=>{
+    const tp=Math.round(s.c/s.n*100);
+    const bc=tp>=70?'#00897b':tp>=50?'#f9a825':'#e53935';
+    return `<div class="trow">
+      <span class="tlbl">${t}${tp<50?'<span class="wk">WEAK</span>':''}</span>
+      <div class="bwrap"><div class="bfill" style="width:${tp}%;background:${bc}"></div></div>
+      <span class="bpct">${tp}%</span>
+    </div>`;
+  }).join('');
+  const rc=document.getElementById('rcard');
+  rc.innerHTML=`
+    <div class="rtrophy">${trophy}</div>
+    <div class="rtitle">${title}</div>
+    <div class="rfrac">${sc} / ${st}</div>
+    <div class="rpct">${pct}% Accuracy</div>
+    ${nhtml}
+    <div class="breakdown"><h3>📊 Topic-wise Performance</h3>${bhtml}</div>
+    <div class="rbtns">
+      <button class="rbtn primary" onclick="startQuiz('${csub}')">🔁 Retry (Adaptive)</button>
+      <button class="rbtn secondary" onclick="goHome()">🏠 All Subjects</button>
+    </div>`;
+  rc.style.display='block';setTimeout(()=>rc.classList.add('show'),20);
+}
+
+function shuf(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+renderHome();
+</script>
+
+</body>
+</html>
