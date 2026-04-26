@@ -3,233 +3,620 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SOF Grade 2 Olympiad – Smart Practice</title>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>SOF Olympiad Prep – Grade 2</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@700;800;900&display=swap" rel="stylesheet">
 <style>
-:root {
-  --navy:#0d1b3e;
-  --gold:#e8a000;
-  --gold-light:#ffd166;
-  --coral:#e53935;
-  --mint:#00897b;
-  --mint-light:#e0f2f1;
-  --blue:#1565c0;
-  --blue-light:#e3f0ff;
-  --purple:#6a1b9a;
-  --purple-light:#f3e5f5;
-  --orange:#e65100;
-  --orange-light:#fff3e0;
-  --green:#2e7d32;
-  --green-light:#e8f5e9;
-  --bg:#f0f4fc;
-  --card:#ffffff;
-  --text:#0d1b3e;
-  --text2:#455a7a;
-  --border:#cdd8ee;
-  --shadow:0 4px 18px rgba(13,27,62,0.10);
-  --shadow-lg:0 8px 32px rgba(13,27,62,0.16);
+/* ═══════════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════════ */
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{width:100%;height:100%;overflow:hidden;background:#f0f5ff;}
+body{font-family:'Nunito',sans-serif;color:#1a2744;}
+
+/* ═══════════════════════════════════════════
+CSS VARIABLES
+═══════════════════════════════════════════ */
+:root{
+–navy:#1a2744; –navy2:#253563;
+–gold:#f5a623; –gold-l:#ffe59e;
+–blue:#2563eb; –blue-l:#dbeafe;
+–purple:#7c3aed; –purple-l:#ede9fe;
+–teal:#0d9488; –teal-l:#ccfbf1;
+–orange:#ea580c; –orange-l:#ffedd5;
+–green:#16a34a; –green-l:#dcfce7;
+–red:#dc2626; –red-l:#fee2e2;
+–pink:#db2777; –pink-l:#fce7f3;
+–bg:#f0f5ff; –card:#fff;
+–border:#dde4f0; –text2:#4a5578;
+–shadow:0 4px 24px rgba(26,39,68,.10);
+–shadow-lg:0 10px 40px rgba(26,39,68,.16);
+–radius:20px;
+–fs-xl:2rem; –fs-lg:1.5rem; –fs-md:1.15rem; –fs-sm:0.95rem; –fs-xs:0.8rem;
 }
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Nunito',sans-serif;background:var(--bg);min-height:100vh;color:var(--text);}
 
-/* HEADER */
-.hdr{background:var(–navy);padding:11px 15px;display:flex;align-items:center;gap:11px;position:sticky;top:0;z-index:200;box-shadow:0 3px 14px rgba(0,0,0,0.28);}
-.hdr-logo{width:44px;height:44px;border-radius:11px;background:var(–gold-light);display:flex;align-items:center;justify-content:center;font-family:‘Fredoka One’,cursive;font-size:.88rem;color:var(–navy);text-align:center;line-height:1.15;flex-shrink:0;}
-.hdr-txt h1{font-family:‘Fredoka One’,cursive;font-size:1.15rem;color:var(–gold-light);line-height:1;}
-.hdr-txt p{font-size:.62rem;color:#8aaac8;font-weight:700;text-transform:uppercase;letter-spacing:.4px;}
-.hdr-pts{margin-left:auto;background:var(–gold-light);border-radius:18px;padding:3px 13px;text-align:center;}
-.hdr-pts .pn{font-family:‘Fredoka One’,cursive;font-size:1.25rem;color:var(–navy);line-height:1;}
-.hdr-pts .pl{font-size:.56rem;font-weight:900;color:var(–navy);text-transform:uppercase;}
+/* ═══════════════════════════════════════════
+SCREEN SYSTEM
+═══════════════════════════════════════════ */
+.screen{
+position:fixed;inset:0;overflow-y:auto;overflow-x:hidden;
+display:none;flex-direction:column;
+background:var(–bg);
+-webkit-overflow-scrolling:touch;
+}
+.screen.active{display:flex;}
 
-/* WRAPPER */
-.app{max-width:660px;margin:0 auto;}
+/* ═══════════════════════════════════════════
+① ONBOARDING SCREEN
+═══════════════════════════════════════════ */
+#screen-onboard{
+background:linear-gradient(160deg,#1a2744 0%,#2d4a9e 60%,#3b82f6 100%);
+align-items:center;justify-content:center;padding:40px 24px;
+}
+.ob-card{
+background:#fff;border-radius:32px;
+width:100%;max-width:560px;
+padding:40px 36px;
+box-shadow:0 20px 60px rgba(0,0,0,.25);
+display:flex;flex-direction:column;align-items:center;gap:8px;
+}
+.ob-logo{
+width:72px;height:72px;border-radius:18px;
+background:var(–navy);
+display:flex;align-items:center;justify-content:center;
+font-family:‘Baloo 2’,cursive;font-size:1rem;font-weight:900;
+color:var(–gold);line-height:1.15;text-align:center;
+margin-bottom:4px;
+}
+.ob-title{font-family:‘Baloo 2’,cursive;font-size:var(–fs-xl);font-weight:900;color:var(–navy);text-align:center;line-height:1.15;}
+.ob-sub{font-size:var(–fs-sm);color:var(–text2);font-weight:600;text-align:center;margin-bottom:12px;}
 
-/* ── HOME ── */
-.home{padding:16px 14px 36px;}
-.home-h{font-family:‘Fredoka One’,cursive;font-size:1.4rem;color:var(–navy);margin-bottom:3px;}
-.home-p{font-size:.8rem;color:var(–text2);font-weight:600;margin-bottom:16px;line-height:1.45;}
+.ob-name-label{font-size:var(–fs-sm);font-weight:800;color:var(–navy);align-self:flex-start;margin-bottom:4px;}
+.ob-name-input{
+width:100%;padding:16px 20px;border-radius:14px;
+border:2.5px solid var(–border);
+font-family:‘Nunito’,sans-serif;font-size:var(–fs-md);font-weight:700;
+color:var(–navy);background:#f8faff;
+outline:none;transition:border-color .2s;
+}
+.ob-name-input:focus{border-color:var(–blue);}
 
-.weak-panel{background:#fff5f5;border:2px solid #ffcdd2;border-radius:14px;padding:13px 15px;margin-bottom:16px;display:none;}
-.weak-panel.show{display:block;}
-.weak-panel h3{font-family:‘Fredoka One’,cursive;font-size:.9rem;color:var(–coral);margin-bottom:9px;}
-.weak-chips{display:flex;flex-wrap:wrap;gap:5px;}
-.wchip{background:#ffebee;border:1.5px solid #ef9a9a;color:#b71c1c;font-size:.68rem;font-weight:800;padding:3px 10px;border-radius:20px;}
+.ob-avatar-label{font-size:var(–fs-sm);font-weight:800;color:var(–navy);align-self:flex-start;margin-top:10px;margin-bottom:8px;}
+.avatar-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;width:100%;}
+.av-btn{
+aspect-ratio:1;border-radius:16px;border:3px solid var(–border);
+background:#f8faff;font-size:2.2rem;cursor:pointer;
+display:flex;align-items:center;justify-content:center;
+transition:all .15s;
+}
+.av-btn:hover{transform:scale(1.08);}
+.av-btn.selected{border-color:var(–blue);background:var(–blue-l);transform:scale(1.1);box-shadow:0 0 0 3px rgba(37,99,235,.3);}
 
-.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:11px;}
-.scard{background:var(–card);border-radius:16px;border:2.5px solid var(–border);padding:16px 13px 13px;cursor:pointer;position:relative;overflow:hidden;transition:transform .17s,box-shadow .17s,border-color .17s;}
-.scard:hover{transform:translateY(-3px);box-shadow:var(–shadow-lg);}
-.scard.has-weak{border-color:#ef9a9a;}
-.scard .stripe{position:absolute;top:0;left:0;right:0;height:5px;border-radius:16px 16px 0 0;}
-.scard .si{font-size:2rem;margin-bottom:5px;display:block;}
-.scard .sn{font-family:‘Fredoka One’,cursive;font-size:1rem;color:var(–navy);margin-bottom:2px;}
-.scard .sf{font-size:.6rem;color:var(–text2);font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:9px;}
-.scard .sp{display:flex;flex-wrap:wrap;gap:5px;}
-.pill{font-size:.63rem;font-weight:800;padding:2px 9px;border-radius:18px;}
-.pill.info{background:var(–blue-light);color:var(–blue);}
-.pill.warn{background:#ffebee;color:var(–coral);}
-.wbadge{position:absolute;top:9px;right:9px;background:var(–coral);color:#fff;font-size:.56rem;font-weight:900;padding:2px 7px;border-radius:10px;animation:blink .9s ease-in-out infinite alternate;}
-@keyframes blink{from{opacity:.8}to{opacity:1;transform:scale(1.05)}}
+.ob-start-btn{
+margin-top:20px;width:100%;padding:18px;border-radius:16px;border:none;
+background:var(–navy);color:var(–gold);
+font-family:‘Baloo 2’,cursive;font-size:var(–fs-lg);font-weight:900;
+cursor:pointer;transition:transform .15s,box-shadow .15s;
+box-shadow:0 6px 20px rgba(26,39,68,.25);
+}
+.ob-start-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(26,39,68,.32);}
+.ob-start-btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
 
-/* ── QUIZ SCREEN ── */
-.qscr{display:none;}
-.qtopbar{background:var(–navy);padding:9px 13px;display:flex;align-items:center;gap:9px;position:sticky;top:57px;z-index:100;}
-.bbtn{background:rgba(255,255,255,.14);border:none;color:#fff;width:30px;height:30px;border-radius:50%;font-size:.95rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .14s;}
-.bbtn:hover{background:rgba(255,255,255,.26);}
-.qlbl{font-family:‘Fredoka One’,cursive;font-size:.95rem;color:#fff;white-space:nowrap;}
-.pwrap{flex:1;height:7px;background:rgba(255,255,255,.14);border-radius:8px;overflow:hidden;}
-.pbar{height:100%;border-radius:8px;transition:width .5s;background:linear-gradient(90deg,#06d6a0,#ffd166);}
-.qctr{font-size:.7rem;font-weight:800;color:#8aaac8;white-space:nowrap;}
+/* ═══════════════════════════════════════════
+SHARED TOP BAR
+═══════════════════════════════════════════ */
+.topbar{
+background:var(–navy);
+padding:14px 20px;
+display:flex;align-items:center;gap:14px;
+flex-shrink:0;
+box-shadow:0 3px 12px rgba(0,0,0,.2);
+position:sticky;top:0;z-index:100;
+}
+.topbar-logo{
+width:44px;height:44px;border-radius:12px;
+background:var(–gold);
+display:flex;align-items:center;justify-content:center;
+font-family:‘Baloo 2’,cursive;font-size:.82rem;font-weight:900;
+color:var(–navy);text-align:center;line-height:1.1;flex-shrink:0;
+}
+.topbar-title{font-family:‘Baloo 2’,cursive;font-size:var(–fs-md);font-weight:900;color:var(–gold);line-height:1;}
+.topbar-sub{font-size:.68rem;color:#90aac8;font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:10px;}
+.player-chip{
+display:flex;align-items:center;gap:8px;
+background:rgba(255,255,255,.1);border-radius:50px;
+padding:5px 14px 5px 8px;
+}
+.player-chip .av{font-size:1.5rem;}
+.player-chip .nm{font-size:.82rem;font-weight:800;color:#fff;}
+.pts-chip{
+background:var(–gold);border-radius:50px;
+padding:5px 14px;
+font-family:‘Baloo 2’,cursive;font-size:1.1rem;font-weight:900;color:var(–navy);
+}
 
-.qbody{padding:13px 14px 36px;}
+/* ═══════════════════════════════════════════
+② HOME SCREEN
+═══════════════════════════════════════════ */
+#screen-home .content{padding:24px 20px 40px;flex:1;}
+.home-greeting{
+font-family:‘Baloo 2’,cursive;font-size:var(–fs-xl);font-weight:900;
+color:var(–navy);margin-bottom:4px;
+}
+.home-hint{font-size:var(–fs-sm);color:var(–text2);font-weight:600;margin-bottom:20px;}
 
-.mpill{display:inline-flex;align-items:center;gap:4px;font-size:.68rem;font-weight:800;padding:3px 11px;border-radius:18px;margin-bottom:9px;}
-.mpill.normal{background:var(–blue-light);color:var(–blue);}
-.mpill.review{background:#ffebee;color:var(–coral);}
+/* weak panel */
+.weak-banner{
+background:#fff;border:2.5px solid #fca5a5;
+border-left:6px solid var(–red);
+border-radius:16px;padding:16px 18px;margin-bottom:20px;display:none;
+}
+.weak-banner.show{display:block;}
+.weak-banner h3{font-family:‘Baloo 2’,cursive;font-size:var(–fs-sm);color:var(–red);margin-bottom:8px;}
+.wchips{display:flex;flex-wrap:wrap;gap:7px;}
+.wchip{background:var(–red-l);border:1.5px solid #fca5a5;color:var(–red);font-size:var(–fs-xs);font-weight:800;padding:4px 12px;border-radius:20px;}
 
-.anotice{background:#fff8e1;border:1.5px solid #ffe082;border-radius:11px;padding:9px 13px;font-size:.76rem;font-weight:700;color:#e65100;margin-bottom:11px;display:none;}
-.anotice.show{display:block;}
+/* subject grid */
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.scard{
+background:var(–card);border-radius:var(–radius);
+border:3px solid var(–border);
+padding:24px 18px 18px;cursor:pointer;position:relative;overflow:hidden;
+transition:transform .18s,box-shadow .18s,border-color .18s;
+min-height:200px;display:flex;flex-direction:column;
+}
+.scard:hover,.scard:active{transform:translateY(-4px);box-shadow:var(–shadow-lg);}
+.scard.has-weak{border-color:#fca5a5;}
+.scard-stripe{position:absolute;top:0;left:0;right:0;height:6px;border-radius:var(–radius) var(–radius) 0 0;}
+.scard-icon{font-size:3rem;margin-bottom:10px;}
+.scard-name{font-family:‘Baloo 2’,cursive;font-size:var(–fs-lg);font-weight:900;color:var(–navy);margin-bottom:3px;}
+.scard-full{font-size:.68rem;color:var(–text2);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;}
+.scard-pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;}
+.spill{font-size:.72rem;font-weight:800;padding:3px 11px;border-radius:18px;}
+.spill-info{background:var(–blue-l);color:var(–blue);}
+.spill-warn{background:var(–red-l);color:var(–red);}
+.weak-badge{
+position:absolute;top:12px;right:12px;
+background:var(–red);color:#fff;
+font-size:.62rem;font-weight:900;padding:3px 9px;border-radius:12px;
+animation:pop .9s ease-in-out infinite alternate;
+}
+@keyframes pop{from{transform:scale(1)}to{transform:scale(1.08)}}
 
-/* question card */
-.qcard{background:var(–card);border-radius:16px;box-shadow:var(–shadow);padding:18px 16px 15px;border-top:5px solid var(–qc,#1565c0);animation:fup .26s ease;}
-@keyframes fup{from{opacity:0;transform:translateY(11px)}to{opacity:1;transform:translateY(0)}}
-.qmeta{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;}
-.qtag{font-size:.65rem;font-weight:900;padding:3px 10px;border-radius:18px;color:#fff;background:var(–qc,#1565c0);}
-.qdiff{font-size:.75rem;color:#bbb;}
-.qtext{font-size:1rem;font-weight:800;color:var(–navy);line-height:1.55;margin-bottom:15px;}
+/* admin btn */
+.admin-btn{
+margin-top:24px;width:100%;padding:16px;border-radius:14px;
+border:2.5px solid var(–border);background:#fff;
+font-family:‘Baloo 2’,cursive;font-size:var(–fs-sm);font-weight:900;
+color:var(–text2);cursor:pointer;transition:all .15s;
+display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.admin-btn:hover{border-color:var(–navy);color:var(–navy);}
 
-/* options */
-.opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-.opt{padding:11px 11px;border-radius:12px;border:2.5px solid var(–border);background:#f6f9ff;cursor:pointer;color:var(–navy);font-family:‘Nunito’,sans-serif;font-size:.86rem;font-weight:700;display:flex;align-items:center;gap:8px;text-align:left;transition:all .13s;line-height:1.3;}
-.opt:hover:not(:disabled){border-color:var(–qc,#1565c0);background:var(–blue-light);transform:scale(1.02);}
-.opt .ltr{width:24px;height:24px;flex-shrink:0;border-radius:50%;background:var(–border);color:var(–navy);display:flex;align-items:center;justify-content:center;font-size:.67rem;font-weight:900;}
-.opt.correct{border-color:#00897b;background:var(–mint-light);}
-.opt.correct .ltr{background:#00897b;color:#fff;}
-.opt.wrong{border-color:var(–coral);background:#ffebee;}
-.opt.wrong .ltr{background:var(–coral);color:#fff;}
+/* ═══════════════════════════════════════════
+③ QUIZ SCREEN
+═══════════════════════════════════════════ */
+#screen-quiz .quiz-topbar{
+background:var(–navy);padding:10px 18px;
+display:flex;align-items:center;gap:12px;
+flex-shrink:0;position:sticky;top:0;z-index:99;
+}
+.back-btn{
+background:rgba(255,255,255,.14);border:none;color:#fff;
+width:36px;height:36px;border-radius:50%;font-size:1.1rem;
+cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.quiz-sub-name{font-family:‘Baloo 2’,cursive;font-size:var(–fs-md);font-weight:900;color:#fff;white-space:nowrap;}
+.prog-wrap{flex:1;height:10px;background:rgba(255,255,255,.15);border-radius:8px;overflow:hidden;}
+.prog-bar{height:100%;border-radius:8px;transition:width .5s;background:linear-gradient(90deg,#06d6a0,var(–gold));}
+.qcounter{font-size:.78rem;font-weight:800;color:#90aac8;white-space:nowrap;}
+
+.qbody{padding:20px 20px 40px;flex:1;}
+
+.mode-pill{display:inline-flex;align-items:center;gap:5px;font-size:.78rem;font-weight:800;padding:5px 14px;border-radius:20px;margin-bottom:10px;}
+.mode-pill.normal{background:var(–blue-l);color:var(–blue);}
+.mode-pill.review{background:var(–red-l);color:var(–red);}
+
+.adapt-notice{
+background:#fffbeb;border:2px solid #fde68a;border-left:5px solid var(–gold);
+border-radius:13px;padding:12px 16px;font-size:var(–fs-xs);font-weight:700;
+color:var(–orange);margin-bottom:14px;display:none;
+}
+.adapt-notice.show{display:block;}
+
+.qcard{
+background:var(–card);border-radius:var(–radius);
+box-shadow:var(–shadow);padding:26px 22px 20px;
+border-top:6px solid var(–qc,#2563eb);
+animation:slideUp .25s ease;
+}
+@keyframes slideUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.qmeta{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+.qtag{font-size:.75rem;font-weight:900;padding:4px 13px;border-radius:18px;color:#fff;background:var(–qc,#2563eb);}
+.qdiff{font-size:1rem;color:#ccc;}
+.qtext{font-size:var(–fs-lg);font-weight:800;color:var(–navy);line-height:1.5;margin-bottom:20px;}
+
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.opt{
+padding:16px 14px;border-radius:16px;
+border:2.5px solid var(–border);background:#f6f9ff;
+cursor:pointer;color:var(–navy);
+font-family:‘Nunito’,sans-serif;font-size:var(–fs-sm);font-weight:700;
+display:flex;align-items:center;gap:10px;text-align:left;
+transition:all .13s;line-height:1.35;
+}
+.opt:hover:not(:disabled){border-color:var(–qc,#2563eb);background:var(–blue-l);transform:scale(1.02);}
+.opt .ltr{
+width:30px;height:30px;flex-shrink:0;border-radius:50%;
+background:var(–border);color:var(–navy);
+display:flex;align-items:center;justify-content:center;
+font-size:.75rem;font-weight:900;
+}
+.opt.correct{border-color:var(–teal);background:var(–teal-l);}
+.opt.correct .ltr{background:var(–teal);color:#fff;}
+.opt.wrong{border-color:var(–red);background:var(–red-l);}
+.opt.wrong .ltr{background:var(–red);color:#fff;}
 .opt:disabled{cursor:default;}
 
-/* feedback */
-.fb{margin-top:11px;padding:11px 13px;border-radius:11px;font-size:.8rem;font-weight:700;line-height:1.5;display:none;}
-.fb.show{display:block;animation:fup .2s ease;}
-.fb.ok{background:var(–mint-light);border:1.5px solid #80cbc4;color:#004d40;}
-.fb.fail{background:#ffebee;border:1.5px solid #ef9a9a;color:#b71c1c;}
-
-/* next btn */
-.nbtn{display:none;width:100%;margin-top:11px;padding:14px;border-radius:13px;border:none;cursor:pointer;background:var(–navy);color:var(–gold-light);font-family:‘Fredoka One’,cursive;font-size:1rem;box-shadow:0 4px 12px rgba(13,27,62,.18);transition:transform .14s,box-shadow .14s;}
-.nbtn:hover{transform:translateY(-2px);box-shadow:0 7px 18px rgba(13,27,62,.26);}
-.nbtn.show{display:block;}
-
-/* result */
-.rcard{background:var(–card);border-radius:18px;box-shadow:var(–shadow-lg);padding:26px 18px 22px;text-align:center;display:none;animation:fup .3s ease;}
-.rcard.show{display:block;}
-.rtrophy{font-size:3.2rem;margin-bottom:5px;}
-.rtitle{font-family:‘Fredoka One’,cursive;font-size:1.5rem;color:var(–navy);margin-bottom:3px;}
-.rfrac{font-family:‘Fredoka One’,cursive;font-size:2.4rem;color:var(–blue);margin-bottom:2px;}
-.rpct{font-size:.82rem;font-weight:700;color:var(–text2);margin-bottom:13px;}
-.rnotice{font-size:.78rem;font-weight:700;padding:9px 13px;border-radius:11px;margin-bottom:16px;text-align:left;}
-.rnotice.ok{background:var(–mint-light);color:#004d40;border:1.5px solid #80cbc4;}
-.rnotice.warn{background:#fff8e1;color:#e65100;border:1.5px solid #ffe082;}
-.breakdown{margin-bottom:18px;text-align:left;}
-.breakdown h3{font-family:‘Fredoka One’,cursive;font-size:.9rem;color:var(–navy);margin-bottom:10px;text-align:center;}
-.trow{display:flex;align-items:center;gap:7px;margin-bottom:8px;}
-.tlbl{font-size:.72rem;font-weight:800;color:var(–navy);width:126px;flex-shrink:0;line-height:1.2;}
-.tlbl .wk{display:inline-block;font-size:.55rem;font-weight:900;background:var(–coral);color:#fff;padding:1px 5px;border-radius:7px;margin-left:3px;vertical-align:middle;}
-.bwrap{flex:1;height:10px;background:#e8eef8;border-radius:7px;overflow:hidden;}
-.bfill{height:100%;border-radius:7px;transition:width .7s;}
-.bpct{font-size:.68rem;font-weight:800;color:var(–text2);width:30px;text-align:right;}
-.rbtns{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;}
-.rbtn{padding:11px 20px;border-radius:50px;border:none;cursor:pointer;font-family:‘Fredoka One’,cursive;font-size:.9rem;transition:transform .13s;}
-.rbtn:hover{transform:scale(1.04);}
-.rbtn.primary{background:var(–navy);color:var(–gold-light);}
-.rbtn.secondary{background:var(–blue-light);color:var(–blue);}
-
-@media(max-width:430px){
-.opts{grid-template-columns:1fr;}
-.sgrid{grid-template-columns:1fr;}
+.fb-box{
+margin-top:14px;padding:14px 17px;border-radius:14px;
+font-size:var(–fs-sm);font-weight:700;line-height:1.5;display:none;
 }
+.fb-box.show{display:block;animation:slideUp .2s ease;}
+.fb-box.ok{background:var(–teal-l);border:2px solid #99f6e4;color:#134e4a;}
+.fb-box.fail{background:var(–red-l);border:2px solid #fca5a5;color:#7f1d1d;}
+
+.next-btn{
+display:none;width:100%;margin-top:14px;padding:18px;
+border-radius:16px;border:none;cursor:pointer;
+background:var(–navy);color:var(–gold);
+font-family:‘Baloo 2’,cursive;font-size:var(–fs-md);font-weight:900;
+box-shadow:0 4px 14px rgba(26,39,68,.18);
+transition:transform .14s,box-shadow .14s;
+}
+.next-btn:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(26,39,68,.26);}
+.next-btn.show{display:block;}
+
+/* ═══════════════════════════════════════════
+④ RESULT SCREEN
+═══════════════════════════════════════════ */
+#screen-result .content{padding:24px 20px 40px;flex:1;}
+.rcard{background:var(–card);border-radius:var(–radius);box-shadow:var(–shadow-lg);padding:32px 24px 28px;text-align:center;}
+.rtrophy{font-size:4.5rem;margin-bottom:10px;}
+.rtitle{font-family:‘Baloo 2’,cursive;font-size:var(–fs-xl);font-weight:900;color:var(–navy);margin-bottom:6px;}
+.rfrac{font-family:‘Baloo 2’,cursive;font-size:3rem;font-weight:900;color:var(–blue);margin-bottom:4px;}
+.rpct{font-size:var(–fs-sm);font-weight:700;color:var(–text2);margin-bottom:16px;}
+.rnotice{font-size:var(–fs-sm);font-weight:700;padding:12px 16px;border-radius:13px;margin-bottom:18px;text-align:left;}
+.rnotice.ok{background:var(–teal-l);color:#134e4a;border:2px solid #99f6e4;}
+.rnotice.warn{background:#fffbeb;color:var(–orange);border:2px solid #fde68a;}
+.breakdown{margin-bottom:22px;text-align:left;}
+.breakdown h3{font-family:‘Baloo 2’,cursify;font-size:var(–fs-sm);font-weight:900;color:var(–navy);margin-bottom:12px;text-align:center;}
+.trow{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.tlbl{font-size:var(–fs-xs);font-weight:800;color:var(–navy);width:140px;flex-shrink:0;line-height:1.25;}
+.wk-tag{display:inline-block;font-size:.55rem;font-weight:900;background:var(–red);color:#fff;padding:1px 5px;border-radius:6px;margin-left:3px;vertical-align:middle;}
+.bwrap{flex:1;height:12px;background:#e8eef8;border-radius:8px;overflow:hidden;}
+.bfill{height:100%;border-radius:8px;transition:width .8s;}
+.bpct{font-size:.72rem;font-weight:900;color:var(–text2);width:34px;text-align:right;}
+.rbtns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:8px;}
+.rbtn{padding:14px 26px;border-radius:50px;border:none;cursor:pointer;font-family:‘Baloo 2’,cursive;font-size:var(–fs-sm);font-weight:900;transition:transform .13s;}
+.rbtn:hover{transform:scale(1.04);}
+.rbtn.primary{background:var(–navy);color:var(–gold);}
+.rbtn.secondary{background:var(–blue-l);color:var(–blue);}
+
+/* ═══════════════════════════════════════════
+⑤ ADMIN SCREEN
+═══════════════════════════════════════════ */
+#screen-admin{background:var(–bg);}
+#screen-admin .content{padding:24px 20px 40px;flex:1;}
+.admin-gate{
+background:var(–card);border-radius:var(–radius);
+box-shadow:var(–shadow);padding:32px 24px;
+max-width:400px;margin:0 auto;text-align:center;
+}
+.admin-gate h2{font-family:‘Baloo 2’,cursive;font-size:var(–fs-lg);font-weight:900;color:var(–navy);margin-bottom:8px;}
+.admin-gate p{font-size:var(–fs-xs);color:var(–text2);margin-bottom:20px;}
+.pin-input{
+width:100%;padding:16px;border-radius:14px;border:2.5px solid var(–border);
+font-family:‘Nunito’,sans-serif;font-size:var(–fs-lg);font-weight:700;
+color:var(–navy);text-align:center;letter-spacing:8px;outline:none;
+transition:border-color .2s;
+}
+.pin-input:focus{border-color:var(–blue);}
+.pin-btn{
+margin-top:14px;width:100%;padding:16px;border-radius:14px;border:none;
+background:var(–navy);color:var(–gold);
+font-family:‘Baloo 2’,cursive;font-size:var(–fs-sm);font-weight:900;cursor:pointer;
+}
+.pin-err{font-size:var(–fs-xs);color:var(–red);font-weight:700;margin-top:8px;display:none;}
+.pin-err.show{display:block;}
+
+.admin-dashboard{display:none;}
+.admin-dashboard.show{display:block;}
+
+.admin-section{margin-bottom:28px;}
+.admin-section h2{font-family:‘Baloo 2’,cursive;font-size:var(–fs-lg);font-weight:900;color:var(–navy);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+
+/* stat cards */
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:20px;}
+.stat-card{background:var(–card);border-radius:16px;padding:18px 16px;box-shadow:var(–shadow);text-align:center;}
+.stat-num{font-family:‘Baloo 2’,cursive;font-size:2rem;font-weight:900;color:var(–navy);}
+.stat-lbl{font-size:.7rem;font-weight:800;color:var(–text2);text-transform:uppercase;letter-spacing:.5px;}
+.stat-icon{font-size:1.5rem;margin-bottom:4px;}
+
+/* subject progress */
+.sub-progress-card{background:var(–card);border-radius:16px;padding:20px;box-shadow:var(–shadow);margin-bottom:12px;}
+.sp-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.sp-icon{font-size:1.8rem;}
+.sp-name{font-family:‘Baloo 2’,cursive;font-size:var(–fs-sm);font-weight:900;color:var(–navy);}
+.sp-overall{font-size:.72rem;font-weight:700;color:var(–text2);}
+.sp-topics{}
+.sp-topic-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.sp-topic-name{font-size:.75rem;font-weight:700;color:var(–navy);width:160px;flex-shrink:0;}
+.sp-bar-wrap{flex:1;height:10px;background:#e8eef8;border-radius:6px;overflow:hidden;}
+.sp-bar-fill{height:100%;border-radius:6px;transition:width .6s;}
+.sp-pct{font-size:.7rem;font-weight:800;color:var(–text2);width:32px;text-align:right;}
+
+/* activity log */
+.activity-log{background:var(–card);border-radius:16px;padding:20px;box-shadow:var(–shadow);}
+.log-entry{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #eef2f8;}
+.log-entry:last-child{border-bottom:none;}
+.log-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.log-text{flex:1;}
+.log-title{font-size:var(–fs-xs);font-weight:800;color:var(–navy);}
+.log-time{font-size:.65rem;font-weight:600;color:var(–text2);}
+.log-score{font-family:‘Baloo 2’,cursive;font-size:var(–fs-sm);font-weight:900;}
+.no-data{text-align:center;padding:32px;font-size:var(–fs-sm);color:var(–text2);font-weight:600;}
+
+/* clear btn */
+.clear-btn{background:#fff;border:2px solid #fca5a5;color:var(–red);font-family:‘Baloo 2’,cursive;font-size:.8rem;font-weight:900;padding:8px 18px;border-radius:20px;cursor:pointer;}
+
+/* ═══════════════════════════════════════════
+RESPONSIVE — IPAD
+═══════════════════════════════════════════ */
+@media(min-width:768px){
+:root{
+–fs-xl:2.4rem; –fs-lg:1.75rem; –fs-md:1.3rem; –fs-sm:1.05rem; –fs-xs:0.88rem;
+}
+.scard-icon{font-size:3.5rem;}
+.av-btn{font-size:2.6rem;}
+.opts{gap:16px;}
+.opt{padding:20px 18px;font-size:1rem;}
+.opt .ltr{width:36px;height:36px;font-size:.82rem;}
+.qtext{font-size:1.5rem;}
+.admin-gate{max-width:480px;}
+.sp-topic-name{width:200px;}
+}
+@media(min-width:1024px){
+.scard{min-height:240px;}
+.qbody{max-width:800px;margin:0 auto;}
+#screen-result .content, #screen-admin .content{max-width:800px;margin:0 auto;}
+}
+
+/* ═══════════════════════════════════════════
+CONFETTI CANVAS
+═══════════════════════════════════════════ */
+#confetti-canvas{position:fixed;inset:0;pointer-events:none;z-index:999;display:none;}
 </style>
 
 </head>
 <body>
 
-<div class="hdr">
-  <div class="hdr-logo">SOF<br>G2</div>
-  <div class="hdr-txt">
-    <h1>SOF Olympiad Prep</h1>
-    <p>Grade 2 · Adaptive Smart Practice</p>
-  </div>
-  <div class="hdr-pts">
-    <div class="pn" id="totalPts">0</div>
-    <div class="pl">Points</div>
-  </div>
-</div>
+<canvas id="confetti-canvas"></canvas>
 
-<div class="app">
+<!-- ═══════════════════════════════════
+  ① ONBOARDING
+════════════════════════════════════ -->
 
-  <!-- HOME -->
-
-  <div class="home" id="homeScreen">
-    <div class="home-h">Choose Your Olympiad ⭐</div>
-    <div class="home-p">The app tracks your weak topics and automatically gives extra practice on them!</div>
+<div class="screen active" id="screen-onboard">
+  <div class="ob-card">
+    <div class="ob-logo">SOF<br>G2</div>
+    <div class="ob-title">SOF Olympiad Prep</div>
+    <div class="ob-sub">Grade 2 · Adaptive Smart Practice</div>
 
 ```
-<div class="weak-panel" id="gwp">
-  <h3>⚠️ Topics Needing More Practice</h3>
-  <div class="weak-chips" id="gwc"></div>
-</div>
+<div class="ob-name-label">What's your name? 😊</div>
+<input class="ob-name-input" id="nameInput" type="text" placeholder="Type your name here..." maxlength="20" autocomplete="off">
 
-<div class="sgrid" id="sgrid"></div>
+<div class="ob-avatar-label">Pick your avatar! 🎨</div>
+<div class="avatar-grid" id="avatarGrid"></div>
+
+<button class="ob-start-btn" id="startBtn" disabled onclick="finishOnboarding()">
+  Let's Start! 🚀
+</button>
 ```
 
   </div>
+</div>
 
-  <!-- QUIZ -->
+<!-- ═══════════════════════════════════
+  ② HOME
+════════════════════════════════════ -->
 
-  <div class="qscr" id="qscr">
-    <div class="qtopbar">
-      <button class="bbtn" onclick="goHome()">←</button>
-      <span class="qlbl" id="qlbl">IMO</span>
-      <div class="pwrap"><div class="pbar" id="pbar" style="width:0%"></div></div>
-      <span class="qctr" id="qctr">1/20</span>
+<div class="screen" id="screen-home">
+  <div class="topbar">
+    <div class="topbar-logo">SOF<br>G2</div>
+    <div>
+      <div class="topbar-title">SOF Olympiad Prep</div>
+      <div class="topbar-sub">Grade 2 · Adaptive</div>
     </div>
-    <div class="qbody">
-      <div class="mpill normal" id="mpill">📚 Practice Mode</div>
-      <div class="anotice" id="anotice"></div>
-      <div id="qcon"></div>
-      <div class="rcard" id="rcard"></div>
+    <div class="topbar-right">
+      <div class="player-chip">
+        <span class="av" id="hdr-avatar"></span>
+        <span class="nm" id="hdr-name"></span>
+      </div>
+      <div class="pts-chip" id="hdr-pts">0 pts</div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="home-greeting" id="home-greeting">Hello!</div>
+    <div class="home-hint">The app learns where you struggle and gives you extra practice there 🎯</div>
+
+```
+<div class="weak-banner" id="weak-banner">
+  <h3>⚠️ Topics needing more practice</h3>
+  <div class="wchips" id="weak-chips"></div>
+</div>
+
+<div class="sgrid" id="subject-grid"></div>
+
+<button class="admin-btn" onclick="showAdmin()">
+  🔐 Parent / Admin Console
+</button>
+```
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+  ③ QUIZ
+════════════════════════════════════ -->
+
+<div class="screen" id="screen-quiz">
+  <div class="quiz-topbar">
+    <button class="back-btn" onclick="goHome()">←</button>
+    <span class="quiz-sub-name" id="quiz-sub-name">IMO</span>
+    <div class="prog-wrap"><div class="prog-bar" id="prog-bar" style="width:0%"></div></div>
+    <span class="qcounter" id="q-counter">1/20</span>
+  </div>
+  <div class="qbody">
+    <div class="mode-pill normal" id="mode-pill">📚 Practice Mode</div>
+    <div class="adapt-notice" id="adapt-notice"></div>
+    <div id="q-container"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+  ④ RESULT
+════════════════════════════════════ -->
+
+<div class="screen" id="screen-result">
+  <div class="topbar">
+    <div class="topbar-logo">SOF<br>G2</div>
+    <div>
+      <div class="topbar-title">Quiz Result</div>
+      <div class="topbar-sub">Session Summary</div>
+    </div>
+    <div class="topbar-right">
+      <div class="player-chip">
+        <span class="av" id="res-avatar"></span>
+        <span class="nm" id="res-name"></span>
+      </div>
+    </div>
+  </div>
+  <div class="content" id="result-content"></div>
+</div>
+
+<!-- ═══════════════════════════════════
+  ⑤ ADMIN
+════════════════════════════════════ -->
+
+<div class="screen" id="screen-admin">
+  <div class="topbar">
+    <div class="topbar-logo">SOF<br>G2</div>
+    <div>
+      <div class="topbar-title">Admin Console</div>
+      <div class="topbar-sub">Parent Dashboard</div>
+    </div>
+    <div class="topbar-right">
+      <button style="background:rgba(255,255,255,.12);border:none;color:#fff;padding:8px 16px;border-radius:20px;font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;" onclick="showScreen('screen-home')">← Back</button>
+    </div>
+  </div>
+  <div class="content">
+    <!-- PIN gate -->
+    <div class="admin-gate" id="admin-gate">
+      <div style="font-size:3rem;margin-bottom:8px;">🔐</div>
+      <h2>Parent Console</h2>
+      <p>Enter the 4-digit PIN to access the admin dashboard.<br><strong>Default PIN: 1234</strong></p>
+      <input class="pin-input" id="pin-input" type="password" maxlength="4" placeholder="••••" inputmode="numeric">
+      <div class="pin-err" id="pin-err">❌ Wrong PIN. Try again.</div>
+      <button class="pin-btn" onclick="checkPin()">Unlock Dashboard</button>
+    </div>
+
+```
+<!-- Dashboard -->
+<div class="admin-dashboard" id="admin-dashboard">
+
+  <!-- Player Info -->
+  <div class="admin-section">
+    <h2>👤 Student Profile</h2>
+    <div id="admin-profile" style="background:#fff;border-radius:16px;padding:20px;box-shadow:var(--shadow);display:flex;align-items:center;gap:16px;">
+      <span style="font-size:3.5rem;" id="adm-av"></span>
+      <div>
+        <div style="font-family:'Baloo 2',cursive;font-size:var(--fs-lg);font-weight:900;color:var(--navy);" id="adm-name"></div>
+        <div style="font-size:var(--fs-xs);color:var(--text2);font-weight:700;" id="adm-joined"></div>
+      </div>
+      <div style="margin-left:auto;text-align:center;">
+        <div style="font-family:'Baloo 2',cursive;font-size:2rem;font-weight:900;color:var(--gold);" id="adm-pts"></div>
+        <div style="font-size:.65rem;font-weight:800;color:var(--text2);text-transform:uppercase;">Total Points</div>
+      </div>
     </div>
   </div>
 
+  <!-- Stats -->
+  <div class="admin-section">
+    <h2>📊 Overall Statistics</h2>
+    <div class="stat-grid" id="stat-grid"></div>
+  </div>
+
+  <!-- Subject Progress -->
+  <div class="admin-section">
+    <h2>📚 Subject-wise Progress</h2>
+    <div id="sub-progress-list"></div>
+  </div>
+
+  <!-- Weak Topics -->
+  <div class="admin-section" id="adm-weak-section">
+    <h2>⚠️ Weak Topics (needs attention)</h2>
+    <div id="adm-weak-list"></div>
+  </div>
+
+  <!-- Activity Log -->
+  <div class="admin-section">
+    <h2>🕐 Recent Activity <button class="clear-btn" onclick="clearLog()">Clear Log</button></h2>
+    <div class="activity-log" id="activity-log"></div>
+  </div>
+
 </div>
+```
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════════════ -->
 
 <script>
-const S={
-  imo:{label:"IMO",full:"Int'l Mathematics Olympiad",icon:"📐",color:"#1565c0",
+/* ─────────── QUESTION BANK ─────────── */
+const SUBJECTS={
+  imo:{label:"IMO",full:"Int'l Mathematics Olympiad",icon:"📐",color:"#2563eb",
     topics:["Numbers & Place Value","Addition & Subtraction","Multiplication & Division","Fractions","Geometry","Measurement","Time & Money","Patterns"],
     q:[
       {q:"What is the place value of 7 in 572?",o:["Tens","Hundreds","Ones","Thousands"],a:0,t:"Numbers & Place Value",e:"In 572: 5=hundreds, 7=tens, 2=ones. So 7 is in the TENS place.",d:1},
-      {q:"Which number is 100 more than 436?",o:["536","446","426","336"],a:0,t:"Numbers & Place Value",e:"Add 100 to hundreds digit: 436+100=536.",d:1},
-      {q:"What is 68 + 47?",o:["115","105","125","110"],a:0,t:"Addition & Subtraction",e:"Ones: 8+7=15 (carry 1). Tens: 6+4+1=11. Answer=115.",d:1},
-      {q:"What is 132 − 78?",o:["54","64","44","56"],a:0,t:"Addition & Subtraction",e:"Borrow: 12−8=4, 12−7=5. Answer=54.",d:2},
-      {q:"5 × 8 = ?",o:["40","45","35","48"],a:0,t:"Multiplication & Division",e:"5×8=40. Count by 5s eight times.",d:1},
+      {q:"Which number is 100 more than 436?",o:["536","446","426","336"],a:0,t:"Numbers & Place Value",e:"Add 100 to the hundreds digit: 436 + 100 = 536.",d:1},
+      {q:"What is 68 + 47?",o:["115","105","125","110"],a:0,t:"Addition & Subtraction",e:"Ones: 8+7=15 (carry 1). Tens: 6+4+1=11. Answer = 115.",d:1},
+      {q:"What is 132 − 78?",o:["54","64","44","56"],a:0,t:"Addition & Subtraction",e:"Borrow: 12−8=4, then 12−7=5 (after borrowing). Answer = 54.",d:2},
+      {q:"5 × 8 = ?",o:["40","45","35","48"],a:0,t:"Multiplication & Division",e:"5×8=40. Count by 5s eight times: 5,10,15,20,25,30,35,40.",d:1},
       {q:"56 ÷ 7 = ?",o:["8","7","9","6"],a:0,t:"Multiplication & Division",e:"56÷7=8. Check: 7×8=56 ✓",d:1},
       {q:"What is 1/2 of 36?",o:["18","12","9","24"],a:0,t:"Fractions",e:"1/2 of 36 = 36÷2 = 18.",d:1},
-      {q:"Which fraction is LARGEST? 1/2, 1/4, 1/3",o:["1/2","1/4","1/3","All equal"],a:0,t:"Fractions",e:"Same numerator: bigger denominator = smaller piece. 1/2 > 1/3 > 1/4.",d:2},
-      {q:"Rectangle: length 8 cm, width 3 cm. Area = ?",o:["24 cm²","22 cm²","11 cm²","24 cm"],a:0,t:"Geometry",e:"Area = length × width = 8×3 = 24 cm².",d:2},
-      {q:"How many sides does a hexagon have?",o:["6","5","7","8"],a:0,t:"Geometry",e:"Hex=6. A hexagon has 6 sides (like a honeycomb).",d:1},
-      {q:"A rope is 3 m 45 cm. How many cm is that?",o:["345 cm","304 cm","435 cm","3045 cm"],a:0,t:"Measurement",e:"3m=300cm. 300+45=345 cm.",d:2},
-      {q:"Clock shows 7:45. Time in 30 minutes?",o:["8:15","8:30","7:75","8:45"],a:0,t:"Time & Money",e:"7:45+30min=8:15. (45+30=75min = 1hr 15min past 7)",d:2},
-      {q:"Next in pattern: 3, 6, 12, 24, ___",o:["48","36","30","42"],a:0,t:"Patterns",e:"Each number doubles. 24×2=48.",d:2},
-      {q:"Round 284 to the nearest hundred.",o:["300","200","280","290"],a:0,t:"Numbers & Place Value",e:"Tens digit is 8 (≥5), round UP to 300.",d:2},
-      {q:"4 pencils cost ₹12. Cost of 1 pencil?",o:["₹3","₹4","₹8","₹2"],a:0,t:"Time & Money",e:"₹12÷4=₹3 per pencil.",d:2},
-      {q:"Perimeter of square with side 9 cm?",o:["36 cm","27 cm","18 cm","45 cm"],a:0,t:"Geometry",e:"Perimeter=4×side=4×9=36 cm.",d:1},
-      {q:"Which is greater: 3/4 or 2/4?",o:["3/4","2/4","Both equal","Cannot say"],a:0,t:"Fractions",e:"Same denominator, compare numerators: 3>2. So 3/4>2/4.",d:1},
-      {q:"9 × 9 = ?",o:["81","72","90","79"],a:0,t:"Multiplication & Division",e:"9×9=81. Trick: 10×9−9=90−9=81.",d:2},
-      {q:"How many minutes in 2 hours?",o:["120","60","100","200"],a:0,t:"Time & Money",e:"1hr=60min. 2hrs=2×60=120 minutes.",d:1},
-      {q:"Next: 100, 90, 80, 70, ___",o:["60","65","50","55"],a:0,t:"Patterns",e:"Decreases by 10. 70−10=60.",d:1},
+      {q:"Which fraction is LARGEST? 1/2, 1/4, 1/3",o:["1/2","1/4","1/3","All equal"],a:0,t:"Fractions",e:"Same numerator (1): bigger denominator = smaller piece. So 1/2 > 1/3 > 1/4.",d:2},
+      {q:"Rectangle: length 8 cm, width 3 cm. Area = ?",o:["24 cm²","22 cm²","11 cm²","24 cm"],a:0,t:"Geometry",e:"Area = length × width = 8 × 3 = 24 cm².",d:2},
+      {q:"How many sides does a hexagon have?",o:["6","5","7","8"],a:0,t:"Geometry",e:"Hex = 6 in Greek. A hexagon has 6 sides — like a honeycomb!",d:1},
+      {q:"A rope is 3 m 45 cm long. How many cm is that?",o:["345 cm","304 cm","435 cm","3045 cm"],a:0,t:"Measurement",e:"1 m = 100 cm. So 3 m = 300 cm. 300 + 45 = 345 cm.",d:2},
+      {q:"Clock shows 7:45. What time in 30 minutes?",o:["8:15","8:30","7:75","8:45"],a:0,t:"Time & Money",e:"7:45 + 30 min = 8:15. (45+30=75 min = 1 hr 15 min past 7)",d:2},
+      {q:"What pattern comes next? 3, 6, 12, 24, ___",o:["48","36","30","42"],a:0,t:"Patterns",e:"Each number doubles: 3→6→12→24→48.",d:2},
+      {q:"Round 284 to the nearest hundred.",o:["300","200","280","290"],a:0,t:"Numbers & Place Value",e:"Tens digit is 8 (≥5), so round UP to 300.",d:2},
+      {q:"4 pencils cost ₹12. Cost of 1 pencil?",o:["₹3","₹4","₹8","₹2"],a:0,t:"Time & Money",e:"₹12 ÷ 4 = ₹3 per pencil.",d:2},
+      {q:"Perimeter of a square with side 9 cm?",o:["36 cm","27 cm","18 cm","45 cm"],a:0,t:"Geometry",e:"Perimeter = 4 × side = 4 × 9 = 36 cm.",d:1},
+      {q:"Which is greater: 3/4 or 2/4?",o:["3/4","2/4","Both equal","Cannot say"],a:0,t:"Fractions",e:"Same denominator, compare numerators: 3 > 2. So 3/4 > 2/4.",d:1},
+      {q:"9 × 9 = ?",o:["81","72","90","79"],a:0,t:"Multiplication & Division",e:"9×9=81. Trick: 10×9−9 = 90−9 = 81.",d:2},
+      {q:"How many minutes in 2 hours?",o:["120","60","100","200"],a:0,t:"Time & Money",e:"1 hour = 60 min. 2 hours = 2×60 = 120 minutes.",d:1},
+      {q:"Next: 100, 90, 80, 70, ___",o:["60","65","50","55"],a:0,t:"Patterns",e:"Decreases by 10 each time. 70 − 10 = 60.",d:1},
     ]},
-  ieo:{label:"IEO",full:"Int'l English Olympiad",icon:"📖",color:"#6a1b9a",
+  ieo:{label:"IEO",full:"Int'l English Olympiad",icon:"📖",color:"#7c3aed",
     topics:["Vocabulary","Grammar","Spelling","Punctuation","Parts of Speech","Sentence Structure"],
     q:[
       {q:"Correct plural of 'child':",o:["Children","Childs","Childes","Child"],a:0,t:"Grammar",e:"'Child' has an irregular plural — 'children'.",d:1},
@@ -239,21 +626,21 @@ const S={
       {q:"Antonym (opposite) of 'brave':",o:["Cowardly","Bold","Fearless","Daring"],a:0,t:"Vocabulary",e:"Brave = fearless. Cowardly = easily frightened. They are opposites.",d:1},
       {q:"Which sentence has correct punctuation?",o:["Where are you going?","Where are you going.","where are you going?","Where are you going!"],a:0,t:"Punctuation",e:"Questions end with '?' and start with a capital letter.",d:1},
       {q:"'A ___ of fish.' Correct collective noun:",o:["School","Pack","Flock","Pride"],a:0,t:"Vocabulary",e:"A 'school' of fish. Pack=wolves, Flock=birds, Pride=lions.",d:2},
-      {q:"Which word is a VERB? 'The happy children played in the park.'",o:["Played","Happy","Children","Park"],a:0,t:"Parts of Speech",e:"Verbs are action words. 'Played' is the action.",d:1},
+      {q:"Which word is a VERB? 'The happy children played in the park.'",o:["Played","Happy","Children","Park"],a:0,t:"Parts of Speech",e:"Verbs are action/doing words. 'Played' is the action.",d:1},
       {q:"Correct sentence:",o:["I have two brothers.","I has two brothers.","I is having two brothers.","I are two brothers."],a:0,t:"Sentence Structure",e:"Use 'have' with I/you/we/they. 'I have' is correct.",d:1},
-      {q:"Prefix 're-' in 'rewrite' means:",o:["Again","Not","Before","After"],a:0,t:"Vocabulary",e:"'re-'=again. Rewrite=write again.",d:1},
-      {q:"'The baby cried ___ it was hungry.' Best conjunction:",o:["because","but","although","unless"],a:0,t:"Sentence Structure",e:"'Because' gives a reason.",d:1},
+      {q:"The prefix 're-' in 'rewrite' means:",o:["Again","Not","Before","After"],a:0,t:"Vocabulary",e:"'re-' = again. Rewrite = write again.",d:1},
+      {q:"'The baby cried ___ it was hungry.' Best conjunction:",o:["because","but","although","unless"],a:0,t:"Sentence Structure",e:"'Because' gives a reason for the action.",d:1},
       {q:"Type of noun: 'London'",o:["Proper noun","Common noun","Abstract noun","Collective noun"],a:0,t:"Parts of Speech",e:"Proper nouns name specific places/people. London is a specific city.",d:1},
       {q:"Question tag: 'She is your sister, ___ ?'",o:["isn't she","is she","wasn't she","doesn't she"],a:0,t:"Grammar",e:"Positive sentence → negative tag. 'She is' → 'isn't she?'",d:2},
-      {q:"Synonym of 'enormous':",o:["Huge","Tiny","Pretty","Quiet"],a:0,t:"Vocabulary",e:"Enormous = very large = Huge.",d:1},
-      {q:"How many syllables in 'BUTTERFLY'?",o:["3","2","4","1"],a:0,t:"Spelling",e:"But-ter-fly = 3 syllables.",d:2},
-      {q:"Correct use of their/there/they're:",o:["They're going to the park.","Their going to the park.","There going to the park.","Theyre going."],a:0,t:"Spelling",e:"They're=they are. Their=belonging. There=a place.",d:2},
+      {q:"Synonym (similar meaning) of 'enormous':",o:["Huge","Tiny","Pretty","Quiet"],a:0,t:"Vocabulary",e:"Enormous = very large = Huge. They are synonyms.",d:1},
+      {q:"How many syllables in 'BUTTERFLY'?",o:["3","2","4","1"],a:0,t:"Spelling",e:"But-ter-fly = 3 syllables. Clap once per syllable.",d:2},
+      {q:"Correct use: their/there/they're:",o:["They're going to the park.","Their going to the park.","There going to the park.","Theyre going."],a:0,t:"Spelling",e:"They're = they are. Their = belonging. There = a place.",d:2},
       {q:"'Nocturnal' means:",o:["Active at night","Active in day","Very fast","Lives in water"],a:0,t:"Vocabulary",e:"Nocturnal animals are active at night — like owls and bats.",d:2},
-      {q:"Adverb in: 'The rabbit ran quickly across the field.'",o:["Quickly","Rabbit","Ran","Field"],a:0,t:"Parts of Speech",e:"Adverbs describe HOW an action is done. 'Quickly' tells us how.",d:2},
+      {q:"Adverb in: 'The rabbit ran quickly across the field.'",o:["Quickly","Rabbit","Ran","Field"],a:0,t:"Parts of Speech",e:"Adverbs describe HOW an action is done. 'Quickly' = how the rabbit ran.",d:2},
       {q:"Which sentence is in FUTURE tense?",o:["I will eat my lunch later.","I ate my lunch.","I am eating my lunch.","I eat my lunch."],a:0,t:"Grammar",e:"Future tense uses 'will'. 'I will eat' = future.",d:1},
       {q:"Correct plural of 'mouse':",o:["Mice","Mouses","Mices","Mouse"],a:0,t:"Grammar",e:"Mouse→Mice is an irregular plural (like tooth→teeth).",d:2},
     ]},
-  nso:{label:"NSO",full:"National Science Olympiad",icon:"🔬",color:"#00695c",
+  nso:{label:"NSO",full:"National Science Olympiad",icon:"🔬",color:"#0d9488",
     topics:["Plants","Animals","Human Body","Matter","Force & Energy","Earth & Space","Ecology"],
     q:[
       {q:"Which part of the plant makes food using sunlight?",o:["Leaves","Roots","Stem","Flower"],a:0,t:"Plants",e:"Leaves have chlorophyll and perform photosynthesis.",d:1},
@@ -261,85 +648,147 @@ const S={
       {q:"Which organ filters blood and makes urine?",o:["Kidney","Heart","Liver","Lungs"],a:0,t:"Human Body",e:"Kidneys filter waste from blood to create urine.",d:2},
       {q:"Which teeth are used to TEAR food?",o:["Canines","Incisors","Molars","Premolars"],a:0,t:"Human Body",e:"Canines (pointed teeth) tear food. Incisors cut, molars grind.",d:2},
       {q:"Which animal is an amphibian?",o:["Frog","Shark","Eagle","Snake"],a:0,t:"Animals",e:"Amphibians live in water AND on land. Frogs start as tadpoles.",d:1},
-      {q:"Hard outer covering of insects is called:",o:["Exoskeleton","Endoskeleton","Shell","Scale"],a:0,t:"Animals",e:"Insects have an exoskeleton — hard outer cover instead of bones.",d:2},
+      {q:"The hard outer covering of insects is called:",o:["Exoskeleton","Endoskeleton","Shell","Scale"],a:0,t:"Animals",e:"Insects have an exoskeleton — a hard outer cover instead of internal bones.",d:2},
       {q:"Which state of matter takes shape of container but has fixed volume?",o:["Liquid","Solid","Gas","Plasma"],a:0,t:"Matter",e:"Liquids have fixed volume but take any container's shape.",d:1},
       {q:"Water heated to 100°C:",o:["Boils and becomes steam","Freezes","Becomes ice","Nothing happens"],a:0,t:"Matter",e:"Water boils at 100°C and turns into water vapour (steam).",d:1},
       {q:"Which force pulls objects towards Earth?",o:["Gravity","Magnetism","Friction","Buoyancy"],a:0,t:"Force & Energy",e:"Gravity pulls everything towards Earth's centre.",d:1},
       {q:"A stretched rubber band has what type of energy?",o:["Potential energy","Kinetic energy","Sound energy","Heat energy"],a:0,t:"Force & Energy",e:"Stretched objects store potential energy. Released = kinetic.",d:2},
-      {q:"The Sun is mainly made of:",o:["Hot gases (Hydrogen & Helium)","Rock and metal","Water and ice","Fire"],a:0,t:"Earth & Space",e:"The Sun is a star made mostly of hydrogen and helium.",d:2},
-      {q:"Earth takes how long to complete one ROTATION?",o:["24 hours","365 days","12 hours","1 month"],a:0,t:"Earth & Space",e:"Earth rotates once every 24 hours, giving us day and night.",d:1},
+      {q:"The Sun is mainly made of:",o:["Hot gases (Hydrogen & Helium)","Rock and metal","Water and ice","Fire"],a:0,t:"Earth & Space",e:"The Sun is a star made of hydrogen and helium undergoing nuclear fusion.",d:2},
+      {q:"Earth takes how long for one ROTATION?",o:["24 hours","365 days","12 hours","1 month"],a:0,t:"Earth & Space",e:"Earth rotates once every 24 hours, giving us day and night.",d:1},
       {q:"Which is a PRODUCER in a food chain?",o:["Grass","Rabbit","Fox","Eagle"],a:0,t:"Ecology",e:"Producers make their own food via photosynthesis. Grass is a producer.",d:1},
-      {q:"What do DECOMPOSERS do in an ecosystem?",o:["Break down dead organisms","Hunt animals","Make food from sunlight","Eat plants"],a:0,t:"Ecology",e:"Decomposers break down dead matter, recycling nutrients.",d:2},
+      {q:"What do DECOMPOSERS do in an ecosystem?",o:["Break down dead organisms","Hunt animals","Make food from sunlight","Eat plants"],a:0,t:"Ecology",e:"Decomposers break down dead matter, recycling nutrients back into the soil.",d:2},
       {q:"Which vitamin do we get from sunlight?",o:["Vitamin D","Vitamin C","Vitamin A","Vitamin B"],a:0,t:"Human Body",e:"Skin makes Vitamin D in sunlight — it keeps bones strong.",d:1},
-      {q:"Function of roots in a plant:",o:["Absorb water & anchor plant","Make food","Attract insects","Only carry water"],a:0,t:"Plants",e:"Roots absorb water and minerals AND anchor the plant.",d:1},
+      {q:"Function of roots in a plant:",o:["Absorb water & anchor plant","Make food","Attract insects","Only carry water"],a:0,t:"Plants",e:"Roots absorb water and minerals AND anchor the plant in the soil.",d:1},
       {q:"Which planet has the most visible rings?",o:["Saturn","Jupiter","Mars","Earth"],a:0,t:"Earth & Space",e:"Saturn has beautiful rings made of ice and rock.",d:1},
       {q:"Friction is a force that:",o:["Opposes motion","Pulls objects down","Works between magnets","Stores energy"],a:0,t:"Force & Energy",e:"Friction resists the motion of objects sliding against each other.",d:2},
-      {q:"Which organ controls all body functions?",o:["Brain","Heart","Stomach","Liver"],a:0,t:"Human Body",e:"The brain controls all body functions, thoughts and movements.",d:1},
+      {q:"Which organ controls all body functions?",o:["Brain","Heart","Stomach","Liver"],a:0,t:"Human Body",e:"The brain controls all body functions, thoughts, and movements.",d:1},
       {q:"A habitat is:",o:["Natural home of an organism","Food animals eat","How animals move","Animal's colour"],a:0,t:"Ecology",e:"A habitat is where an organism lives and meets all its needs.",d:1},
     ]},
-  igko:{label:"IGKO",full:"Int'l General Knowledge Olympiad",icon:"🌍",color:"#bf360c",
+  igko:{label:"IGKO",full:"Int'l General Knowledge Olympiad",icon:"🌍",color:"#ea580c",
     topics:["India","World Geography","Science & Tech","Sports","History","Famous Personalities"],
     q:[
       {q:"'Father of the Nation' in India:",o:["Mahatma Gandhi","Jawaharlal Nehru","Subhash Chandra Bose","Sardar Patel"],a:0,t:"Famous Personalities",e:"Mahatma Gandhi led India's independence movement through non-violence.",d:1},
       {q:"Capital city of India:",o:["New Delhi","Mumbai","Kolkata","Chennai"],a:0,t:"India",e:"New Delhi is India's capital. Mumbai is the financial capital.",d:1},
       {q:"Longest river in India:",o:["Ganga","Yamuna","Brahmaputra","Indus"],a:0,t:"India",e:"The Ganga is the longest river entirely within India (~2,525 km).",d:1},
-      {q:"Largest continent in the world:",o:["Asia","Africa","Europe","North America"],a:0,t:"World Geography",e:"Asia covers ~30% of Earth's land area.",d:1},
+      {q:"Largest continent in the world:",o:["Asia","Africa","Europe","North America"],a:0,t:"World Geography",e:"Asia covers about 30% of Earth's land area.",d:1},
       {q:"Who invented the light bulb?",o:["Thomas Edison","Alexander Bell","Nikola Tesla","Albert Einstein"],a:0,t:"Science & Tech",e:"Thomas Edison invented the practical light bulb in 1879.",d:1},
-      {q:"Which sport is played at Wimbledon?",o:["Tennis","Cricket","Football","Golf"],a:0,t:"Sports",e:"Wimbledon is the world's oldest tennis tournament, held in London.",d:1},
+      {q:"Sport played at Wimbledon:",o:["Tennis","Cricket","Football","Golf"],a:0,t:"Sports",e:"Wimbledon is the world's oldest tennis tournament, held in London.",d:1},
       {q:"India became a Republic in:",o:["1950","1947","1952","1965"],a:0,t:"History",e:"India became a Republic on 26 January 1950 when the Constitution took effect.",d:1},
       {q:"National flower of India:",o:["Lotus","Rose","Marigold","Jasmine"],a:0,t:"India",e:"The Lotus is India's national flower.",d:1},
       {q:"Which country gifted the Statue of Liberty to the USA?",o:["France","England","Germany","Italy"],a:0,t:"World Geography",e:"France gifted the Statue of Liberty in 1886.",d:2},
-      {q:"'www' stands for:",o:["World Wide Web","World Wide Wire","Wide World Web","World Web Wire"],a:0,t:"Science & Tech",e:"WWW=World Wide Web, invented by Tim Berners-Lee in 1989.",d:1},
-      {q:"Indian cricketer known as 'The Wall':",o:["Rahul Dravid","Sachin Tendulkar","MS Dhoni","Virat Kohli"],a:0,t:"Sports",e:"Rahul Dravid earned 'The Wall' for his solid batting technique.",d:2},
-      {q:"World's tallest building:",o:["Burj Khalifa","Eiffel Tower","Empire State Building","CN Tower"],a:0,t:"World Geography",e:"Burj Khalifa in Dubai (828 m) is the tallest building.",d:1},
+      {q:"'www' stands for:",o:["World Wide Web","World Wide Wire","Wide World Web","World Web Wire"],a:0,t:"Science & Tech",e:"WWW = World Wide Web, invented by Tim Berners-Lee in 1989.",d:1},
+      {q:"Indian cricketer known as 'The Wall':",o:["Rahul Dravid","Sachin Tendulkar","MS Dhoni","Virat Kohli"],a:0,t:"Sports",e:"Rahul Dravid earned 'The Wall' for his rock-solid batting.",d:2},
+      {q:"World's tallest building:",o:["Burj Khalifa","Eiffel Tower","Empire State Building","CN Tower"],a:0,t:"World Geography",e:"Burj Khalifa in Dubai (828 m) is the world's tallest building.",d:1},
       {q:"Author of 'The Jungle Book':",o:["Rudyard Kipling","Roald Dahl","J.K. Rowling","Lewis Carroll"],a:0,t:"Famous Personalities",e:"Rudyard Kipling wrote The Jungle Book in 1894. Born in Mumbai!",d:2},
       {q:"Colour of MIDDLE stripe of Indian flag:",o:["White","Green","Saffron","Blue"],a:0,t:"India",e:"Indian flag: Saffron (top) + White with Ashoka Chakra (middle) + Green (bottom).",d:1},
-      {q:"Earth is called 'Blue Planet' because:",o:["71% covered in water","It has a blue sky","Blue light from Sun","Its core is blue"],a:0,t:"Science & Tech",e:"~71% of Earth is water, making it look blue from space.",d:1},
+      {q:"Earth called 'Blue Planet' because:",o:["71% covered in water","It has a blue sky","Blue light from Sun","Its core is blue"],a:0,t:"Science & Tech",e:"~71% of Earth is water, making it look blue from space.",d:1},
       {q:"Olympic Games are held every:",o:["4 years","2 years","5 years","10 years"],a:0,t:"Sports",e:"Olympic Games rotate between host cities every 4 years.",d:1},
-      {q:"Smallest state in India:",o:["Goa","Sikkim","Tripura","Manipur"],a:0,t:"India",e:"Goa is the smallest state in India by area.",d:2},
+      {q:"Smallest state in India by area:",o:["Goa","Sikkim","Tripura","Manipur"],a:0,t:"India",e:"Goa is the smallest state in India by area.",d:2},
       {q:"Who painted the Mona Lisa?",o:["Leonardo da Vinci","Michelangelo","Pablo Picasso","Van Gogh"],a:0,t:"Famous Personalities",e:"Leonardo da Vinci painted the Mona Lisa (~1503–1519).",d:1},
-      {q:"India's space agency:",o:["ISRO","NASA","ESA","JAXA"],a:0,t:"Science & Tech",e:"ISRO=Indian Space Research Organisation. Launched Chandrayaan, Mangalyaan.",d:1},
+      {q:"India's space agency:",o:["ISRO","NASA","ESA","JAXA"],a:0,t:"Science & Tech",e:"ISRO = Indian Space Research Organisation. Launched Chandrayaan & Mangalyaan.",d:1},
       {q:"Players in a cricket team:",o:["11","10","12","9"],a:0,t:"Sports",e:"A cricket team has 11 players on each side.",d:1},
     ]},
-  isso:{label:"ISSO",full:"Int'l Social Studies Olympiad",icon:"🌱",color:"#1b5e20",
+  isso:{label:"ISSO",full:"Int'l Social Studies Olympiad",icon:"🌱",color:"#16a34a",
     topics:["Our Environment","Natural Resources","India – Our Country","Maps & Directions","Community Helpers","Transport & Communication"],
     q:[
       {q:"Three types of natural resources:",o:["Renewable, non-renewable, inexhaustible","Water, air, soil only","Minerals, plants, animals","Sun, wind, coal only"],a:0,t:"Natural Resources",e:"Renewable (forests), Non-renewable (coal), Inexhaustible (sunlight).",d:2},
       {q:"Sun RISES from which direction?",o:["East","West","North","South"],a:0,t:"Maps & Directions",e:"Sun always rises in the East and sets in the West.",d:1},
-      {q:"Community helpers are people who:",o:["Do jobs that help society","Only doctors and teachers","Only policemen","Animals that help humans"],a:0,t:"Community Helpers",e:"Community helpers — doctors, police, firefighters, teachers.",d:1},
-      {q:"PIN code stands for:",o:["Postal Index Number","Personal Index Number","Postal Information Number","Post Index Note"],a:0,t:"India – Our Country",e:"PIN=Postal Index Number. 6-digit code for mail delivery.",d:2},
-      {q:"LPG used for cooking stands for:",o:["Liquefied Petroleum Gas","Liquid Petrol Gas","Light Petroleum Gas","Liquid Petrol Grade"],a:0,t:"Natural Resources",e:"LPG=Liquefied Petroleum Gas — a clean cooking fuel.",d:1},
+      {q:"Community helpers are people who:",o:["Do jobs that help society","Only doctors and teachers","Only policemen","Animals that help humans"],a:0,t:"Community Helpers",e:"Community helpers — doctors, police, firefighters, teachers — serve the community.",d:1},
+      {q:"PIN code stands for:",o:["Postal Index Number","Personal Index Number","Postal Information Number","Post Index Note"],a:0,t:"India – Our Country",e:"PIN = Postal Index Number. The 6-digit code helps deliver mail correctly.",d:2},
+      {q:"LPG used for cooking stands for:",o:["Liquefied Petroleum Gas","Liquid Petrol Gas","Light Petroleum Gas","Liquid Petrol Grade"],a:0,t:"Natural Resources",e:"LPG = Liquefied Petroleum Gas — a clean cooking fuel.",d:1},
       {q:"Outermost layer of the Earth:",o:["Crust","Mantle","Core","Magma"],a:0,t:"Our Environment",e:"Earth: Crust (outer), Mantle (middle), Core (inner).",d:1},
-      {q:"Highest civilian award in India:",o:["Bharat Ratna","Padma Vibhushan","Arjuna Award","Param Vir Chakra"],a:0,t:"India – Our Country",e:"Bharat Ratna is India's highest civilian award.",d:2},
-      {q:"A person who makes maps is called a:",o:["Cartographer","Astronomer","Archaeologist","Geologist"],a:0,t:"Maps & Directions",e:"Cartographer makes maps. From Latin 'carta' + Greek 'graphein'.",d:2},
-      {q:"Which is a means of COMMUNICATION?",o:["Telephone","Bicycle","Boat","Train"],a:0,t:"Transport & Communication",e:"Communication=sharing information. Telephone communicates; others transport.",d:1},
-      {q:"Deforestation means:",o:["Cutting down forests","Planting more trees","Natural forest fires","Protecting forests"],a:0,t:"Our Environment",e:"Deforestation=clearing forests for land, timber, or farming.",d:1},
+      {q:"Highest civilian award in India:",o:["Bharat Ratna","Padma Vibhushan","Arjuna Award","Param Vir Chakra"],a:0,t:"India – Our Country",e:"Bharat Ratna is India's highest civilian award for exceptional service.",d:2},
+      {q:"A person who makes maps is called:",o:["Cartographer","Astronomer","Archaeologist","Geologist"],a:0,t:"Maps & Directions",e:"A cartographer makes maps. From Latin 'carta' + Greek 'graphein'.",d:2},
+      {q:"Which is a means of COMMUNICATION?",o:["Telephone","Bicycle","Boat","Train"],a:0,t:"Transport & Communication",e:"Communication = sharing information. Telephone communicates; others transport.",d:1},
+      {q:"Deforestation means:",o:["Cutting down forests","Planting more trees","Natural forest fires","Protecting forests"],a:0,t:"Our Environment",e:"Deforestation = clearing forests for land, timber, or farming.",d:1},
       {q:"Which sea is to the WEST of India?",o:["Arabian Sea","Bay of Bengal","Pacific Ocean","Red Sea"],a:0,t:"India – Our Country",e:"Arabian Sea (west), Bay of Bengal (east), Indian Ocean (south).",d:1},
       {q:"A person who grows crops is called:",o:["Farmer / Agriculturist","Carpenter","Blacksmith","Potter"],a:0,t:"Community Helpers",e:"A farmer or agriculturist grows crops for food.",d:1},
       {q:"India has how many Union Territories?",o:["8","7","6","9"],a:0,t:"India – Our Country",e:"India has 28 States and 8 Union Territories (2024).",d:2},
       {q:"FASTEST transport for long distances:",o:["Air transport","Road transport","Water transport","Rail transport"],a:0,t:"Transport & Communication",e:"Aeroplanes are the fastest mode of transport for long distances.",d:1},
       {q:"Main cause of water pollution:",o:["Dumping waste & chemicals into water","Drinking water","Fishing","Evaporation"],a:0,t:"Our Environment",e:"Industrial waste and chemicals dumped in rivers cause water pollution.",d:1},
-      {q:"True shape of Earth:",o:["Geoid (flattened sphere)","Perfectly round sphere","Flat disk","Oval"],a:0,t:"Our Environment",e:"Earth is a 'geoid' — slightly flattened at poles, bulging at equator.",d:2},
+      {q:"True shape of Earth:",o:["Geoid (flattened sphere)","Perfectly round sphere","Flat disk","Oval"],a:0,t:"Our Environment",e:"Earth is a 'geoid' — slightly flattened at poles and bulging at the equator.",d:2},
       {q:"On a compass, W stands for:",o:["West","Warm","Wide","White"],a:0,t:"Maps & Directions",e:"Compass: N=North, S=South, E=East, W=West.",d:1},
-      {q:"Most spoken language in India:",o:["Hindi","Bengali","Telugu","Tamil"],a:0,t:"India – Our Country",e:"Hindi is spoken by ~44% of India's population.",d:1},
-      {q:"'Sustainable development' means:",o:["Using resources without harming future generations","Using all resources fast","Developing only cities","Protecting only animals"],a:0,t:"Natural Resources",e:"Sustainable=meeting today's needs without destroying resources for future.",d:2},
-      {q:"Symbol on maps for a hospital:",o:["Red cross (+)","Star (★)","Circle (○)","Triangle (△)"],a:0,t:"Maps & Directions",e:"A red cross (+) is the universal hospital symbol on maps.",d:1},
+      {q:"Most spoken language in India:",o:["Hindi","Bengali","Telugu","Tamil"],a:0,t:"India – Our Country",e:"Hindi is spoken by about 44% of India's population.",d:1},
+      {q:"'Sustainable development' means:",o:["Using resources without harming future generations","Using all resources fast","Developing only cities","Protecting only animals"],a:0,t:"Natural Resources",e:"Sustainable = meeting today's needs without destroying resources for future generations.",d:2},
+      {q:"Symbol for a hospital on maps:",o:["Red cross (+)","Star (★)","Circle (○)","Triangle (△)"],a:0,t:"Maps & Directions",e:"A red cross (+) is the universal hospital symbol on maps.",d:1},
     ]}
 };
 
-// ── ADAPTIVE ENGINE ──
-const WEAK_THR=0.50, MIN_ATT=2, REV_EVERY=3;
-let gs={pts:0,ts:{}};
+/* ─────────── AVATARS ─────────── */
+const AVATARS=['🦁','🐯','🐼','🦊','🐨','🦋','🌸','⭐','🚀','🦄','🐸','🐙','🦅','🐬','🌈'];
+const ADMIN_PIN='1234';
 
+/* ─────────── STATE ─────────── */
+let player={name:'',avatar:'',joinedAt:'',points:0};
+let topicStats={};    // key:"sub|topic" → {c,n}
+let activityLog=[];   // array of session objects
+let curSub=null,queue=[],qi=0,sesCorrect=0,sesTotal=0,sesTopics={},isAnswered=false;
+
+/* ─────────── PERSISTENCE ─────────── */
+function save(){
+  localStorage.setItem('sof_player',JSON.stringify(player));
+  localStorage.setItem('sof_topicStats',JSON.stringify(topicStats));
+  localStorage.setItem('sof_activityLog',JSON.stringify(activityLog));
+}
+function load(){
+  try{
+    const p=localStorage.getItem('sof_player');
+    const t=localStorage.getItem('sof_topicStats');
+    const a=localStorage.getItem('sof_activityLog');
+    if(p)player=JSON.parse(p);
+    if(t)topicStats=JSON.parse(t);
+    if(a)activityLog=JSON.parse(a);
+  }catch(e){}
+}
+
+/* ─────────── SCREEN ROUTING ─────────── */
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.getElementById(id).scrollTop=0;
+}
+
+/* ─────────── ONBOARDING ─────────── */
+function buildAvatarGrid(){
+  const grid=document.getElementById('avatarGrid');
+  let sel=AVATARS[0];
+  AVATARS.forEach((av,i)=>{
+    const btn=document.createElement('button');
+    btn.className='av-btn'+(i===0?' selected':'');
+    btn.textContent=av;
+    btn.onclick=()=>{
+      document.querySelectorAll('.av-btn').forEach(b=>b.classList.remove('selected'));
+      btn.classList.add('selected');
+      sel=av;
+      checkObReady();
+    };
+    grid.appendChild(btn);
+  });
+  document.getElementById('nameInput').addEventListener('input',checkObReady);
+}
+function checkObReady(){
+  const name=document.getElementById('nameInput').value.trim();
+  document.getElementById('startBtn').disabled=name.length<2;
+}
+function finishOnboarding(){
+  const name=document.getElementById('nameInput').value.trim();
+  const av=document.querySelector('.av-btn.selected')?.textContent||AVATARS[0];
+  player={name,avatar:av,joinedAt:new Date().toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'}),points:0};
+  save();
+  renderHome();
+  showScreen('screen-home');
+}
+
+/* ─────────── ADAPTIVE ENGINE ─────────── */
+const WEAK_THR=0.50,MIN_ATT=2,REV_EVERY=3;
 const tk=(s,t)=>s+'|'+t;
-function rec(s,t,ok){const k=tk(s,t);if(!gs.ts[k])gs.ts[k]={c:0,n:0};gs.ts[k].n++;if(ok)gs.ts[k].c++;}
-function acc(s,t){const k=tk(s,t),x=gs.ts[k];if(!x||x.n<MIN_ATT)return 1;return x.c/x.n;}
-function weakOf(s){return S[s].topics.filter(t=>acc(s,t)<WEAK_THR);}
-function allWeak(){const r=[];Object.keys(S).forEach(s=>weakOf(s).forEach(t=>r.push({s,lb:S[s].label,t,a:acc(s,t)})));return r.sort((a,b)=>a.a-b.a);}
+function recAttempt(s,t,ok){const k=tk(s,t);if(!topicStats[k])topicStats[k]={c:0,n:0};topicStats[k].n++;if(ok)topicStats[k].c++;}
+function topicAcc(s,t){const k=tk(s,t),x=topicStats[k];if(!x||x.n<MIN_ATT)return 1;return x.c/x.n;}
+function weakOf(s){return SUBJECTS[s].topics.filter(t=>topicAcc(s,t)<WEAK_THR);}
+function allWeak(){const r=[];Object.keys(SUBJECTS).forEach(s=>weakOf(s).forEach(t=>r.push({s,lb:SUBJECTS[s].label,t,a:topicAcc(s,t)})));return r.sort((a,b)=>a.a-b.a);}
 
-// ── QUEUE BUILD ──
-function buildQ(s){
-  const qs=S[s].q, w=weakOf(s);
+function buildQueue(s){
+  const qs=SUBJECTS[s].q,w=weakOf(s);
   let pool=shuf([...qs]).map(q=>({...q,_m:'normal'}));
   if(w.length>0){
     const rp=shuf(qs.filter(q=>w.includes(q.t))).slice(0,8).map(q=>({...q,_m:'review'}));
@@ -350,77 +799,70 @@ function buildQ(s){
   return pool;
 }
 
-// ── STATE ──
-let csub=null,queue=[],qi=0,sc=0,st=0,stopics={},answered=false;
-
-// ── HOME ──
+/* ─────────── HOME ─────────── */
 function renderHome(){
-  document.getElementById('homeScreen').style.display='block';
-  document.getElementById('qscr').style.display='none';
-  document.getElementById('totalPts').textContent=gs.pts;
+  document.getElementById('hdr-avatar').textContent=player.avatar;
+  document.getElementById('hdr-name').textContent=player.name;
+  document.getElementById('hdr-pts').textContent=player.points+' pts';
+  document.getElementById('home-greeting').textContent='Hello, '+player.name+'! 👋';
 
   const aw=allWeak();
-  const gp=document.getElementById('gwp'),gc=document.getElementById('gwc');
-  if(aw.length>0){gp.classList.add('show');gc.innerHTML=aw.map(w=>`<span class="wchip">⚠️ ${w.lb}: ${w.t} (${Math.round(w.a*100)}%)</span>`).join('');}
-  else gp.classList.remove('show');
+  const wb=document.getElementById('weak-banner'),wc=document.getElementById('weak-chips');
+  if(aw.length>0){
+    wb.classList.add('show');
+    wc.innerHTML=aw.map(w=>`<span class="wchip">⚠️ ${w.lb}: ${w.t} (${Math.round(w.a*100)}%)</span>`).join('');
+  } else wb.classList.remove('show');
 
-  const grid=document.getElementById('sgrid');grid.innerHTML='';
-  Object.entries(S).forEach(([k,sub])=>{
+  const grid=document.getElementById('subject-grid');grid.innerHTML='';
+  Object.entries(SUBJECTS).forEach(([k,sub])=>{
     const w=weakOf(k);
     let ta=0,tc=0;
-    sub.topics.forEach(t=>{const x=gs.ts[tk(k,t)];if(x){ta+=x.n;tc+=x.c;}});
-
+    sub.topics.forEach(t=>{const x=topicStats[tk(k,t)];if(x){ta+=x.n;tc+=x.c;}});
     const card=document.createElement('div');
     card.className='scard'+(w.length>0?' has-weak':'');
     card.onclick=()=>startQuiz(k);
-
     let pills='';
-    if(ta>0)pills+=`<span class="pill info">✅ ${Math.round(tc/ta*100)}% accuracy</span>`;
-    else pills+=`<span class="pill info">Not started yet</span>`;
-    if(w.length>0)pills+=`<span class="pill warn">⚠️ ${w.length} weak topic${w.length>1?'s':''}</span>`;
-    if(w.length>0)card.innerHTML+=`<div class="wbadge">NEEDS REVIEW</div>`;
-
+    if(ta>0)pills+=`<span class="spill spill-info">✅ ${Math.round(tc/ta*100)}%</span>`;
+    else pills+=`<span class="spill spill-info">Not started</span>`;
+    if(w.length>0)pills+=`<span class="spill spill-warn">⚠️ ${w.length} weak</span>`;
+    if(w.length>0)card.innerHTML+=`<div class="weak-badge">NEEDS REVIEW</div>`;
     card.innerHTML+=`
-      <div class="stripe" style="background:${sub.color}"></div>
-      <span class="si">${sub.icon}</span>
-      <div class="sn">${sub.label}</div>
-      <div class="sf">${sub.full}</div>
-      <div class="sp">${pills}</div>`;
+      <div class="scard-stripe" style="background:${sub.color}"></div>
+      <div class="scard-icon">${sub.icon}</div>
+      <div class="scard-name">${sub.label}</div>
+      <div class="scard-full">${sub.full}</div>
+      <div class="scard-pills">${pills}</div>`;
     grid.appendChild(card);
   });
 }
 
-// ── QUIZ ──
+/* ─────────── QUIZ ─────────── */
 function startQuiz(s){
-  csub=s;queue=buildQ(s);qi=0;sc=0;st=0;stopics={};answered=false;
-  document.getElementById('homeScreen').style.display='none';
-  document.getElementById('qscr').style.display='block';
-  document.getElementById('qlbl').textContent=S[s].icon+' '+S[s].label;
-  document.getElementById('rcard').classList.remove('show');
-  document.getElementById('rcard').style.display='none';
+  curSub=s;queue=buildQueue(s);qi=0;sesCorrect=0;sesTotal=0;sesTopics={};isAnswered=false;
+  document.getElementById('quiz-sub-name').textContent=SUBJECTS[s].icon+' '+SUBJECTS[s].label;
+  document.getElementById('q-container').innerHTML='';
+  showScreen('screen-quiz');
   renderQ();
 }
 
 function renderQ(){
-  if(qi>=queue.length){showResult();return;}
-  const q=queue[qi],total=queue.length,col=S[csub].color;
-  document.getElementById('pbar').style.width=Math.round(qi/total*100)+'%';
-  document.getElementById('qctr').textContent=(qi+1)+'/'+total;
-  document.getElementById('rcard').classList.remove('show');
-  document.getElementById('rcard').style.display='none';
-  answered=false;
+  if(qi>=queue.length){finishQuiz();return;}
+  const q=queue[qi],total=queue.length,col=SUBJECTS[curSub].color;
+  document.getElementById('prog-bar').style.width=Math.round(qi/total*100)+'%';
+  document.getElementById('q-counter').textContent=(qi+1)+'/'+total;
+  isAnswered=false;
 
-  const mp=document.getElementById('mpill'),an=document.getElementById('anotice');
+  const mp=document.getElementById('mode-pill'),an=document.getElementById('adapt-notice');
   if(q._m==='review'){
-    mp.className='mpill review';mp.textContent='🔁 Review Mode — Weak Topic';
-    an.className='anotice show';an.innerHTML=`⚠️ You've been getting <b>${q.t}</b> questions wrong. Extra practice time!`;
-  }else{mp.className='mpill normal';mp.textContent='📚 Practice Mode';an.className='anotice';}
+    mp.className='mode-pill review';mp.textContent='🔁 Review Mode — Weak Topic';
+    an.className='adapt-notice show';
+    an.innerHTML=`⚠️ You've been getting <b>${q.t}</b> questions wrong. Extra practice time!`;
+  }else{mp.className='mode-pill normal';mp.textContent='📚 Practice Mode';an.className='adapt-notice';}
 
   const L=['A','B','C','D'],stars='⭐'.repeat(q.d);
-  const con=document.getElementById('qcon');
+  const con=document.getElementById('q-container');
   const card=document.createElement('div');
-  card.className='qcard';
-  card.style.cssText=`--qc:${col};border-top-color:${col}`;
+  card.className='qcard';card.style.cssText=`--qc:${col};border-top-color:${col}`;
   card.innerHTML=`
     <div class="qmeta">
       <span class="qtag" style="background:${col}">${q.t}</span>
@@ -428,71 +870,253 @@ function renderQ(){
     </div>
     <div class="qtext">${q.q}</div>
     <div class="opts" id="og">
-      ${q.o.map((o,i)=>`<button class="opt" id="o${i}" onclick="checkAns(${i})"><span class="ltr">${L[i]}</span>${o}</button>`).join('')}
+      ${q.o.map((o,i)=>`<button class="opt" id="oo${i}" onclick="checkAns(${i})"><span class="ltr">${L[i]}</span>${o}</button>`).join('')}
     </div>
-    <div class="fb" id="fb"></div>
-    <button class="nbtn" id="nb" onclick="nextQ()">${qi<queue.length-1?'Next Question →':'See My Results 🏆'}</button>
+    <div class="fb-box" id="fbb"></div>
+    <button class="next-btn" id="nxt" onclick="nextQ()">${qi<queue.length-1?'Next Question →':'See My Results 🏆'}</button>
   `;
   con.innerHTML='';con.appendChild(card);
 }
 
 function checkAns(chosen){
-  if(answered)return;answered=true;
+  if(isAnswered)return;isAnswered=true;
   const q=queue[qi],ok=chosen===q.a;
-  rec(csub,q.t,ok);st++;
-  if(ok){sc++;gs.pts+=(q.d*4);}else{gs.pts=Math.max(0,gs.pts-1);}
-  document.getElementById('totalPts').textContent=gs.pts;
-  if(!stopics[q.t])stopics[q.t]={c:0,n:0};
-  stopics[q.t].n++;if(ok)stopics[q.t].c++;
+  recAttempt(curSub,q.t,ok);
+  sesTotal++;
+  if(ok){sesCorrect++;player.points+=(q.d*4);}else{player.points=Math.max(0,player.points-1);}
+  document.getElementById('hdr-pts').textContent=player.points+' pts';
+  if(!sesTopics[q.t])sesTopics[q.t]={c:0,n:0};
+  sesTopics[q.t].n++;if(ok)sesTopics[q.t].c++;
   document.querySelectorAll('.opt').forEach(b=>b.disabled=true);
-  document.getElementById('o'+q.a).classList.add('correct');
-  if(!ok)document.getElementById('o'+chosen).classList.add('wrong');
-  const fb=document.getElementById('fb');
-  fb.className='fb show '+(ok?'ok':'fail');
+  document.getElementById('oo'+q.a).classList.add('correct');
+  if(!ok)document.getElementById('oo'+chosen).classList.add('wrong');
+  const fb=document.getElementById('fbb');
+  fb.className='fb-box show '+(ok?'ok':'fail');
   fb.innerHTML=(ok?'🎉 Correct! ':'❌ Not quite! ')+q.e;
-  document.getElementById('nb').classList.add('show');
+  document.getElementById('nxt').classList.add('show');
+  save();
 }
 
 function nextQ(){qi++;renderQ();}
-function goHome(){csub=null;renderHome();}
+function goHome(){curSub=null;renderHome();showScreen('screen-home');}
 
-function showResult(){
-  document.getElementById('qcon').innerHTML='';
-  document.getElementById('anotice').className='anotice';
-  const pct=st>0?Math.round(sc/st*100):0;
-  let trophy='📚',title='Keep Going!';
-  if(pct>=90){trophy='🥇';title='Champion!';}else if(pct>=70){trophy='🥈';title='Great Job!';}else if(pct>=50){trophy='🥉';title='Good Try!';}
-  const wt=weakOf(csub);
+function finishQuiz(){
+  const pct=sesTotal>0?Math.round(sesCorrect/sesTotal*100):0;
+  let trophy='📚',title='Keep Going!',msg='Every attempt makes you smarter!';
+  if(pct>=90){trophy='🥇';title='Champion!';msg='Incredible! You are Olympiad ready! 🌟';}
+  else if(pct>=70){trophy='🥈';title='Great Job!';msg='Really strong! A little more practice and you\'ll ace it!';}
+  else if(pct>=50){trophy='🥉';title='Good Try!';msg='Keep going! Review the explanations and try again.';}
+
+  const wt=weakOf(curSub);
   const nhtml=wt.length>0
-    ?`<div class="rnotice warn">🎯 Extra practice next time on: <b>${wt.join(', ')}</b></div>`
-    :`<div class="rnotice ok">✅ No weak topics detected. Excellent!</div>`;
-  const bhtml=Object.entries(stopics).map(([t,s])=>{
+    ?`<div class="rnotice warn">🎯 Next session will give extra practice on: <b>${wt.join(', ')}</b></div>`
+    :`<div class="rnotice ok">✅ No weak topics detected. Excellent work!</div>`;
+
+  const bhtml=Object.entries(sesTopics).map(([t,s])=>{
     const tp=Math.round(s.c/s.n*100);
-    const bc=tp>=70?'#00897b':tp>=50?'#f9a825':'#e53935';
+    const bc=tp>=70?'#0d9488':tp>=50?'#f59e0b':'#dc2626';
     return `<div class="trow">
-      <span class="tlbl">${t}${tp<50?'<span class="wk">WEAK</span>':''}</span>
+      <span class="tlbl">${t}${tp<50?'<span class="wk-tag">WEAK</span>':''}</span>
       <div class="bwrap"><div class="bfill" style="width:${tp}%;background:${bc}"></div></div>
       <span class="bpct">${tp}%</span>
     </div>`;
   }).join('');
-  const rc=document.getElementById('rcard');
-  rc.innerHTML=`
-    <div class="rtrophy">${trophy}</div>
-    <div class="rtitle">${title}</div>
-    <div class="rfrac">${sc} / ${st}</div>
-    <div class="rpct">${pct}% Accuracy</div>
-    ${nhtml}
-    <div class="breakdown"><h3>📊 Topic-wise Performance</h3>${bhtml}</div>
-    <div class="rbtns">
-      <button class="rbtn primary" onclick="startQuiz('${csub}')">🔁 Retry (Adaptive)</button>
-      <button class="rbtn secondary" onclick="goHome()">🏠 All Subjects</button>
+
+  // Log the session
+  activityLog.unshift({
+    sub:curSub, subLabel:SUBJECTS[curSub].label, icon:SUBJECTS[curSub].icon,
+    correct:sesCorrect, total:sesTotal, pct,
+    pts:sesCorrect*4, weakTopics:wt,
+    time:new Date().toLocaleString('en-IN',{dateStyle:'medium',timeStyle:'short'})
+  });
+  if(activityLog.length>50)activityLog=activityLog.slice(0,50);
+  save();
+
+  if(pct>=90)launchConfetti();
+
+  document.getElementById('res-avatar').textContent=player.avatar;
+  document.getElementById('res-name').textContent=player.name;
+  document.getElementById('result-content').innerHTML=`
+    <div class="rcard">
+      <div class="rtrophy">${trophy}</div>
+      <div class="rtitle">${title}</div>
+      <div class="rfrac">${sesCorrect} / ${sesTotal}</div>
+      <div class="rpct">${pct}% Accuracy · +${sesCorrect*4} points earned</div>
+      ${nhtml}
+      <div class="breakdown">
+        <h3>📊 Topic-wise Performance</h3>
+        ${bhtml}
+      </div>
+      <p style="font-size:var(--fs-xs);color:var(--text2);font-weight:600;margin-bottom:16px;">${msg}</p>
+      <div class="rbtns">
+        <button class="rbtn primary" onclick="startQuiz('${curSub}')">🔁 Retry (Adaptive)</button>
+        <button class="rbtn secondary" onclick="goHome()">🏠 All Subjects</button>
+      </div>
     </div>`;
-  rc.style.display='block';setTimeout(()=>rc.classList.add('show'),20);
+  showScreen('screen-result');
 }
 
+/* ─────────── ADMIN ─────────── */
+function showAdmin(){
+  document.getElementById('admin-gate').style.display='block';
+  document.getElementById('admin-dashboard').classList.remove('show');
+  document.getElementById('pin-input').value='';
+  document.getElementById('pin-err').classList.remove('show');
+  showScreen('screen-admin');
+}
+
+function checkPin(){
+  const val=document.getElementById('pin-input').value.trim();
+  if(val===ADMIN_PIN){
+    document.getElementById('admin-gate').style.display='none';
+    renderAdminDashboard();
+    document.getElementById('admin-dashboard').classList.add('show');
+  } else {
+    document.getElementById('pin-err').classList.add('show');
+    document.getElementById('pin-input').value='';
+  }
+}
+document.getElementById('pin-input').addEventListener('keydown',e=>{if(e.key==='Enter')checkPin();});
+
+function renderAdminDashboard(){
+  // Profile
+  document.getElementById('adm-av').textContent=player.avatar||'👤';
+  document.getElementById('adm-name').textContent=player.name||'No student yet';
+  document.getElementById('adm-joined').textContent='Joined: '+(player.joinedAt||'—');
+  document.getElementById('adm-pts').textContent=player.points||0;
+
+  // Overall stats
+  let totalQ=0,totalC=0,totalSessions=activityLog.length;
+  activityLog.forEach(l=>{totalQ+=l.total;totalC+=l.correct;});
+  const overallPct=totalQ>0?Math.round(totalC/totalQ*100):0;
+  const bestSub=getBestSubject();
+  document.getElementById('stat-grid').innerHTML=`
+    <div class="stat-card"><div class="stat-icon">📝</div><div class="stat-num">${totalSessions}</div><div class="stat-lbl">Sessions</div></div>
+    <div class="stat-card"><div class="stat-icon">✅</div><div class="stat-num">${totalC}</div><div class="stat-lbl">Correct</div></div>
+    <div class="stat-card"><div class="stat-icon">🎯</div><div class="stat-num">${overallPct}%</div><div class="stat-lbl">Overall Accuracy</div></div>
+    <div class="stat-card"><div class="stat-icon">⭐</div><div class="stat-num">${player.points||0}</div><div class="stat-lbl">Points</div></div>
+    <div class="stat-card"><div class="stat-icon">🏆</div><div class="stat-num">${bestSub}</div><div class="stat-lbl">Best Subject</div></div>
+    <div class="stat-card"><div class="stat-icon">⚠️</div><div class="stat-num">${allWeak().length}</div><div class="stat-lbl">Weak Topics</div></div>
+  `;
+
+  // Subject progress
+  const spList=document.getElementById('sub-progress-list');
+  spList.innerHTML='';
+  Object.entries(SUBJECTS).forEach(([k,sub])=>{
+    let ta=0,tc=0;
+    sub.topics.forEach(t=>{const x=topicStats[tk(k,t)];if(x){ta+=x.n;tc+=x.c;}});
+    const overPct=ta>0?Math.round(tc/ta*100):null;
+    const card=document.createElement('div');
+    card.className='sub-progress-card';
+    let topicRows=sub.topics.map(t=>{
+      const x=topicStats[tk(k,t)];
+      if(!x||x.n===0)return `<div class="sp-topic-row"><span class="sp-topic-name">${t}</span><div class="sp-bar-wrap"><div class="sp-bar-fill" style="width:0%;background:#e8eef8"></div></div><span class="sp-pct" style="color:#ccc">—</span></div>`;
+      const p=Math.round(x.c/x.n*100);
+      const bc=p>=70?'#0d9488':p>=50?'#f59e0b':'#dc2626';
+      return `<div class="sp-topic-row"><span class="sp-topic-name">${t}</span><div class="sp-bar-wrap"><div class="sp-bar-fill" style="width:${p}%;background:${bc}"></div></div><span class="sp-pct">${p}%</span></div>`;
+    }).join('');
+    card.innerHTML=`
+      <div class="sp-header">
+        <span class="sp-icon">${sub.icon}</span>
+        <div>
+          <div class="sp-name">${sub.label} — ${sub.full}</div>
+          <div class="sp-overall">${overallPct!==null?`Overall: ${overallPct}% accuracy`:'Not attempted yet'}</div>
+        </div>
+      </div>
+      <div class="sp-topics">${topicRows}</div>`;
+    spList.appendChild(card);
+  });
+
+  // Weak topics
+  const wList=document.getElementById('adm-weak-list');
+  const aw=allWeak();
+  if(aw.length===0){
+    wList.innerHTML='<div style="background:#fff;border-radius:14px;padding:20px;text-align:center;box-shadow:var(--shadow);color:var(--teal);font-weight:700;font-size:var(--fs-sm);">✅ No weak topics! She\'s doing great!</div>';
+  } else {
+    wList.innerHTML=aw.map(w=>`
+      <div style="background:#fff;border-radius:13px;padding:16px 18px;margin-bottom:10px;box-shadow:var(--shadow);display:flex;align-items:center;gap:12px;">
+        <span style="font-size:1.8rem;">${SUBJECTS[w.s].icon}</span>
+        <div style="flex:1;">
+          <div style="font-size:var(--fs-sm);font-weight:800;color:var(--navy);">${w.lb}: ${w.t}</div>
+          <div style="font-size:var(--fs-xs);color:var(--text2);font-weight:600;">Accuracy: ${Math.round(w.a*100)}% — needs improvement</div>
+        </div>
+        <div style="width:60px;height:8px;background:#e8eef8;border-radius:6px;overflow:hidden;">
+          <div style="width:${Math.round(w.a*100)}%;height:100%;background:var(--red);border-radius:6px;"></div>
+        </div>
+      </div>`).join('');
+  }
+
+  // Activity log
+  const logEl=document.getElementById('activity-log');
+  if(activityLog.length===0){
+    logEl.innerHTML='<div class="no-data">No activity yet. Start practising! 📚</div>';
+  } else {
+    logEl.innerHTML=activityLog.slice(0,20).map(l=>{
+      const col=l.pct>=70?'#0d9488':l.pct>=50?'#f59e0b':'#dc2626';
+      return `<div class="log-entry">
+        <div class="log-icon" style="background:${SUBJECTS[l.sub]?.color+'22'||'#eee'}">${l.icon}</div>
+        <div class="log-text">
+          <div class="log-title">${l.subLabel} — ${l.correct}/${l.total} correct</div>
+          <div class="log-time">${l.time}${l.weakTopics?.length>0?' · Weak: '+l.weakTopics.join(', '):''}</div>
+        </div>
+        <div class="log-score" style="color:${col}">${l.pct}%</div>
+      </div>`;
+    }).join('');
+  }
+}
+
+function getBestSubject(){
+  let best='—',bestPct=0;
+  Object.entries(SUBJECTS).forEach(([k,sub])=>{
+    let ta=0,tc=0;
+    sub.topics.forEach(t=>{const x=topicStats[tk(k,t)];if(x){ta+=x.n;tc+=x.c;}});
+    if(ta>=5){const p=tc/ta*100;if(p>bestPct){bestPct=p;best=sub.label;}}
+  });
+  return best;
+}
+
+function clearLog(){
+  if(confirm('Clear all activity log? This cannot be undone.')){activityLog=[];save();renderAdminDashboard();}
+}
+
+/* ─────────── CONFETTI ─────────── */
+function launchConfetti(){
+  const canvas=document.getElementById('confetti-canvas');
+  canvas.style.display='block';
+  const ctx=canvas.getContext('2d');
+  canvas.width=window.innerWidth;canvas.height=window.innerHeight;
+  const pieces=Array.from({length:120},()=>({
+    x:Math.random()*canvas.width,y:Math.random()*canvas.height-canvas.height,
+    r:Math.random()*8+4,c:['#f5a623','#2563eb','#0d9488','#7c3aed','#dc2626','#16a34a'][Math.floor(Math.random()*6)],
+    sp:Math.random()*3+2,sw:Math.random()*3-1.5
+  }));
+  let frame=0;
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    pieces.forEach(p=>{
+      ctx.fillStyle=p.c;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();
+      p.y+=p.sp;p.x+=p.sw;
+      if(p.y>canvas.height){p.y=-10;p.x=Math.random()*canvas.width;}
+    });
+    frame++;
+    if(frame<180)requestAnimationFrame(draw);
+    else{ctx.clearRect(0,0,canvas.width,canvas.height);canvas.style.display='none';}
+  }
+  draw();
+}
+
+/* ─────────── UTILS ─────────── */
 function shuf(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 
-renderHome();
+/* ─────────── INIT ─────────── */
+load();
+buildAvatarGrid();
+if(player.name){
+  renderHome();
+  showScreen('screen-home');
+} else {
+  showScreen('screen-onboard');
+}
 </script>
 
 </body>
